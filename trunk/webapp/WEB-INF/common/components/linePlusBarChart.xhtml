@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"	
+    xmlns:ui="http://java.sun.com/jsf/facelets" >
+        
+ <ui:composition>
+		
+
+  <div id="#{id}" class='chart full with-3d-shadow with-transitions'>
+    <svg></svg>
+  </div>
+
+<script src="#{request.contextPath}/js/d3.v3.js"></script>
+<script src="#{request.contextPath}/nvd3/nv.d3.js"></script>
+<script src="#{request.contextPath}/nvd3/utils.js"></script>
+<script src="#{request.contextPath}/nvd3/tooltip.js"></script>
+<script src="#{request.contextPath}/nvd3/models/legend.js"></script>
+<script src="#{request.contextPath}/nvd3/models/axis.js"></script>
+<script src="#{request.contextPath}/nvd3/models/scatter.js"></script>
+<script src="#{request.contextPath}/nvd3/models/line.js"></script>
+<script src="#{request.contextPath}/nvd3/models/historicalBar.js"></script>
+<script src="#{request.contextPath}/nvd3/models/linePlusBarChart.js"></script>
+<script src="#{request.contextPath}/js/queue.js"></script>
+
+
+<script>
+//<![CDATA[
+var #{id}_data = [];
+
+queue(1)
+    .defer(d3.json, "#{wsurl}", function(error, json) {
+		#{id}_data = json;
+		#{id}_drawChart();
+		})
+
+	/*
+	d3.json("#{wsurl}", function(error, json) {
+		#{id}_data = json;
+		
+		#{id}_drawChart();
+		}); 
+     */
+function #{id}_drawChart(){
+	console.log("loading ...");
+	console.log(#{id}_data);
+	nv.addGraph(function() {
+		chart = nv.models.linePlusBarChart()
+			.margin({top: 30, right: 100, bottom: 50, left: 100})
+			.x(function(d,i) { return i })
+			.color(d3.scale.category10().range());
+
+		chart.xAxis.tickFormat(function(d) {
+		  var dx = #{id}_data[0].values[d] && #{id}_data[0].values[d].x || 0;
+		  return dx ? d3.time.format('FY %Y')(new Date(dx)) : '';
+		  })
+		  .showMaxMin(false);
+
+		chart.y1Axis
+			.tickFormat(d3.format(',f'));
+
+		chart.y2Axis
+			.tickFormat(function(d) { return '$' + d3.format(',.2f')(d) });
+
+		chart.bars.forceY([0]).padData(false);
+		//chart.lines.forceY([0]);
+
+		d3.select('##{id} svg')
+			.datum(#{id}_data)
+		  .transition().duration(500).call(chart);
+
+		nv.utils.windowResize(chart.update);
+
+		chart.dispatch.on('stateChange', function(e) { nv.log('New State:', JSON.stringify(e)); });
+
+		return chart;
+	   
+	  
+	 });
+ }
+
+
+//]]>
+</script>
+
+</ui:composition>
+</html>
