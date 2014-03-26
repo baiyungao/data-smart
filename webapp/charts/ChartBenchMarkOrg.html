@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8"/>
+
+<link href="../nvd3/nv.d3.css" rel="stylesheet" type="text/css"/>
+
+<style>
+
+body {
+  overflow-y:scroll;
+}
+
+text {
+  font: 12px sans-serif;
+}
+
+#chart1 {
+  height: 500px;
+  margin: 10px;
+  min-width: 100px;
+  min-height: 100px;
+
+}
+
+</style>
+<body>
+
+  <div id="chart1" class='with-3d-shadow with-transitions'>
+    <svg></svg>
+  </div>
+
+<script src="../js/d3.v3.js"></script>
+<script src="../nvd3/nv.d3.js"></script>
+<script src="../nvd3/utils.js"></script>
+<script src="../nvd3/tooltip.js"></script>
+<script src="../nvd3/models/legend.js"></script>
+<script src="../nvd3/models/axis.js"></script>
+<script src="../nvd3/models/scatter.js"></script>
+<script src="../nvd3/models/line.js"></script>
+<script src="../nvd3/models/historicalBar.js"></script>
+<script src="../nvd3/models/linePlusBarChart.js"></script>
+
+
+<script>
+
+var s_data = [];
+
+
+
+d3.json("/gts/webapi/data/benchmarkorg", function(error, json) {
+		s_data = json;
+		drawChart();
+		}); 
+
+
+
+function drawChart(){
+	console.log(s_data);
+
+
+	nv.addGraph(function() {
+		chart = nv.models.linePlusBarChart()
+			.margin({top: 30, right: 100, bottom: 150, left: 100})
+			.x(function(d,i) { return i })
+			.color(d3.scale.category10().range());
+
+		chart.xAxis.rotateLabels(60);		
+		chart.xAxis.tickFormat(function(d) {
+		  var dx = s_data[0].values[d] && s_data[0].values[d].x || 0;
+		  return dx;
+		  })
+		  .showMaxMin(false);
+		 
+
+
+		chart.y1Axis
+			.tickFormat(d3.format(',f'));
+
+		chart.y2Axis
+			.tickFormat(function(d) { return '$' + d3.format(',.2f')(d) });
+
+		chart.bars.forceY([0]).padData(false);
+		//chart.lines.forceY([0]);
+
+		d3.select('#chart1 svg')
+			.datum(s_data)
+		  .transition().duration(500).call(chart);
+
+		nv.utils.windowResize(chart.update);
+
+		chart.dispatch.on('stateChange', function(e) { nv.log('New State:', JSON.stringify(e)); });
+
+		return chart;
+	   
+	  
+	 });
+ }
+
+
+
+</script>
+</html>
