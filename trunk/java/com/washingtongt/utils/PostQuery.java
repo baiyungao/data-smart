@@ -1,4 +1,4 @@
-package com.wgt.utils;
+package com.washingtongt.utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,10 +11,10 @@ import org.apache.commons.io.IOUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.wgt.utils.GoogleMapUtils.FeaturesListResponse;
-import com.wgt.utils.GoogleMapUtils.Geometry;
-import com.wgt.utils.GoogleMapUtils.GeometryDeserializer;
-import com.wgt.utils.GoogleMapUtils.PointGeometry;
+import com.washingtongt.utils.GoogleMapUtils.FeaturesListResponse;
+import com.washingtongt.utils.GoogleMapUtils.Geometry;
+import com.washingtongt.utils.GoogleMapUtils.GeometryDeserializer;
+import com.washingtongt.utils.GoogleMapUtils.PointGeometry;
 
 public class PostQuery {
 

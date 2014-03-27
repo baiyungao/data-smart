@@ -1,4 +1,4 @@
-package com.wgt.ws.rest;
+package com.washingtongt.ws.rest;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -9,11 +9,11 @@ import org.apache.log4j.Logger;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.util.JSON;
-import com.wgt.data.MongoUtil;
-import com.wgt.data.model.BarchartModel;
-import com.wgt.data.model.ChartSeries;
-import com.wgt.data.model.LinePlusBarChartModel;
-import com.wgt.data.model.PieChartModel;
+import com.washingtongt.data.MongoUtil;
+import com.washingtongt.ui.model.BarchartModel;
+import com.washingtongt.ui.model.ChartSeries;
+import com.washingtongt.ui.model.LinePlusBarChartModel;
+import com.washingtongt.ui.model.PieChartModel;
 
 /**
  * Root resource (exposed at "data" path)

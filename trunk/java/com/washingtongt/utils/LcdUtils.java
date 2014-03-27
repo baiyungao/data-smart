@@ -1,4 +1,4 @@
-package com.wgt.utils;
+package com.washingtongt.utils;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;

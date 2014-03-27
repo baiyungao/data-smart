@@ -1,4 +1,4 @@
-package com.wgt.data.model;
+package com.washingtongt.ui.model;
 
 public enum AxisPosition {
 	LEFT("left"), RIGHT("right");
@@ -9,7 +9,7 @@ public enum AxisPosition {
 		position = s;
 	}
  
-	public String getStatusCode() {
+	public String getPosition() {
 		return position;
 	}
 }

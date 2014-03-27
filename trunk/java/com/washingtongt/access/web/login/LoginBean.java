@@ -1,4 +1,4 @@
-package com.wgt.access.web.login;
+package com.washingtongt.access.web.login;
 
 import java.io.Serializable;
 import java.util.logging.Logger;

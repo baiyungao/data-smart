@@ -1,4 +1,4 @@
-package com.wgt.access;
+package com.washingtongt.access;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.wgt.utils.LcdUtils;
+import com.washingtongt.utils.LcdUtils;
 
 /**
  * The class responsible for 
