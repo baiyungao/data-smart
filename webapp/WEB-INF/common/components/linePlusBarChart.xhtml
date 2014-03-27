@@ -10,7 +10,7 @@
  <ui:composition>
 		
 
-  <div id="#{id}" class='chart full with-3d-shadow with-transitions'>
+  <div id="#{id}" class='chart #{chartType} with-3d-shadow with-transitions'>
     <svg></svg>
   </div>
 
@@ -53,11 +53,17 @@ function #{id}_drawChart(){
 			.x(function(d,i) { return i })
 			.color(d3.scale.category10().range());
 
+		chart.xAxis.rotateLabels(#{rotateXAxisLabel});		
 		chart.xAxis.tickFormat(function(d) {
 		  var dx = #{id}_data[0].values[d] && #{id}_data[0].values[d].x || 0;
-		  return dx ? d3.time.format('FY %Y')(new Date(dx)) : '';
+		  if (#{xAxisTimeFlag}){
+		  return dx ? d3.time.format('#{xAxisTickFormat}')(new Date(dx)) : '';}
+		  else {
+		   return dx;
+		   }
 		  })
 		  .showMaxMin(false);
+		  
 
 		chart.y1Axis
 			.tickFormat(d3.format(',f'));

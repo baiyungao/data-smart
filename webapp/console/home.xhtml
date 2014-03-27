@@ -22,13 +22,18 @@
  </head>
     <body>
 
+	<h:panelGrid columns="2" cellspacing="0" align="center" width="90%">		
+		<gts:linePlusBarChart id="costByYear" xAxisTickFormat="FY %Y" rotateXAxisLabel="0" xAxisTimeFlag="true" chartType = "full" wsurl="/gts/webapi/data/benchmarkfy" />	
 
+		<gts:pieChart id="costpie" xAxisTickFormat="FY %Y" rotateXAxisLabel="0" chartType = "full" wsurl="/gts/webapi/data/costcomp" />	
+	</h:panelGrid> 	
+	<br/>
 		
-	<gts:linePlusBarChart id="costByMonth" wsurl="/gts/webapi/data/benchmark" />	
+	<gts:linePlusBarChart id="costByMonth" xAxisTickFormat="%b %Y" rotateXAxisLabel="60" xAxisTimeFlag="true" chartType="full" wsurl="/gts/webapi/data/benchmark" />	
 
 	<br/>	
-	<gts:linePlusBarChart id="costByYear" wsurl="/gts/webapi/data/benchmarkfy" />	
-	<br/>
+	<gts:linePlusBarChart id="summaryByOrg" xAxisTimeFlag="false" rotateXAxisLabel="60" chartType="full" wsurl="/gts/webapi/data/benchmarkorg" />	
+	<br/>	
 	<gts:multiBarChart id="costByOrg" wsurl="/gts/webapi/data/summarybyorg" />
     
 

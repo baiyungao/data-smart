@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"	
+    xmlns:ui="http://java.sun.com/jsf/facelets" >
+        
+ <ui:composition>
+		
+
+  <div id="#{id}" class='chart full with-3d-shadow with-transitions'>
+    <svg></svg>
+  </div>
+
+<script src="#{request.contextPath}/js/d3.v3.js"></script>
+<script src="#{request.contextPath}/nvd3/nv.d3.js"></script>
+<script src="#{request.contextPath}/nvd3/utils.js"></script>
+<script src="#{request.contextPath}/nvd3/tooltip.js"></script>
+<script src="#{request.contextPath}/nvd3/models/legend.js"></script>
+<script src="#{request.contextPath}/nvd3/models/axis.js"></script>
+<script src="#{request.contextPath}/js/queue.js"></script>
+
+
+<script>
+//<![CDATA[
+
+
+
+queue()
+    .defer(d3.json, "#{wsurl}", function(error, json) {
+		#{id}_data = json;
+		#{id}_drawChart();
+		});
+
+	function #{id}_drawChart(){
+		console.log(#{id}_data);
+		
+		nv.addGraph(function() {
+		var width = 500,
+			height = 500;
+
+		var chart = nv.models.pieChart()
+			.x(function(d) { return d.key })
+			.y(function(d) { return d.y })
+			.color(d3.scale.category10().range())
+			.width(width)
+			.height(height);
+
+		  d3.select("##{id} svg")
+			  .datum(#{id}_data)
+			.transition().duration(1200)
+			  .attr('width', width)
+			  .attr('height', height)
+			  .call(chart);
+
+		chart.dispatch.on('stateChange', function(e) { nv.log('New State:', JSON.stringify(e)); });
+
+		return chart;
+	});
+	
+
+ }
+
+
+//]]>
+</script>
+
+</ui:composition>
+</html>
