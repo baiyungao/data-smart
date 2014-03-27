@@ -12,5 +12,9 @@
 	    <tag-name>linePlusBarChart</tag-name>
 	    <source>../common/components/linePlusBarChart.xhtml</source>
 	</tag>	
-	
+
+	<tag>
+	    <tag-name>pieChart</tag-name>
+	    <source>../common/components/pieChart.xhtml</source>
+	</tag>		
 </facelet-taglib>
