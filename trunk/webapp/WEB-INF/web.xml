@@ -27,7 +27,7 @@
 	<!-- Web Servlets Filter Section -->
 	<filter>
 		<filter-name>AccessAuthFilter</filter-name>
-		<filter-class>com.wgt.access.AccessAuthFilter</filter-class>
+		<filter-class>com.washingtongt.access.AccessAuthFilter</filter-class>
 	</filter>
 
     <!-- JSF standard parameters -->
@@ -87,7 +87,7 @@
         Useful for when using maven and jetty:run (version 6) or tomcat:run
         </description>
         <param-name>org.apache.myfaces.annotation.SCAN_PACKAGES</param-name>
-        <param-value>com.wgt</param-value>
+        <param-value>com.washingtongt</param-value>
     </context-param>
 	
 	<!-- Facelets pages will use the .xhtml extension -->
