@@ -1,4 +1,4 @@
-package com.wgt.data;
+package com.washingtongt.data;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -17,9 +17,9 @@ import com.mongodb.DBObject;
 import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
-import com.wgt.data.model.BarchartModel;
-import com.wgt.data.model.LinePlusBarChartModel;
-import com.wgt.data.model.PieChartModel;
+import com.washingtongt.ui.model.BarchartModel;
+import com.washingtongt.ui.model.LinePlusBarChartModel;
+import com.washingtongt.ui.model.PieChartModel;
 
 public class MongoUtil {
 	

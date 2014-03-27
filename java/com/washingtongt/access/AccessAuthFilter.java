@@ -1,4 +1,4 @@
-package com.wgt.access;
+package com.washingtongt.access;
 
 import java.io.IOException;
 

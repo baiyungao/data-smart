@@ -1,4 +1,4 @@
-package com.wgt.data.model;
+package com.washingtongt.ui.model;
 
 import java.util.HashMap;
 import java.util.Set;
