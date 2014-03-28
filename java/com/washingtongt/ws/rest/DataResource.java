@@ -1,5 +1,7 @@
 package com.washingtongt.ws.rest;
 
+import java.util.ArrayList;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -10,6 +12,9 @@ import org.apache.log4j.Logger;
 import com.mongodb.BasicDBList;
 import com.mongodb.util.JSON;
 import com.washingtongt.data.MongoUtil;
+import com.washingtongt.data.model.Measurement;
+import com.washingtongt.data.model.gsa.CostGapModel;
+import com.washingtongt.data.model.gsa.TravelCostMeasure;
 import com.washingtongt.ui.model.BarchartModel;
 import com.washingtongt.ui.model.ChartSeries;
 import com.washingtongt.ui.model.LinePlusBarChartModel;
@@ -131,5 +136,30 @@ public class DataResource {
 		}
     	
     	return "";
-    }     
+    }
+    
+    @GET
+    @Path("costgap")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getCostGap() {
+    	
+		ArrayList<Measurement> mList = new ArrayList<Measurement>();
+		mList.add(TravelCostMeasure.benchMarkFY2011);
+		mList.add(TravelCostMeasure.benchMarkFY2012);
+		mList.add(TravelCostMeasure.benchMarkFY2013);
+		
+		CostGapModel model = new CostGapModel(mList);
+		
+		model.populate(); //fill data
+		BasicDBList results = model.getDataForBarchart();
+		
+    	log.debug("getResults for costgapmodel:" + results);
+    	
+    	if (results != null){
+			return JSON.serialize(new BarchartModel(results).toArray());
+		}
+    	
+    	return "";
+    }   
+    
 }
