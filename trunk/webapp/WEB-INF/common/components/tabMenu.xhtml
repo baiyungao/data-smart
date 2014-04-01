@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                xmlns:exo="http://com.exostar.icert/CommonFunctions">
+                
+<ui:composition>
+<f:loadBundle basename="resources.link" var="links"/>
+
+    <h:form>
+        <a4j:jsFunction name="updatePage"  ajaxSingle="true">
+            <a4j:param name="page" assignTo="#{controller.context.pageId}"  />                  
+        </a4j:jsFunction>
+        
+        <a4j:jsFunction name="updateView"   ajaxSingle="true">
+            <a4j:param name="view" assignTo="#{controller.context.viewId}"  />                  
+        </a4j:jsFunction>        
+    </h:form>
+<c:set var="disableAjax" value="true"/>
+<div id="#{level}Tab">
+    <ul>
+        
+            <c:when test="#{level=='primary'}">  
+                <c:forEach items="#{primaryTabs}" var="tab">
+                    <c:set var="tabLabel" value="tab#{tab}Label"/>   
+                    <c:set var="tabUrl" value="tab#{tab}Url"/> 
+                    <c:set var="tabApp" value="tab#{tab}Webapp"/>
+                    <c:choose>
+                        <c:when test="#{current == tab}">
+                            <c:set var="tabStyle" value="active"/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="tabStyle" value=""/>
+                        </c:otherwise>
+                    </c:choose>
+                      
+                    <c:if test="#{controller.permission[exo:concat('global.tab.',tab)].accessible}">                        
+                        <c:set var="page" value="#{exo:split(secondaryTabs[tab],',')[0]}"/>
+						<c:if test="#{disableAjax}">
+                        <li>
+                             <h:outputLink styleClass="#{tabStyle}" value="/#{links[tabApp]}#{links[tabUrl]}" ><span>#{links[tabLabel]}</span></h:outputLink>  
+                       </li>
+					   </c:if>
+					   <c:if test="#{not disableAjax}" >
+                        <li>
+                             <h:outputLink styleClass="#{tabStyle}" value="/#{links[tabApp]}#{links[tabUrl]}" onclick="updatePage('#{page}');updateView('#{links[tabUrl]}');"><span>#{links[tabLabel]}</span></h:outputLink>  
+                       </li>
+					   </c:if>
+                    </c:if>
+                </c:forEach>
+            </c:when>
+    </ul>
+</div>
+
+</ui:composition>
+</html>

@@ -27,7 +27,7 @@ h1.large {
 	color: #005ca7;
 	font-family: "Open Sans", sans-serif;
 	font-weight: 300;
-	width: 940px;
+	width: 1240px;
 	margin: 0px 0px 30px -2px;
 }
 
@@ -36,12 +36,12 @@ h2.large {
 	color: #8ba4af;
 	font-family: "Open Sans", sans-serif;
 	font-weight: 300;
-	width: 940px;
+	width: 1240px;
 	margin: 0px 0px 20px 0px;
 }
 
 .header-container {
-	width: 940px;
+	width: 1240px;
 	height: 255px;
 	margin: 0px auto;
 	border: 1px #ccc solid;
@@ -146,7 +146,7 @@ h2.large {
 }
 
 .header-navigation {
-	width: 940px;
+	width: 1240px;
 	margin: 0px auto;
 	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
@@ -229,7 +229,7 @@ h2.large {
 
 /*CONTENT*/
 .content {
-	width: 940px;
+	width: 1240px;
 	margin: 0px auto;
 	display: block;
 }

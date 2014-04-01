@@ -10,35 +10,25 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:gts="http://www.washingtongt.com/jsf/gts"  class="bootstrap">	
 	
-<head>
- 
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<title>GSA Travel Challenge</title>
-    <meta name="description" content=""/>
-    <meta name="viewport" content="width=device-width"/>
+<ui:composition template="/WEB-INF/common/Templates/HomePortal2013.xhtml">
+<ui:define name="title">Dash Board</ui:define>
+<ui:param name="help_link" value="http://www.myexostar.com/mag.aspx"/>
+<ui:define name="panel"> 
 
-     <link href="../nvd3/nv.d3.css" rel="stylesheet" type="text/css" />   
-	 <link href="../styles/chart.css" rel="stylesheet" type="text/css" />   
- </head>
-    <body>
+<div id="primaryTab">
+    <ul>   	<li><h:outputLink styleClass="active" value="www.iiibc.com"><span>Dashboard</span></h:outputLink>  </li>
+			<li><h:outputLink styleClass="" value="www.iiibc.com" ><span>Reservation</span></h:outputLink>  </li>
+			<li><h:outputLink styleClass="" value="www.iiibc.com" ><span>Payment</span></h:outputLink>  </li>
+	</ul>
+</div>
+<div id="secondaryTab">
+	<ul>
+			<li><h:outputLink styleClass="active" value="www.iiibc.com"><span>Travel Cost Dashboard</span></h:outputLink> </li>
+            <li><h:outputLink styleClass="" value="www.iiibc.com" ><span>Cost Reduction Performance</span></h:outputLink> </li>
+	</ul>
+</div>
+<br/>
 
-	
-<h:form>
-	
- <br/>
-<rich:collapsiblePanel>
-
-    <f:facet name="header">
-
-        <h:outputText value="This is the panel header"/>
-
-    </f:facet>
-
-    <h:outputText value="This is the panel content" />
-
-</rich:collapsiblePanel>
-	
-</h:form>
 
 	<gts:multiBarChart id="costgap" stacked="true" showControls="true" chartType = "half" wsurl="/gts/webapi/data/costgap" />	 <br/>
 	
@@ -59,6 +49,9 @@
 	<gts:multiBarChart id="costByOrg" stacked="false" showControls="false" chartType="full" wsurl="/gts/webapi/data/summarybyorg" />
     
 
-</body>
+
+
+</ui:define>
+</ui:composition>	
 </html>
 
