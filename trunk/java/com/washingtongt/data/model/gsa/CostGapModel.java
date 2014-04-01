@@ -22,14 +22,18 @@ import com.washingtongt.data.model.Measurement;
 public class CostGapModel {
 	
 	static final Logger log = Logger.getLogger(CostGapModel.class);
+	
+	private Measurement baseline;
 
 	List<Measurement> mList = new ArrayList<Measurement>();
 
-	public CostGapModel(List<Measurement> list){
+	public CostGapModel(List<Measurement> list, Measurement base){
 		
 		mList = list;
-	
+		baseline = base;
 	}
+	
+
 	
 	public BasicDBList getDataForBarchart(){
 		
@@ -57,8 +61,8 @@ public class CostGapModel {
 					   
 						double value = cval - preval;
 						
-						BasicDBObject object = new BasicDBObject("_id", new BasicDBObject("Gap " , m.getName() + cIndicator.getLabel()));
-						object.put(key, value);
+						BasicDBObject object = new BasicDBObject("_id", new BasicDBObject("Measure" , cIndicator.getLabel() + " Gap " + m.getName() ));
+						object.put(cIndicator.getLabel(), value);
 						model.add(object);
 					}
 				}
@@ -86,6 +90,14 @@ public class CostGapModel {
 			
 			MongoUtil.getMeasurement(m);
 		}
+	}
+
+	public Measurement getBaseline() {
+		return baseline;
+	}
+
+	public void setBaseline(Measurement baseline) {
+		this.baseline = baseline;
 	}
 	
 }

@@ -148,7 +148,7 @@ public class DataResource {
 		mList.add(TravelCostMeasure.benchMarkFY2012);
 		mList.add(TravelCostMeasure.benchMarkFY2013);
 		
-		CostGapModel model = new CostGapModel(mList);
+		CostGapModel model = new CostGapModel(mList, TravelCostMeasure.benchMarkFY2011);
 		
 		model.populate(); //fill data
 		BasicDBList results = model.getDataForBarchart();
