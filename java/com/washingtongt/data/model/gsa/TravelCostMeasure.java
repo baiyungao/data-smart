@@ -38,6 +38,7 @@ public class TravelCostMeasure extends Measurement {
 		this.addIndicator("Air/Train Expenses", GSAIndicatorFactory.getInstance(GSAIndicatorFactory.IDT_AIR_EXPENSE));
 		this.addIndicator("Lodging Expenses", GSAIndicatorFactory.getInstance(GSAIndicatorFactory.IDT_LODGING_EXPENSE));
 		this.addIndicator("Meals Expenses", GSAIndicatorFactory.getInstance(GSAIndicatorFactory.IDT_MEALS_EXPENSE));
+		this.addIndicator("Car Rental Expenses", GSAIndicatorFactory.getInstance(GSAIndicatorFactory.IDT_CAR_RENTAL_EXPENSE));
 		this.addIndicator("Misc Expenses", GSAIndicatorFactory.getInstance(GSAIndicatorFactory.IDT_MISC_EXPENSE));
 		this.setGroupby(null);
 	}

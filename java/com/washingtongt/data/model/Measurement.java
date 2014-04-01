@@ -20,10 +20,13 @@ public class Measurement {
 	private String groupby;
 	
 	private BasicDBList results;
+	private boolean populated;
 	
 	private Map<String, Indicator> indicators = new HashMap<String,Indicator>();
 
 	private Map<String, String> matchMap = new HashMap<String, String>();
+	
+	private BasicDBObject compositionValue = null;
 
 	public String getName() {
 		return name;
@@ -77,18 +80,34 @@ public class Measurement {
 	public void setResults(BasicDBList results) {
 		this.results = results;
 		//set values for each indicator
+		BasicDBList totalValue = new BasicDBList();
+		
 		
 		for (int i = 0; i < results.size(); i++){
 			BasicDBObject row = (BasicDBObject)(results.get(i));
-			
+			double rowTotal = 0;
 			for(String key: this.indicators.keySet()){
 				
 				Indicator indicator = this.indicators.get(key);
 				Object value = row.get(indicator.getLabel());
 				indicator.addValue(value);
+				rowTotal = rowTotal + (double)value;
 			}
+			
+		  totalValue.add(rowTotal);	
 		}
+		this.compositionValue = new BasicDBObject("Total", totalValue);
+		this.setPopulated(true);
 		
-		
+	}
+
+	
+	
+	public boolean isPopulated() {
+		return populated;
+	}
+
+	public void setPopulated(boolean populated) {
+		this.populated = populated;
 	}
 }

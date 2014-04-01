@@ -24,7 +24,7 @@ public class AccessAuthManager {
 	private static String POST_AUTH_URL = "/login/postauth.wgt";
 	public static String WEB_AUTH_URL = "/login/login.jsf";
 	private static String REDIRECT_URL = "redirect_url";
-	private static String TOKEN_STRING = "WGTXM_Tokan";
+	public static String TOKEN_STRING = "WGTXM_Tokan";
 
 	private static Set<String> unAuthPaths = new HashSet<String>();
 	private static AccessAuthManager instance = null;
@@ -131,7 +131,7 @@ public class AccessAuthManager {
 		}
 	}
 
-	private static void redirectPage(HttpServletResponse response, String desiredPage) {
+	public static void redirectPage(HttpServletResponse response, String desiredPage) {
 		try {
 			response.sendRedirect(LcdUtils.removeCRLF(desiredPage)) ;
 		} catch(IOException xx) {

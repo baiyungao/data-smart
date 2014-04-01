@@ -26,9 +26,9 @@ public class BarchartModel extends BasicDBList{
 		
 		Set<String> keySet = list.keySet();
 	
-		for (String key: keySet){
-			BasicDBObject row = (BasicDBObject)(list.get(key));
-			log.debug(key  + ":" + row + " " + row.getClass() );
+		for (int i = 0; i<list.size(); i++){
+			BasicDBObject row = (BasicDBObject)(list.get(i));
+			//log.debug(key  + ":" + row + " " + row.getClass() );
 			
 			Set<String> colKeys = row.keySet();
 			
