@@ -24,7 +24,8 @@ public class Measurement {
 	
 	private Map<String, Indicator> indicators = new HashMap<String,Indicator>();
 
-	private Map<String, String> matchMap = new HashMap<String, String>();
+
+	private BasicDBObject matchFields =null;
 	
 	private BasicDBObject compositionValue = null;
 
@@ -49,22 +50,12 @@ public class Measurement {
 	}
 
 
-	public Map<String, String> getMatchMap() {
-		return matchMap;
-	}
 
-	public void setMatchMap(Map<String, String> matchMap) {
-		this.matchMap = matchMap;
-	}
 	
 	public void addIndicator(String name, Indicator indicator){
 		this.indicators.put(name, indicator);
 	}
 	
-	public void addMatch(String field, String condition){
-		this.matchMap.put(field, condition);
-	}
-
 	public String getGroupby() {
 		return groupby;
 	}
@@ -80,23 +71,16 @@ public class Measurement {
 	public void setResults(BasicDBList results) {
 		this.results = results;
 		//set values for each indicator
-		BasicDBList totalValue = new BasicDBList();
-		
 		
 		for (int i = 0; i < results.size(); i++){
 			BasicDBObject row = (BasicDBObject)(results.get(i));
-			double rowTotal = 0;
 			for(String key: this.indicators.keySet()){
-				
 				Indicator indicator = this.indicators.get(key);
 				Object value = row.get(indicator.getLabel());
 				indicator.addValue(value);
-				rowTotal = rowTotal + (double)value;
 			}
-			
-		  totalValue.add(rowTotal);	
 		}
-		this.compositionValue = new BasicDBObject("Total", totalValue);
+		
 		this.setPopulated(true);
 		
 	}
@@ -109,5 +93,21 @@ public class Measurement {
 
 	public void setPopulated(boolean populated) {
 		this.populated = populated;
+	}
+
+	public BasicDBObject getCompositionValue() {
+		return compositionValue;
+	}
+
+	public void setCompositionValue(BasicDBObject compositionValue) {
+		this.compositionValue = compositionValue;
+	}
+
+	public BasicDBObject getMatchFields() {
+		return matchFields;
+	}
+
+	public void setMatchFields(BasicDBObject matchFields) {
+		this.matchFields = matchFields;
 	}
 }

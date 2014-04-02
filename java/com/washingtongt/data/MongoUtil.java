@@ -3,11 +3,13 @@ package com.washingtongt.data;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.mongodb.QueryBuilder;
 
 import com.mongodb.AggregationOutput;
 import com.mongodb.BasicDBList;
@@ -21,7 +23,12 @@ import com.mongodb.MongoException;
 import com.washingtongt.data.model.Indicator;
 import com.washingtongt.data.model.Measurement;
 import com.washingtongt.data.model.gsa.CostGapModel;
+import com.washingtongt.data.model.gsa.GSAIndicatorFactory;
 import com.washingtongt.data.model.gsa.TravelCostMeasure;
+import com.washingtongt.data.model.gsa.time.DateUtils;
+import com.washingtongt.data.model.gsa.time.FiscalYear;
+import com.washingtongt.data.model.gsa.time.Month;
+import com.washingtongt.data.model.gsa.time.Quarter;
 import com.washingtongt.ui.model.BarchartModel;
 import com.washingtongt.ui.model.PieChartModel;
 
@@ -57,7 +64,14 @@ public class MongoUtil {
 		
 		//prepare match pipeline
 		DBObject match = null;
-		BasicDBObject matchFields = null;
+		
+		BasicDBObject matchFields = measure.getMatchFields();
+		
+		if (matchFields != null){
+			match = new BasicDBObject("$match", matchFields );
+		}
+		
+		/*
 		if (measure.getMatchMap().size() > 0){
 		
 		 for (String matchField:measure.getMatchMap().keySet()){
@@ -69,7 +83,9 @@ public class MongoUtil {
 			 }
 		 }
 		 match = new BasicDBObject("$match", matchFields );
-		}
+		}*/
+		
+		
 		// build the $projection operation
 		DBObject fields = new BasicDBObject("_id", 0);
 
@@ -81,9 +97,18 @@ public class MongoUtil {
 	    Map<String,Indicator> indicatorMap = measure.getIndicators();
 	    for (String key : indicatorMap.keySet()){
 	    	Indicator indicator = indicatorMap.get(key);
-	    	fields.put(indicator.getFactors(), indicator.getParamenter());
-	    	groupFields.put(indicator.getLabel(), new BasicDBObject( indicator.getOp().getOp(), "$" + indicator.getFactors()));
 	    	
+	    	
+	    	if (indicator.isCountIndicator()){
+	    		groupFields.put(indicator.getLabel(), new BasicDBObject( "$sum",  1));
+	    	}
+	    	else {
+	    	//project fields
+	    	fields.put(indicator.getFactors(), indicator.getParameter()); 
+	    	
+	    	//groupFields
+	    	groupFields.put(indicator.getLabel(), new BasicDBObject( indicator.getOp().getOp(),  "$" + indicator.getFactors()));
+	    	}
 	    }
 	    
 	    
@@ -97,7 +122,7 @@ public class MongoUtil {
 		dbList.add(project);
 		dbList.add(group);
 		
-		
+		log.debug("query string: " + dbList);
 		AggregationOutput output = getConnection().aggregate( dbList);
 		
 		Collection<Object> results = output.getCommandResult().values();
@@ -115,10 +140,70 @@ public class MongoUtil {
 			}
 		}		
 		
+		return null;
+	}
 	
+	public static BasicDBList getTravelTripDaysByFY(){
+		List<DBObject> dbList = new ArrayList<DBObject>();
+		DB gsaDB = MongoUtil.getMongoDB(db_name);
+		DBCollection coll = gsaDB.getCollection("travel_voucher");
+		
+		// create our pipeline operations, first with the $match
+		DBObject match = new BasicDBObject("$match", new BasicDBObject("FY", "2011") );
+
+		// build the $projection operation
+		DBObject fields = new BasicDBObject("FY", 1);
+		String[] timeDiff = new String[2]; 
+		timeDiff[0] =  "$Date_Return";
+		timeDiff[1] = "$Date_Depart";
+		DBObject time = new BasicDBObject("$subtract",timeDiff );
+		
+		Object[] dayPar = new Object[2];
+		dayPar[0] = time;
+		dayPar[1] = 24*60*60*1000;
+		BasicDBObject dayDiff = new BasicDBObject("$divide",dayPar );
+		
+		Object[] dayOff = new Object[2];
+		dayOff[0] = dayDiff;
+		dayOff[1] = 1;
+		
+		fields.put("days",new BasicDBObject("$add",dayOff));
+
+		fields.put("_id", 0);
+		DBObject project = new BasicDBObject("$project", fields );
+		
+		
+
+		// Now the $group operation
+		DBObject groupFields = new BasicDBObject( "_id", null);
+		groupFields.put("avg day per trip", new BasicDBObject( "$sum","$days"));
+		
+		DBObject group = new BasicDBObject("$group", groupFields);
+
+		// run aggregation
+		dbList.add(match);
+		dbList.add(project);
+		dbList.add(group);
+		
+		AggregationOutput output = coll.aggregate( dbList);
+		
+		Collection<Object> results = output.getCommandResult().values();
+
+		if (results != null){
+			Iterator<Object>iResults =  results.iterator();
+			while (iResults.hasNext()){
+
+				Object result = iResults.next();
+				if (result instanceof BasicDBList ){
+					BasicDBList list = (BasicDBList)result;
+					return list;
+				}
+			}
+		}		
 		
 		return null;
 	}
+	
 	
 	/*
 	 *  The method returns how many trips by year, month or day 
@@ -645,21 +730,82 @@ public class MongoUtil {
 		
 		DB gsaDB = MongoUtil.getMongoDB(db_name);
 		DBCollection coll = gsaDB.getCollection("travel_voucher");
-
-		DBObject myDoc = coll.findOne();
+		Date start = DateUtils.getStartTime(2012, 2);
+		Date end = DateUtils.getStartTime(2012, 3);
+		BasicDBObject timeRange = new BasicDBObject("$gte",start ).append("$lt",end);
+		BasicDBObject match = new BasicDBObject("Date_Depart", timeRange);
+		DBObject myDoc = coll.findOne(match);
 		log.debug("find one:" + myDoc);
 		
 		
 		
 		
-		//BasicDBList results = MongoUtil.getTravelTripCountsByMonth();
+		//BasicDBList results = MongoUtil.getTravelTripCountsByMonth()
 		//BasicDBList results = MongoUtil.getTravelTripAvgByMonth();
 		//BasicDBList results = MongoUtil.getTravelTripAvgByFY();
 		//BasicDBList results = MongoUtil.getTravelTripCountByMonthByOffice();
 		//BasicDBList results = MongoUtil.getTravelCostCompose();
 		//BasicDBList results = getTravelCostSummary();  //barchart
+		//BasicDBList results = getTravelTripDaysByFY();
 		
-		BasicDBList results = MongoUtil.getMeasurement(TravelCostMeasure.benchMarkFY2011);
+		
+		//BasicDBList results = MongoUtil.getMeasurement(TravelCostMeasure.benchMarkFY2011);
+		
+		//log.debug(FiscalYear.FY2011);
+		
+		//test month measure
+		/*
+		Month testMonth = new Month(2011,10,TravelCostMeasure.class);
+		match = new BasicDBObject("FY", "2012") ;
+		//match.append("Organization", "R9-Pacific Rim-SFO, CA");
+		
+		//timeRange.append("$lt", "ISODate(\"2012-10-10T00:00:00.000Z\")");
+		//match.append("Date_Depart",timeRange);
+		testMonth.setMatch(match);
+		testMonth.setField("Date_Depart");
+		testMonth.updateMatch();
+		
+		MongoUtil.getMeasurement(testMonth.getMeasurement());
+		
+		*/
+		//Month testMonth = new Month(2011,10,TravelCostMeasure.class);
+		
+		match = new BasicDBObject("FY", "2011") ;
+		//match.append("Organization", "R9-Pacific Rim-SFO, CA");
+		
+		FiscalYear testYear = new FiscalYear(GSAIndicatorFactory.IDT_DATE_DEPARTURE, match, 2011,2010, 10,TravelCostMeasure.class);
+		
+		//timeRange.append("$lt", "ISODate(\"2012-10-10T00:00:00.000Z\")");
+		//match.append("Date_Depart",timeRange);
+		testYear.setMatch(match);
+		testYear.setField("Date_Depart");
+		//testYear.updateMatch();
+		
+		BasicDBList results = MongoUtil.getMeasurement(testYear.getMeasurement());
+		log.debug(results);
+		
+		Month month = testYear.getMonth(2);
+		//month.updateMatch();
+		BasicDBList results1 = MongoUtil.getMeasurement(month.getMeasurementYTD());
+		log.debug(results1);
+		
+		
+		Quarter quarter = testYear.getQuarter(1);
+		//quarter.updateMatch();
+		BasicDBList results2 = MongoUtil.getMeasurement(quarter.getMeasurement());
+		log.debug(results2);
+
+	
+		//quarter.updateMatch();
+		BasicDBList results3 = MongoUtil.getMeasurement(quarter.getMeasurementYTD());
+		log.debug(results3);		
+				
+		
+		
+		//log.debug("Date:" + DateUtils.getStartTime(2011, 1));
+		//log.debug("Date:" + DateUtils.getEndTime(2011, 2));
+		
+		/*
 		results = MongoUtil.getMeasurement(TravelCostMeasure.benchMarkFY2011);
 		results = MongoUtil.getMeasurement(TravelCostMeasure.benchMarkFY2011);
 		
@@ -671,18 +817,19 @@ public class MongoUtil {
 		CostGapModel model = new CostGapModel(mList, TravelCostMeasure.benchMarkFY2011);
 		
 		model.populate(); //fill data
-		BasicDBList data = model.getDataForBarchart();
+		//BasicDBList data = model.getDataForBarchart();
 		
 		log.debug(data);
 		
-		/*
+		
+		
 		if (results != null){
 			
-			new PieChartModel(results).toArray();
+			//new PieChartModel(results).toArray();
 			//new LinePlusBarChartModel(results).toArray();
 			log.debug(results);
-		}*/
-		
+		}
+		*/
 		
 	}
 

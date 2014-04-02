@@ -1,5 +1,7 @@
 package com.washingtongt.data.model.gsa;
 
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 import com.washingtongt.data.model.AggregationOperator;
 import com.washingtongt.data.model.Indicator;
 
@@ -12,8 +14,13 @@ public class GSAIndicatorFactory {
 	public static String IDT_MEALS_EXPENSE = "Meals_Incidentals";
 	public static String IDT_MISC_EXPENSE = "Misc_Expenses";
 	
+	public static String IDT_DAYS_OF_TRIP = "Days_Trip";
+	
 	public static String IDT_DATE_DEPARTURE = "Date_Depart";
 	public static String IDT_DATE_RETURN = "Date_Return";
+	
+	public static String IDT_TRIP_CT = "Trip_Counts";
+	public static String IDT_ID = "_id";
 	
 	public static String IDT_FY = "FY";
 	
@@ -58,10 +65,36 @@ public class GSAIndicatorFactory {
 		
 	  case "Lodging":	
 		return new Indicator(AggregationOperator.SUM , IDT_LODGING_EXPENSE, "Lodging");
+	  
 	  case "Misc_Expenses":
 		  return new Indicator(AggregationOperator.SUM , IDT_MISC_EXPENSE, "Misc");
-		
+	  
+	  case "Days_Trip":
+		  Indicator ind = new Indicator(AggregationOperator.SUM , IDT_DAYS_OF_TRIP, "Travel Days"); 
+		  
+			String[] timeDiff = new String[2]; 
+			timeDiff[0] =  "$Date_Return";
+			timeDiff[1] = "$Date_Depart";
+			DBObject time = new BasicDBObject("$subtract",timeDiff );
+			
+			Object[] dayPar = new Object[2];
+			dayPar[0] = time;
+			dayPar[1] = 24*60*60*1000;
+			BasicDBObject dayDiff = new BasicDBObject("$divide",dayPar );
+			
+			Object[] dayOff = new Object[2];
+			dayOff[0] = dayDiff;
+			dayOff[1] = 1;
+			
+			BasicDBObject projectParameter = new BasicDBObject("$add",dayOff);
+		  //"{$add: [ { $divide: [ { $subtract: [ \"$Date_Return\", \"$Date_Depart\" ] }, 86400000 ] }, 1 ] }"
+		  ind.setParameter(projectParameter);
+		  return ind;
+	 
+	  case "Trip_Counts":
+		  return new Indicator(AggregationOperator.COUNT , IDT_ID, "Trip Counts");	  
 	  }
+  
 	  return null;
 	}
 	
