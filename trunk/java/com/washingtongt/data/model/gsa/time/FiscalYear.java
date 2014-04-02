@@ -1,11 +1,18 @@
 package com.washingtongt.data.model.gsa.time;
 
-public class FiscalYear {
+import java.util.Date;
 
-	final public static FiscalYear FY2011 = new FiscalYear(2011, 2010, 10);	
-	final public static FiscalYear FY2012 = new FiscalYear(2012, 2011, 10);
-	final public static FiscalYear FY2013 = new FiscalYear(2013, 2012, 10);
-	final public static FiscalYear FY2014 = new FiscalYear(2013, 2013, 10);
+import org.apache.log4j.Logger;
+
+import com.mongodb.BasicDBObject;
+import com.washingtongt.data.model.Measurement;
+import com.washingtongt.data.model.Serial;
+import com.washingtongt.data.model.gsa.TravelCostMeasure;
+
+public class FiscalYear extends Serial{
+
+	
+	static final Logger log = Logger.getLogger(FiscalYear.class);
 	
 	private int fiscalYear;
 	private int startYear;
@@ -13,7 +20,13 @@ public class FiscalYear {
 	Month[] monthes = new Month[12];
 	Quarter[] quarters = new Quarter[4];
 	
-	public FiscalYear (int fy, int stYear, int stMonth){
+	public FiscalYear (String field, BasicDBObject match, int fy, int stYear, int stMonth, Class<? extends Measurement> mClass){
+		
+		this.setMeasurementClass(mClass);
+		
+		this.setField(field);
+		this.setMatch(match);
+				
 		this.setFiscalYear(fy);
 		this.setStartYear(stYear);
 		this.setStartMonth(stMonth);
@@ -22,9 +35,9 @@ public class FiscalYear {
 		int mon = stMonth;
 		
 		for (int i = 0; i< 12; i++){
-			Month month = monthes[i];
-			month.setYear(year);
-			month.setMonth(mon);
+			Month month = new Month(this, field, match, year, mon, this.getMeasurementClass());
+			monthes[i] = month;
+
 			
 			mon++;
 			if (mon > 12){
@@ -32,8 +45,15 @@ public class FiscalYear {
 				mon = 1;
 			}
 			
-			int qIndex = i/4;
-			quarters[qIndex].addMonth(month);
+			//prepare quarter;
+			
+			int qIndex = i/3;
+			Quarter quarter = quarters[qIndex];
+			if (quarter == null){
+				quarter = new Quarter(this, field, match, this.getMeasurementClass());
+				quarters[qIndex] = quarter;
+			}
+			quarter.addMonth(month);
 		}
 	}
 
@@ -61,5 +81,35 @@ public class FiscalYear {
 		this.startMonth = startMonth;
 	}
 	
+	public Month getMonth(int index){
+		return monthes[index];
+	}
 	
+	public Quarter getQuarter(int index){
+		return quarters[index];
+	}	
+
+	@Override
+	public Measurement getMeasurementYTD() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateMatch() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Date getStart() {
+		// TODO Auto-generated method stub
+		return monthes[0]!=null?monthes[0].getStart():null;
+	}
+
+	@Override
+	public Date getEnd() {
+		// TODO Auto-generated method stub
+		return monthes[11]!=null?monthes[11].getEnd():null;
+	}
 }

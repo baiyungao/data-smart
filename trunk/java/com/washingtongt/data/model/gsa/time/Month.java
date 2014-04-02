@@ -2,12 +2,44 @@ package com.washingtongt.data.model.gsa.time;
 
 import java.util.Date;
 
-public class Month {
+import org.apache.log4j.Logger;
+
+import com.mongodb.BasicDBObject;
+import com.washingtongt.data.model.Measurement;
+import com.washingtongt.data.model.Serial;
+
+public class Month extends Serial{
+	static final Logger log = Logger.getLogger(Month.class);	
+	
 	private int year;
 	private int month;
 	private Date start;
 	private Date end;
 	
+	
+	public Month(FiscalYear fy, String field, BasicDBObject match,int _year, int _month, Class<? extends Measurement> mClass){
+		this.year = _year;
+		this.month = _month;
+		this.setMeasurementClass(mClass);
+		
+		this.setParent(fy);
+		this.setField(field);
+		this.setMatch(match);
+		//$gte: ISODate("2013-09-10T00:00:00.000Z")
+		
+		
+		start = DateUtils.getStartTime(year, month);
+		end = DateUtils.getEndTime(year, month);
+				
+		log.debug("create a new Month Serial: " + this);
+
+	}
+	
+	
+	
+	public String toString(){
+		return "Year:" + year + " Month:" + month;
+	}
 	
 	public int getYear() {
 		return year;
@@ -34,4 +66,53 @@ public class Month {
 		this.end = end;
 	}
 
+
+	@Override
+	public void updateMatch() {
+		// TODO Auto-generated method stub
+		BasicDBObject matchFields =  this.measurement.getMatchFields();
+		
+		BasicDBObject timeRange = new BasicDBObject("$gte",start ).append("$lt",end);
+		//BasicDBObject timeMatch = new BasicDBObject(this.getField(), timeRange);
+		if (matchFields != null) {
+			matchFields.append(this.getField(), timeRange);
+		}
+		else {
+			matchFields = new BasicDBObject(this.getField(), timeRange);;
+		}
+		log.debug("matchfields: " + matchFields);
+	}
+
+	@Override
+	public Measurement getMeasurementYTD() {
+		// TODO Auto-generated method stub
+		Measurement mYtd = null;
+		try {
+			mYtd = this.getMeasurementClass().newInstance();
+			mYtd.setMatchFields((BasicDBObject)this.getMatch().clone());
+
+			BasicDBObject matchFields =  mYtd.getMatchFields();
+			
+			BasicDBObject timeRange = new BasicDBObject("$gte",this.getParent().getStart()).append("$lt",this.getEnd());
+			//BasicDBObject timeMatch = new BasicDBObject(this.getField(), timeRange);
+			if (matchFields != null) {
+				matchFields.append(this.getField(), timeRange);
+			}
+			else {
+				matchFields = new BasicDBObject(this.getField(), timeRange);;
+			}
+			log.debug("matchfields: " + matchFields);			
+			
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			log.error(e);
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			log.error(e);
+		}
+		return mYtd;
+	}
+	
 }

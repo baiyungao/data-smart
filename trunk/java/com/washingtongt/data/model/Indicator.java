@@ -11,7 +11,9 @@ public class Indicator {
 	private AggregationOperator op;
 	private String factors;
 	private String label;
-	private Object paramenter = 1;
+	private Object parameter = 1;
+	
+	private boolean countIndicator = false;
 	
 	private BasicDBList value = new BasicDBList();
 
@@ -20,6 +22,14 @@ public class Indicator {
 		this.op = op;
 		this.factors = factors;
 		this.label = label;
+		
+		if (op.equals(AggregationOperator.COUNT)){
+			this.setCountIndicator(true);
+			log.debug("it is a count index:" + label);
+			
+		}
+		
+		//parameter = "$" + factors;
 	}
 
 	/***
@@ -31,6 +41,7 @@ public class Indicator {
 		return op;
 	}
 
+	
 
 	public void setOp(AggregationOperator op) {
 		this.op = op;
@@ -56,12 +67,16 @@ public class Indicator {
 		this.label = label;
 	}
 
-	public Object getParamenter() {
-		return paramenter;
+	public Object getParameter() {
+		return parameter;
 	}
 
-	public void setParamenter(Object paramenter) {
-		this.paramenter = paramenter;
+	public boolean isComputing(){
+		return (this.parameter.toString().length() > 1);
+	}
+	
+	public void setParameter(Object paramenter) {
+		this.parameter = paramenter;
 	}
 	
 	public void addValue(Object value){
@@ -71,6 +86,14 @@ public class Indicator {
 	
 	public BasicDBList getValue(){
 		return this.value;
+	}
+
+	public boolean isCountIndicator() {
+		return countIndicator;
+	}
+
+	public void setCountIndicator(boolean countIndicator) {
+		this.countIndicator = countIndicator;
 	}
 	
 }
