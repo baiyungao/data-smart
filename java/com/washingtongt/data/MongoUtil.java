@@ -92,7 +92,26 @@ public class MongoUtil {
 
 		DBObject groupFields = null;
 		
-		groupFields = new BasicDBObject( "_id", measure.getGroupby());
+		
+		String[] groupIds = null;
+		
+		if (measure.getGroupby() != null){
+			groupIds = measure.getGroupby().split(",");
+			BasicDBObject groupIdFields = null;
+			for (String id: groupIds){
+				fields.put(id, 1);
+				if (groupIdFields == null){
+					groupIdFields = new BasicDBObject(id, "$"+id);
+				}
+				else {
+					groupIdFields.append(id, "$"+id);
+				}
+			}
+			groupFields = new BasicDBObject( "_id", groupIdFields);
+		}else {
+			groupFields = new BasicDBObject( "_id", measure.getGroupby());
+		}
+		
 	    
 	    Map<String,Indicator> indicatorMap = measure.getIndicators();
 	    for (String key : indicatorMap.keySet()){
@@ -738,12 +757,15 @@ public class MongoUtil {
 		log.debug("find one:" + myDoc);
 		
 		
-		
+		BasicDBObject groupField = new BasicDBObject("Organization", "$Organization");
 		
 		//BasicDBList results = MongoUtil.getTravelTripCountsByMonth()
 		//BasicDBList results = MongoUtil.getTravelTripAvgByMonth();
 		//BasicDBList results = MongoUtil.getTravelTripAvgByFY();
-		//BasicDBList results = MongoUtil.getTravelTripCountByMonthByOffice();
+		BasicDBList resultsof = MongoUtil.getTravelTripCountByMonthByOffice();
+		log.debug(resultsof);
+		
+		
 		//BasicDBList results = MongoUtil.getTravelCostCompose();
 		//BasicDBList results = getTravelCostSummary();  //barchart
 		//BasicDBList results = getTravelTripDaysByFY();
@@ -770,6 +792,7 @@ public class MongoUtil {
 		*/
 		//Month testMonth = new Month(2011,10,TravelCostMeasure.class);
 		
+		//  ---- TEST of Fiscal Year, Month and Quarter
 		match = new BasicDBObject("FY", "2011") ;
 		//match.append("Organization", "R9-Pacific Rim-SFO, CA");
 		
@@ -781,7 +804,9 @@ public class MongoUtil {
 		testYear.setField("Date_Depart");
 		//testYear.updateMatch();
 		
-		BasicDBList results = MongoUtil.getMeasurement(testYear.getMeasurement());
+		Measurement m = testYear.getMeasurement();
+		m.setGroupby("Organization");
+		BasicDBList results = MongoUtil.getMeasurement(m);
 		log.debug(results);
 		
 		Month month = testYear.getMonth(2);
