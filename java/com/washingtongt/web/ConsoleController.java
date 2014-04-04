@@ -19,7 +19,7 @@ public class ConsoleController {
 	
 	public ConsoleController(){
 		overAllTripModel = new TripProfileModel(null, GsaConstants.ORG_LEVEL_ORGANIZATION);
-		 
+		overAllTripModel.populate(); 
 	}
 	
 	public String getHello(){
@@ -41,10 +41,8 @@ public class ConsoleController {
 	
 	public TableModel getSummaryTableByOrg(){
 		TableModel model = new TableModel(GsaConstants.INDEX_TRAVEL_SUMMARY_MEASURE, GsaConstants.IDT_TRIP_CT);
-		
-		
 		BasicDBList results = this.overAllTripModel.getTsmByOrganization().getResults();
-		model.addContent(results,this.overAllTripModel.getTsmByDestination().getDescription());
+		model.addContent(results,"");
 		log.debug(this.overAllTripModel.getTsmByDestination().getDescription() + ": "  + results);
 		return model;
 	}

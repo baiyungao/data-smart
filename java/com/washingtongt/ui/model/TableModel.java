@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mongodb.BasicDBList;
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
 public class TableModel  {
@@ -32,14 +33,14 @@ public class TableModel  {
 			for (int i = 0; i < result.size(); i++){
 				//HashMap<String, Object> row  = new HashMap<String,Object>();
 				
-				DBObject  row = (DBObject)result.get(i);
+				BasicDBObject  row = (BasicDBObject)result.get(i);
 				Object id = row.get("_id");
 				if (id == null){
 					row.put("Item", item);
 				}
 				else 
 				{
-					row.put("Item", item + " " + id.toString());
+					row.put("Item", ModelHelper.getRowId(row));
 				}
 								
 				this.contents.add(row);
@@ -49,6 +50,8 @@ public class TableModel  {
 		
 		}
 
+	
+	
 	public List<String> getCols() {
 		return cols;
 	}
