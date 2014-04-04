@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                xmlns:exo="http://com.exostar.icert/CommonFunctions">
+                
+<ui:composition>
+
+
+       <rich:dataTable width="70%" var="row" value="#{model.contents}">
+        <f:facet name="header">
+            <rich:columnGroup>
+			<rich:column>
+				<h:outputText value="Fiscal Year" />
+            </rich:column>	
+               <c:forEach items="#{model.cols}" var="col">
+				<rich:column>
+                    <h:outputText value="#{col}" />
+                </rich:column>			
+				</c:forEach>
+            </rich:columnGroup>
+		</f:facet>
+
+			<rich:column>
+				<h:outputText value="#{row['Item']}" />
+            </rich:column>			
+		
+		<c:forEach items="#{model.cols}" var="col2">
+			<rich:column>
+				<h:outputText value="#{row[col2]}" >
+					 <f:convertNumber groupingUsed="true"  maxFractionDigits="0" />
+				</h:outputText>
+            </rich:column>			
+		</c:forEach>
+		
+	 </rich:dataTable>
+	 
+</ui:composition>
+</html>
