@@ -5,9 +5,9 @@ import java.util.Date;
 import org.apache.log4j.Logger;
 
 import com.mongodb.BasicDBObject;
+import com.washingtongt.data.MongoUtil;
 import com.washingtongt.data.model.Measurement;
 import com.washingtongt.data.model.Serial;
-import com.washingtongt.data.model.gsa.TravelCostMeasure;
 
 public class FiscalYear extends Serial{
 
@@ -112,4 +112,25 @@ public class FiscalYear extends Serial{
 		// TODO Auto-generated method stub
 		return monthes[11]!=null?monthes[11].getEnd():null;
 	}
+
+	/*
+	@Override
+	public boolean populate() {
+		//populate all measurement by query data from database
+		this.getMeasurement();
+		MongoUtil.getMeasurement(this.measurement);
+		for(Month month: monthes){
+			if (month != null){
+				month.populate();
+			}
+		}
+		
+		for (Quarter quarter: quarters){
+			if (quarter != null){
+				quarter.populate();
+			}
+		}
+		return true;
+	}
+	*/
 }

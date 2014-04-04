@@ -7,23 +7,7 @@ import com.washingtongt.data.model.Indicator;
 
 public class GSAIndicatorFactory {
 	
-	public static String IDT_TOTAL_EXPENSE = "Total_Expenses";
-	public static String IDT_AIR_EXPENSE = "Common_Carrier_AIR_TRAIN";
-	public static String IDT_CAR_RENTAL_EXPENSE = "Rental_Car";
-	public static String IDT_LODGING_EXPENSE = "Lodging";
-	public static String IDT_MEALS_EXPENSE = "Meals_Incidentals";
-	public static String IDT_MISC_EXPENSE = "Misc_Expenses";
-	
-	public static String IDT_DAYS_OF_TRIP = "Days_Trip";
-	
-	public static String IDT_DATE_DEPARTURE = "Date_Depart";
-	public static String IDT_DATE_RETURN = "Date_Return";
-	
-	public static String IDT_TRIP_CT = "Trip_Counts";
-	public static String IDT_ID = "_id";
-	
-	public static String IDT_FY = "FY";
-	
+
 	/*
 	public static Indicator sum_total_expense;
 	public static Indicator sum_air_expense;
@@ -52,25 +36,25 @@ public class GSAIndicatorFactory {
 	public static Indicator getInstance(String type){
 	  switch (type){
 	  case "Total_Expenses":
-		return new Indicator(AggregationOperator.SUM , IDT_TOTAL_EXPENSE, "total expense");
+		return new Indicator(AggregationOperator.SUM , GsaConstants.IDT_TOTAL_EXPENSE, GsaConstants.IDT_TOTAL_EXPENSE);
 	
 	  case "Common_Carrier_AIR_TRAIN":	
-		return  new Indicator(AggregationOperator.SUM , IDT_AIR_EXPENSE, "Air Train");
+		return  new Indicator(AggregationOperator.SUM , GsaConstants.IDT_AIR_EXPENSE, GsaConstants.IDT_AIR_EXPENSE);
 		
 	  case "Rental_Car":
-		  return  new Indicator(AggregationOperator.SUM , IDT_CAR_RENTAL_EXPENSE, "Car Rental");
+		  return  new Indicator(AggregationOperator.SUM , GsaConstants.IDT_CAR_RENTAL_EXPENSE, GsaConstants.IDT_CAR_RENTAL_EXPENSE);
 	
 	  case "Meals_Incidentals":  
-		return  new Indicator(AggregationOperator.SUM , IDT_MEALS_EXPENSE, "Meals");
+		return  new Indicator(AggregationOperator.SUM , GsaConstants.IDT_MEALS_EXPENSE,  GsaConstants.IDT_MEALS_EXPENSE);
 		
 	  case "Lodging":	
-		return new Indicator(AggregationOperator.SUM , IDT_LODGING_EXPENSE, "Lodging");
+		return new Indicator(AggregationOperator.SUM , GsaConstants.IDT_LODGING_EXPENSE, GsaConstants.IDT_LODGING_EXPENSE);
 	  
 	  case "Misc_Expenses":
-		  return new Indicator(AggregationOperator.SUM , IDT_MISC_EXPENSE, "Misc");
+		  return new Indicator(AggregationOperator.SUM , GsaConstants.IDT_MISC_EXPENSE, GsaConstants.IDT_MISC_EXPENSE);
 	  
 	  case "Days_Trip":
-		  Indicator ind = new Indicator(AggregationOperator.SUM , IDT_DAYS_OF_TRIP, "Travel Days"); 
+		  Indicator ind = new Indicator(AggregationOperator.SUM , GsaConstants.IDT_DAYS_OF_TRIP,  GsaConstants.IDT_DAYS_OF_TRIP); 
 		  
 			String[] timeDiff = new String[2]; 
 			timeDiff[0] =  "$Date_Return";
@@ -92,7 +76,7 @@ public class GSAIndicatorFactory {
 		  return ind;
 	 
 	  case "Trip_Counts":
-		  return new Indicator(AggregationOperator.COUNT , IDT_ID, "Trip Counts");	  
+		  return new Indicator(AggregationOperator.COUNT , GsaConstants.IDT_TRIP_CT, GsaConstants.IDT_TRIP_CT);	  
 	  }
   
 	  return null;

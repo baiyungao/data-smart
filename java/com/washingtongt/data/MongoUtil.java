@@ -22,9 +22,13 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
 import com.washingtongt.data.model.Indicator;
 import com.washingtongt.data.model.Measurement;
+import com.washingtongt.data.model.SerialBase;
 import com.washingtongt.data.model.gsa.CostGapModel;
 import com.washingtongt.data.model.gsa.GSAIndicatorFactory;
+import com.washingtongt.data.model.gsa.GsaConstants;
 import com.washingtongt.data.model.gsa.TravelCostMeasure;
+import com.washingtongt.data.model.gsa.TravelSumaryMeasure;
+import com.washingtongt.data.model.gsa.TripProfileModel;
 import com.washingtongt.data.model.gsa.time.DateUtils;
 import com.washingtongt.data.model.gsa.time.FiscalYear;
 import com.washingtongt.data.model.gsa.time.Month;
@@ -757,13 +761,13 @@ public class MongoUtil {
 		log.debug("find one:" + myDoc);
 		
 		
-		BasicDBObject groupField = new BasicDBObject("Organization", "$Organization");
+		//BasicDBObject groupField = new BasicDBObject("Organization", "$Organization");
 		
 		//BasicDBList results = MongoUtil.getTravelTripCountsByMonth()
 		//BasicDBList results = MongoUtil.getTravelTripAvgByMonth();
 		//BasicDBList results = MongoUtil.getTravelTripAvgByFY();
-		BasicDBList resultsof = MongoUtil.getTravelTripCountByMonthByOffice();
-		log.debug(resultsof);
+		//BasicDBList resultsof = MongoUtil.getTravelTripCountByMonthByOffice();
+		//log.debug(resultsof);
 		
 		
 		//BasicDBList results = MongoUtil.getTravelCostCompose();
@@ -773,7 +777,14 @@ public class MongoUtil {
 		
 		//BasicDBList results = MongoUtil.getMeasurement(TravelCostMeasure.benchMarkFY2011);
 		
-		//log.debug(FiscalYear.FY2011);
+		Measurement tsmByDestination = new TravelSumaryMeasure();
+		tsmByDestination.setMatchFields(match);
+		tsmByDestination.setGroupby(GsaConstants.FIELD_LOCATION);
+		
+		BasicDBList results = MongoUtil.getMeasurement(tsmByDestination);
+		
+		
+		log.debug(results);
 		
 		//test month measure
 		/*
@@ -792,10 +803,28 @@ public class MongoUtil {
 		*/
 		//Month testMonth = new Month(2011,10,TravelCostMeasure.class);
 		
-		//  ---- TEST of Fiscal Year, Month and Quarter
-		match = new BasicDBObject("FY", "2011") ;
+		/*/  ---- TEST of Fiscal Year, Month and Quarter
+		match = new BasicDBObject("Organization", "R9-Pacific Rim-SFO, CA") ;
+		
+		
+		// TEST Trip Profile Model
+		TripProfileModel model = new TripProfileModel(match, TripProfileModel.ORG_LEVEL_ORGANIZATION);
+		
+		model.populate();
+		
+		for (SerialBase s: model.getSerialList())
+		{
+		BasicDBList results = s.getMeasurmentResults();
+		
+		log.debug(s.getName() + ": "  + results);
+		
+		}
 		//match.append("Organization", "R9-Pacific Rim-SFO, CA");
 		
+		
+		
+		/*
+		//------------------ TEST the time serial --------------------
 		FiscalYear testYear = new FiscalYear(GSAIndicatorFactory.IDT_DATE_DEPARTURE, match, 2011,2010, 10,TravelCostMeasure.class);
 		
 		//timeRange.append("$lt", "ISODate(\"2012-10-10T00:00:00.000Z\")");

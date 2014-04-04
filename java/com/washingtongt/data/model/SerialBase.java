@@ -2,6 +2,8 @@ package com.washingtongt.data.model;
 
 import java.util.Date;
 
+import com.mongodb.BasicDBList;
+
 public interface SerialBase {
 	public static final int YEAR = 0;
 	public static final int QUARTER = 1;
@@ -13,5 +15,9 @@ public interface SerialBase {
 	public Measurement getMeasurementYTD();
 	public Date getStart();
 	public Date getEnd();
+	public String getName();
+
+	public BasicDBList getMeasurmentResults();
+	public BasicDBList getMeasurmentResultsYTD();
 
 }

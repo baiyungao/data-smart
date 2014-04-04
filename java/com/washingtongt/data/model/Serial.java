@@ -2,7 +2,9 @@ package com.washingtongt.data.model;
 
 import org.apache.log4j.Logger;
 
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
+import com.washingtongt.data.MongoUtil;
 
 public abstract class Serial implements SerialBase{
 	
@@ -11,9 +13,11 @@ public abstract class Serial implements SerialBase{
 	
 	private Class<? extends Measurement> measurementClass;
 	protected Measurement measurement;
+	protected Measurement measurementYTD;
 	private Serial parent;
 	private BasicDBObject match;
 	private String field;
+	private String name;
 
 	@Override
 	public Measurement getMeasurement() {
@@ -70,4 +74,49 @@ public abstract class Serial implements SerialBase{
 		this.field = field;
 	}
 
+	@Override
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public BasicDBList getMeasurmentResults(){
+		BasicDBList result = null;
+		if (this.measurement !=null){
+			result =  this.measurement.getResults();
+			if (result == null) {
+				result =  MongoUtil.getMeasurement(this.getMeasurement());
+			}
+		}
+		return result;
+	}
+	
+	@Override
+	public BasicDBList getMeasurmentResultsYTD(){
+		BasicDBList result = null;
+		if (this.measurementYTD !=null){
+			result =  this.measurementYTD.getResults();
+			if (result == null) {
+				result =  MongoUtil.getMeasurement(this.getMeasurementYTD());
+			}
+		}
+		return result;	
+	}
+	
+
+/*
+	@Override
+	public boolean populate() {
+
+		MongoUtil.getMeasurement(this.getMeasurement());
+		MongoUtil.getMeasurement(this.getMeasurementYTD());
+
+		return false;
+	}	
+	*/
 }
