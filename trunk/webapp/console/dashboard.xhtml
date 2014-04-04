@@ -29,22 +29,45 @@
 </div>
 <br/>
 
+<h:form>
 
+Travel Cost Summary  <br/>
+		
+		<gts:table model="#{controller.yearSummaryTable}" 
+				   itemLabel="Fiscal year" performanceField="Total_Expenses" actionClass="#{controller}" method="showFyDetail"/>
+
+  <!--				   
 	<gts:multiBarChart id="costgap" stacked="true" showControls="true" chartType = "half" wsurl="/gts/webapi/data/costgap" />	 <br/>
+	-->
+	
+</h:form>	
+	
+	<br/>
+	<br/>
+<br/>
+<br/>	
+
+<gts:linePlusBarChart id="tripcostsummary" rotateXAxisLabel="60" 
+	 leftYformat=",.2f" rightYformat = ",f" leftPre="$" rightPre=""
+	 xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/data/tripCostSummary" />
+
 	
 	<h:panelGrid columns="2" cellspacing="0" align="center" width="90%">		
 		
 		
-		<gts:linePlusBarChart id="costByYear" xAxisTickFormat="FY %Y" rotateXAxisLabel="0" xAxisTimeFlag="true" chartType = "full" wsurl="/gts/webapi/data/benchmarkfy" />	
+		<gts:linePlusBarChart id="costByYear" xAxisTickFormat="FY %Y" rotateXAxisLabel="0" leftYformat=",f" rightYformat = ",.2f" 
+							  xAxisTimeFlag="true" chartType = "full" wsurl="/gts/webapi/data/benchmarkfy" />	
 
 		<gts:pieChart id="costpie" xAxisTickFormat="FY %Y" rotateXAxisLabel="0" chartType = "full" wsurl="/gts/webapi/data/costcomp" />	
 	</h:panelGrid> 	
 	<br/>
 		
-	<gts:linePlusBarChart id="costByMonth" xAxisTickFormat="%b %Y" rotateXAxisLabel="60" xAxisTimeFlag="true" chartType="full" wsurl="/gts/webapi/data/benchmark" />	
+	<gts:linePlusBarChart id="costByMonth" xAxisTickFormat="%b %Y" rotateXAxisLabel="60" 
+			leftYformat=",f" rightYformat = ",.2f"  xAxisTimeFlag="true" chartType="full" wsurl="/gts/webapi/data/benchmark" />	
 
 	<br/>	
-	<gts:linePlusBarChart id="summaryByOrg" xAxisTimeFlag="false" rotateXAxisLabel="60" chartType="full" wsurl="/gts/webapi/data/benchmarkorg" />	
+	<gts:linePlusBarChart id="summaryByOrg" xAxisTimeFlag="false" leftYformat=",f" rightYformat = ",.2f"
+							rotateXAxisLabel="60" chartType="full" wsurl="/gts/webapi/data/benchmarkorg" />	
 	<br/>	
 	<gts:multiBarChart id="costByOrg" stacked="false" showControls="false" chartType="full" wsurl="/gts/webapi/data/summarybyorg" />
     
