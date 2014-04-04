@@ -22,6 +22,7 @@ public class Measurement {
 	private BasicDBList results;
 	private boolean populated;
 	
+	private String[] indexNames;
 	private Map<String, Indicator> indicators = new HashMap<String,Indicator>();
 
 
@@ -109,5 +110,13 @@ public class Measurement {
 
 	public void setMatchFields(BasicDBObject matchFields) {
 		this.matchFields = matchFields;
+	}
+
+	public String[] getIndexNames() {
+		return indexNames;
+	}
+
+	public void setIndexNames(String[] indexNames) {
+		this.indexNames = indexNames;
 	}
 }

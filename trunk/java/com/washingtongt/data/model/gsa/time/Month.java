@@ -86,12 +86,12 @@ public class Month extends Serial{
 	@Override
 	public Measurement getMeasurementYTD() {
 		// TODO Auto-generated method stub
-		Measurement mYtd = null;
+		
 		try {
-			mYtd = this.getMeasurementClass().newInstance();
-			mYtd.setMatchFields((BasicDBObject)this.getMatch().clone());
+			this.measurementYTD = this.getMeasurementClass().newInstance();
+			this.measurementYTD.setMatchFields((BasicDBObject)this.getMatch().clone());
 
-			BasicDBObject matchFields =  mYtd.getMatchFields();
+			BasicDBObject matchFields =  this.measurementYTD.getMatchFields();
 			
 			BasicDBObject timeRange = new BasicDBObject("$gte",this.getParent().getStart()).append("$lt",this.getEnd());
 			//BasicDBObject timeMatch = new BasicDBObject(this.getField(), timeRange);
@@ -112,7 +112,11 @@ public class Month extends Serial{
 			//e.printStackTrace();
 			log.error(e);
 		}
-		return mYtd;
+		return this.measurementYTD;
 	}
+
+
+
+
 	
 }

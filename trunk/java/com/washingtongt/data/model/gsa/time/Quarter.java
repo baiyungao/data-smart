@@ -72,12 +72,12 @@ public class Quarter extends Serial {
 	@Override
 	public Measurement getMeasurementYTD() {
 		// TODO Auto-generated method stub
-		Measurement mYtd = null;
+		this.measurementYTD = null;
 		try {
-			mYtd = this.getMeasurementClass().newInstance();
-			mYtd.setMatchFields((BasicDBObject)this.getMatch().clone());
+			this.measurementYTD = this.getMeasurementClass().newInstance();
+			this.measurementYTD.setMatchFields((BasicDBObject)this.getMatch().clone());
 
-			BasicDBObject matchFields =  mYtd.getMatchFields();
+			BasicDBObject matchFields =  this.measurementYTD.getMatchFields();
 			
 			BasicDBObject timeRange = new BasicDBObject("$gte",this.getParent().getStart()).append("$lt",this.getEnd());
 			//BasicDBObject timeMatch = new BasicDBObject(this.getField(), timeRange);
@@ -98,7 +98,7 @@ public class Quarter extends Serial {
 			//e.printStackTrace();
 			log.error(e);
 		}
-		return mYtd;
+		return this.measurementYTD;
 	}
 
 
@@ -115,4 +115,5 @@ public class Quarter extends Serial {
 		// TODO Auto-generated method stub
 		return end;
 	}
+
 }

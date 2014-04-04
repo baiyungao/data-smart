@@ -80,7 +80,7 @@ public class Indicator {
 	}
 	
 	public void addValue(Object value){
-		log.debug(this.label + "add value:" + value );
+		//log.debug(this.label + "add value:" + value );
 		this.value.add(value);
 	}
 	

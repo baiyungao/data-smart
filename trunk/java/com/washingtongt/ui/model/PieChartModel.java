@@ -1,6 +1,5 @@
 package com.washingtongt.ui.model;
 
-import java.util.HashMap;
 import java.util.Set;
 
 import org.apache.log4j.Logger;

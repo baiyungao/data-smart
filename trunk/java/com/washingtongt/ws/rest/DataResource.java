@@ -143,6 +143,7 @@ public class DataResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getCostGap() {
     	
+    	/*
 		ArrayList<Measurement> mList = new ArrayList<Measurement>();
 		mList.add(TravelCostMeasure.benchMarkFY2011);
 		mList.add(TravelCostMeasure.benchMarkFY2012);
@@ -158,7 +159,7 @@ public class DataResource {
     	if (results != null){
 			return JSON.serialize(new BarchartModel(results).toArray());
 		}
-    	
+    	*/
     	return "";
     }   
     
