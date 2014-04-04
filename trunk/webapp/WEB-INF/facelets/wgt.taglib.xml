@@ -16,5 +16,10 @@
 	<tag>
 	    <tag-name>pieChart</tag-name>
 	    <source>../common/components/pieChart.xhtml</source>
+	</tag>	
+
+	<tag>
+	    <tag-name>table</tag-name>
+	    <source>../common/components/tableComponent.xhtml</source>
 	</tag>		
 </facelet-taglib>
