@@ -66,10 +66,10 @@ function #{id}_drawChart(){
 		  
 
 		chart.y1Axis
-			.tickFormat(d3.format(',f'));
+			.tickFormat(function(d) { return '#{leftPre}' + d3.format('#{leftYformat}')(d) });
 
 		chart.y2Axis
-			.tickFormat(function(d) { return '$' + d3.format(',.2f')(d) });
+			.tickFormat(function(d) { return '#{rightPre}' + d3.format('#{rightYformat}')(d) });
 
 		chart.bars.forceY([0]).padData(false);
 		//chart.lines.forceY([0]);
