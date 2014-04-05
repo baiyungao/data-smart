@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
+import com.washingtongt.data.model.gsa.GsaConstants;
 
 public class PieChartModel extends BasicDBList {
 
@@ -42,5 +43,25 @@ public class PieChartModel extends BasicDBList {
 		}
 	}	
 	
+public PieChartModel(BasicDBObject raw){
+		
+		super();
+		BasicDBObject row = (BasicDBObject)raw.clone();
+		Set<String> keySet = row.keySet();
+		keySet.remove(GsaConstants.IDT_ID);
+		keySet.remove("Item");
+		log.debug("keys:" + keySet);
+		
+		for (String key: keySet){
+				
+				
+			BasicDBObject item = new BasicDBObject();
+				item.put("key", key);
+				item.put("y", row.get(key));
+			
+				this.add(item);
+			
+		}
+	}	
 
 }

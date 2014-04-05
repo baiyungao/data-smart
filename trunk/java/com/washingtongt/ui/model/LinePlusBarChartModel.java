@@ -144,13 +144,10 @@ public LinePlusBarChartModel(BasicDBList list, ChartSeries bench, boolean sort){
 	 return this.serialMap;
 	}
 	
-	public void addContent(BasicDBObject row, String rowId){
+	public void addContent(BasicDBObject row, String rowId, String[] charIndex){
 		
-		Set<String> colKeys = row.keySet();
-		colKeys.remove("_id");
-		log.debug("rowID:" + rowId);
 		
-		for (String colKey: colKeys ){
+		for (String colKey: charIndex ){
 			
 			log.debug("col:" + colKey);
 			ChartSeries serial = (ChartSeries)(serialMap.get(colKey));

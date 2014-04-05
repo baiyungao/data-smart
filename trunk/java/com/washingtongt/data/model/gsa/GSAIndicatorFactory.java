@@ -53,7 +53,7 @@ public class GSAIndicatorFactory {
 	  case "Misc_Expenses":
 		  return new Indicator(AggregationOperator.SUM , GsaConstants.IDT_MISC_EXPENSE, GsaConstants.IDT_MISC_EXPENSE);
 	  
-	  case "Days_Trip":
+	  case "Travel_Days":
 		  Indicator ind = new Indicator(AggregationOperator.SUM , GsaConstants.IDT_DAYS_OF_TRIP,  GsaConstants.IDT_DAYS_OF_TRIP); 
 		  
 			String[] timeDiff = new String[2]; 
@@ -78,10 +78,11 @@ public class GSAIndicatorFactory {
 	  case "Other":
 		  Indicator indOther = new Indicator(AggregationOperator.SUM , GsaConstants.IDT_OTHER_EXPENSE,  GsaConstants.IDT_OTHER_EXPENSE); 
 		  
-			String[] others = new String[3]; 
+			String[] others = new String[4]; 
 			others[0] =  "$" + GsaConstants.IDT_POV;
 			others[1] =  "$" + GsaConstants.IDT_TMC;
 			others[2] =  "$" + GsaConstants.IDT_VOUCHER_FEE;
+			others[3] =  "$" + GsaConstants.IDT_LOCAL_TRANS;
 		
 			BasicDBObject otherProjectParameter = new BasicDBObject("$add",others);
 			indOther.setParameter(otherProjectParameter);

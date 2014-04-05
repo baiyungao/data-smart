@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -14,10 +15,12 @@ import org.apache.log4j.Logger;
 import org.phoid.util.VariableStore;
 
 import com.mongodb.BasicDBList;
+import com.mongodb.BasicDBObject;
 import com.mongodb.util.JSON;
 import com.washingtongt.access.AccessToken;
 import com.washingtongt.data.MongoUtil;
 import com.washingtongt.data.model.Measurement;
+import com.washingtongt.data.model.gsa.CostDriverModel;
 import com.washingtongt.data.model.gsa.CostGapModel;
 import com.washingtongt.data.model.gsa.GsaConstants;
 import com.washingtongt.data.model.gsa.TravelCostMeasure;
@@ -147,6 +150,43 @@ public class DataResource {
     }
     
     
+    @GET
+    @Path("costdriver/{fy}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getCostDriver(@PathParam("fy") String fy, @Context HttpServletRequest request) {
+    	
+    	log.debug("path para: fy " + fy);
+    	TripProfileModel overAllTripModel = null;
+    	ConsoleController controller = this.getController(request);
+    	if (controller != null){
+    		overAllTripModel = controller.getOverAllTripModel();
+    	}
+    	else {
+    		overAllTripModel = new TripProfileModel(null, GsaConstants.ORG_LEVEL_ORGANIZATION);
+    		overAllTripModel.populate();
+    	}
+    	
+    	
+    	BasicDBList results = overAllTripModel.getCostDrivers().getResults();
+    	BasicDBObject result = null;
+    	
+    	for (int i = 0; i < results.size(); i++){
+    		BasicDBObject row = (BasicDBObject)results.get(i);
+    		BasicDBObject id = (BasicDBObject)row.get(GsaConstants.IDT_ID);
+    		String fiscalYear = id.getString(GsaConstants.IDT_FY);
+    		if (fiscalYear.equalsIgnoreCase(fy)){
+    			result = row;
+    		}
+    		
+    	}
+    	
+    	if (result != null){
+			return JSON.serialize(new PieChartModel(result).toArray());
+		}
+    	
+    	return "";
+    }    
+    
     /*
      *  the total tripcostsummary used in the home page
      */
@@ -232,6 +272,35 @@ public class DataResource {
 		}
     	*/
     	return "";
-    }   
+    }
+    
+    
+    /**
+     * get the cost driver distribution for a year
+     */
+    @GET
+    @Path("costDriverDistribute/{fy}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getCostDriverDistribute(@PathParam("fy") String fy, @Context HttpServletRequest request) {
+    	log.debug("path para: fy " + fy);
+    	
+    	
+    	 
+    	CostDriverModel costdriverModel = null;
+    	ConsoleController controller = this.getController(request);
+    	if (controller != null){
+    		costdriverModel = controller.getCostDriverModel();
+    	}
+    	else {
+    		costdriverModel = new CostDriverModel(null);
+    		
+    	}
+ 	
+    	if (costdriverModel != null){
+			return JSON.serialize(costdriverModel.getCostDriverChartByMonth(fy).toArray());
+		}
+    	
+    	return "";
+    }    
     
 }

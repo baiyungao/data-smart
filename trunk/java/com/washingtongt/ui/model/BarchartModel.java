@@ -67,17 +67,30 @@ public class BarchartModel extends BasicDBList{
 		
 	}
 	
-
-public void addContent(TableModel model){
-		
+private boolean isIndexExclued(Set<String> exs, String col){
+	
+	for (String index: exs){
+		if (col.indexOf(index)>0) {
+			return true;
+		}
+	}
+	
+	return false;
+}
+	
+	
+public void addContent(TableModel model, Set<String> exs){
+	
+		log.debug("get chart from tabel: ex index: " + exs);
+	
 		List<String> colKeys = model.getCols();
 		
 		for (DBObject row :model.getContents()){
 		
 		for (String colKey: colKeys ){
 			
-			log.debug("col:" + colKey);
-			if (colKey.indexOf("Trip_Counts")> 0){
+			if (this.isIndexExclued(exs, colKey)){
+				log.debug("bypass index:" + colKey);
 				continue; //bypass the counts data;
 			}
 			ChartSeries serial = (ChartSeries)(this.serialMap.get(colKey));
