@@ -31,47 +31,41 @@
 
 <h:form>
 
-Travel Cost Summary  <br/>
-		
-		<gts:table model="#{controller.yearSummaryTable}" 
+<h:panelGrid columns="3" cellspacing="0" cellpadding="0" width="90%" footerClass="subtitle" headerClass="sectionHeader"  >   	
+		<f:facet name="header">
+			<h:outputText value="Travel Cost Trend"/>
+		  </f:facet>	
+
+		<gts:table model="#{controller.overAllTripModel.yearSummaryTable}" 
 				   itemLabel="Fiscal year" performanceField="Total_Expenses" actionClass="#{controller}" method="showFyDetail"/>
-
-  <!--				   
-	<gts:multiBarChart id="costgap" stacked="true" showControls="true" chartType = "half" wsurl="/gts/webapi/data/costgap" />	 <br/>
-	-->
-	
-</h:form>	
-	
-	<br/>
-	<br/>
-<br/>
-<br/>	
-
-<gts:linePlusBarChart id="tripcostsummary" rotateXAxisLabel="60" 
+				   
+		<gts:linePlusBarChart id="tripcostsummary" rotateXAxisLabel="60" 
 	 leftYformat=",.2f" rightYformat = ",f" leftPre="$" rightPre=""
 	 xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/data/tripCostSummary" />
+			   
+
+</h:panelGrid> 
+	
+
+
+<br/>	
+<br/>
+
 
 	
-	<h:panelGrid columns="2" cellspacing="0" align="center" width="90%">		
-		
-		
-		<gts:linePlusBarChart id="costByYear" xAxisTickFormat="FY %Y" rotateXAxisLabel="0" leftYformat=",f" rightYformat = ",.2f" 
-							  xAxisTimeFlag="true" chartType = "full" wsurl="/gts/webapi/data/benchmarkfy" />	
-
-		<gts:pieChart id="costpie" xAxisTickFormat="FY %Y" rotateXAxisLabel="0" chartType = "full" wsurl="/gts/webapi/data/costcomp" />	
-	</h:panelGrid> 	
-	<br/>
-		
-	<gts:linePlusBarChart id="costByMonth" xAxisTickFormat="%b %Y" rotateXAxisLabel="60" 
-			leftYformat=",f" rightYformat = ",.2f"  xAxisTimeFlag="true" chartType="full" wsurl="/gts/webapi/data/benchmark" />	
-
-	<br/>	
-	<gts:linePlusBarChart id="summaryByOrg" xAxisTimeFlag="false" leftYformat=",f" rightYformat = ",.2f"
-							rotateXAxisLabel="60" chartType="full" wsurl="/gts/webapi/data/benchmarkorg" />	
-	<br/>	
-	<gts:multiBarChart id="costByOrg" stacked="false" showControls="false" chartType="full" wsurl="/gts/webapi/data/summarybyorg" />
+<h:panelGrid columns="1" cellspacing="0" align="center" width="90%" headerClass="sectionHeader">		
+		<f:facet name="header">
+			<h:outputText value="Cost Distribution by Organization"/>
+		  </f:facet>
+	
+	<gts:multiBarChart id="costByOrg" stacked="false" showControls="true" chartType="full" wsurl="/gts/webapi/data/SummaryChartByOrg" />
+	<gts:table model="#{controller.overAllTripModel.summaryTableByOrg}" itemLabel="Organization" />
+	
+	 
+	
+	</h:panelGrid>
     
-
+</h:form>	
 
 
 </ui:define>
