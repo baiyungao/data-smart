@@ -1,14 +1,16 @@
 package com.washingtongt.ui.model;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
+import com.washingtongt.data.model.gsa.GsaConstants;
 
 public class TableModel  {
 	
@@ -16,10 +18,12 @@ public class TableModel  {
 	private String header="Default Table";
 	private int clientRows = 30;
 	private List<DBObject> contents =new ArrayList<DBObject>();
+	private String groupKey = null;  //by FY or other
 
-	public TableModel(String[] headers, String defaultSorting){
+	public TableModel(String[] headers, String defaultSorting, String group){
 		super();
 		
+		this.groupKey = group;
 		cols = new ArrayList<String>();
 		
 		for (String col: headers){
@@ -27,7 +31,58 @@ public class TableModel  {
 		}
 		
 	}
-	public void addContent(BasicDBList result, String item){
+	
+	public void addContentWithGroup(BasicDBList result, String item, String group)
+	{
+		Map<String, BasicDBObject> contentMap = new HashMap<String,BasicDBObject>();
+		
+		ArrayList<String> extCols = new ArrayList<String>();
+		
+		Set<String> groupSet = new HashSet<String>();
+		if (result != null){
+			for (int i = 0; i < result.size(); i++){
+				//HashMap<String, Object> row  = new HashMap<String,Object>();
+				BasicDBObject  row = (BasicDBObject)((BasicDBObject)result.get(i)).clone();
+				Object id = row.get("_id");
+				if (id == null) {
+					continue;
+				}
+				String rowKey = ((BasicDBObject)id).getString(item);
+				String groupValue = ((BasicDBObject)id).getString(group);
+				
+				if (!groupSet.contains(groupValue)){
+					groupSet.add(groupValue);
+					for(String col:cols){
+						extCols.add(groupValue + " " + col);
+					}
+				}
+				
+				
+				BasicDBObject contentRow = contentMap.get(rowKey);
+				if (contentRow == null) {
+					contentRow = new BasicDBObject("Item", rowKey);
+					contentMap.put(rowKey, contentRow);
+					this.contents.add(contentRow);
+				}
+				
+				row.remove("_id");
+				
+				for (String colKey: row.keySet()){
+					contentRow.append(groupValue + " " + colKey, row.get(colKey));
+					
+				}
+				
+			}
+			this.cols = extCols;
+		}		
+		
+	}	
+	
+	public void addContent(BasicDBList result, String item)
+	{
+		this.addContent(result, item, null, 0);
+	}
+	public void addContent(BasicDBList result, String item, String performanceField, double benchmark){
 		
 		if (result != null){
 			for (int i = 0; i < result.size(); i++){
@@ -42,7 +97,11 @@ public class TableModel  {
 				{
 					row.put("Item", ModelHelper.getRowId(row));
 				}
-								
+				
+				if (performanceField != null){
+				row.put(GsaConstants.IDT_PERFORMANCE, row.getDouble(performanceField)/benchmark);
+				}
+				
 				this.contents.add(row);
 			}
 		}
@@ -56,13 +115,6 @@ public class TableModel  {
 		return cols;
 	}
 
-	private String format(Number n) {
-        NumberFormat format = DecimalFormat.getInstance();
-        format.setRoundingMode(RoundingMode.FLOOR);
-        format.setMinimumFractionDigits(0);
-        format.setMaximumFractionDigits(0);
-        return format.format(n);
-    }
 	
 	public String getHeader() {
 		return header;
@@ -80,5 +132,10 @@ public class TableModel  {
 	public List<DBObject> getContents(){
 		return this.contents;
 	}
+
+	public String getGroupKey() {
+		return groupKey;
+	}
+
 
 }

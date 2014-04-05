@@ -35,6 +35,7 @@ import com.washingtongt.data.model.gsa.time.Month;
 import com.washingtongt.data.model.gsa.time.Quarter;
 import com.washingtongt.ui.model.BarchartModel;
 import com.washingtongt.ui.model.PieChartModel;
+import com.washingtongt.ui.model.TableModel;
 
 public class MongoUtil {
 	
@@ -74,20 +75,6 @@ public class MongoUtil {
 		if (matchFields != null){
 			match = new BasicDBObject("$match", matchFields );
 		}
-		
-		/*
-		if (measure.getMatchMap().size() > 0){
-		
-		 for (String matchField:measure.getMatchMap().keySet()){
-			 if (matchFields == null){
-				 matchFields = new BasicDBObject(matchField, measure.getMatchMap().get(matchField));
-			 }
-			 else  {
-				 matchFields.put(matchField, measure.getMatchMap().get(matchField));
-			 }
-		 }
-		 match = new BasicDBObject("$match", matchFields );
-		}*/
 		
 		
 		// build the $projection operation
@@ -139,11 +126,25 @@ public class MongoUtil {
 		DBObject group = new BasicDBObject("$group", groupFields);
 		
 		
+		
+		
 		if (match != null){
 			dbList.add(match);
 		}
 		dbList.add(project);
 		dbList.add(group);
+		
+		//add sorting here;
+		if (measure.getSortBy() != null){
+			DBObject sort = new BasicDBObject("$sort", measure.getSortBy());
+			dbList.add(sort);
+		}
+		
+		//add limit here
+		if (measure.getLimits() > 0){
+			BasicDBObject limit = new BasicDBObject("$limit", measure.getLimits());
+			dbList.add(limit);
+		}
 		
 		log.debug("query string: " + dbList);
 		AggregationOutput output = getConnection().aggregate( dbList);
@@ -760,6 +761,14 @@ public class MongoUtil {
 		DBObject myDoc = coll.findOne(match);
 		log.debug("find one:" + myDoc);
 		
+		TripProfileModel overAllTripModel = new TripProfileModel(null, GsaConstants.ORG_LEVEL_ORGANIZATION);
+		overAllTripModel.populate(); 
+		TableModel model = overAllTripModel.getSummaryTableByOrg();
+		
+		log.debug("cols:" + model.getCols());
+		
+		BarchartModel chart  = overAllTripModel.getTripSummaryChartByOrg();
+		log.debug("bar chart:" + chart );
 		
 		//BasicDBObject groupField = new BasicDBObject("Organization", "$Organization");
 		
@@ -777,11 +786,22 @@ public class MongoUtil {
 		
 		//BasicDBList results = MongoUtil.getMeasurement(TravelCostMeasure.benchMarkFY2011);
 		
+		/*
 		Measurement tsmByDestination = new TravelSumaryMeasure();
 		tsmByDestination.setMatchFields(match);
 		tsmByDestination.setGroupby(GsaConstants.FIELD_LOCATION);
+		BasicDBObject sortFields =  new BasicDBObject(GsaConstants.IDT_TOTAL_EXPENSE, -1);
+		tsmByDestination.setSortBy(sortFields);
+		tsmByDestination.setLimits(50);
 		
-		BasicDBList results = MongoUtil.getMeasurement(tsmByDestination);
+		
+		Measurement tsmByOrganization = new TravelSumaryMeasure();
+		tsmByOrganization.setMatchFields(match);
+		tsmByOrganization.setGroupby(GsaConstants.ORG_LEVEL_ORGANIZATION + ",FY");
+		BasicDBObject sortFields =  new BasicDBObject(GsaConstants.IDT_FY, -1).append(GsaConstants.IDT_TOTAL_EXPENSE, -1);
+		tsmByOrganization.setSortBy(sortFields);		
+		
+		BasicDBList results = MongoUtil.getMeasurement(tsmByOrganization);
 		
 		
 		log.debug(results);

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 
 /**
  * Assume we have data for FY2011, this is the bench mark for cost analysis
@@ -18,6 +19,8 @@ public class Measurement {
 	private String name;
 	private String description;
 	private String groupby;
+	private DBObject sortBy;
+	private int  limits;
 	
 	private BasicDBList results;
 	private boolean populated;
@@ -118,5 +121,21 @@ public class Measurement {
 
 	public void setIndexNames(String[] indexNames) {
 		this.indexNames = indexNames;
+	}
+
+	public DBObject getSortBy() {
+		return sortBy;
+	}
+
+	public void setSortBy(DBObject sortBy) {
+		this.sortBy = sortBy;
+	}
+
+	public int getLimits() {
+		return limits;
+	}
+
+	public void setLimits(int limits) {
+		this.limits = limits;
 	}
 }

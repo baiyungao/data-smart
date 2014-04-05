@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
+import com.washingtongt.data.model.gsa.GsaConstants;
 
 public class LinePlusBarChartModel extends BasicDBList{
 	/**
@@ -17,6 +18,15 @@ public class LinePlusBarChartModel extends BasicDBList{
 	private static final long serialVersionUID = 1L;
 	static final Logger log = Logger.getLogger(LinePlusBarChartModel.class);
 	private HashMap<String, ChartSeries> serialMap = new HashMap<String, ChartSeries>();
+	
+	public void add(ChartSeries cs){
+		serialMap.put((String)cs.get(ChartSeries.ORIGINAL_KEY), cs);
+		super.add(cs);
+	}
+	
+	public LinePlusBarChartModel(){
+		super();
+	}
 	
 	public LinePlusBarChartModel(BasicDBList list, boolean sort){
 		
@@ -46,7 +56,7 @@ public class LinePlusBarChartModel extends BasicDBList{
 					{
 						serial = new ChartSeries(colKey,1,false);
 					}
-					serialMap.put(colKey, serial);
+					//serialMap.put(colKey, serial);
 					this.add(serial);
 				}
 				
@@ -92,7 +102,7 @@ public LinePlusBarChartModel(BasicDBList list, ChartSeries bench, boolean sort){
 					{
 						serial = new ChartSeries(colKey,1,false);
 					}
-					serialMap.put(colKey, serial);
+					//serialMap.put(colKey, serial);
 					this.add(serial);
 				}
 				
@@ -132,6 +142,28 @@ public LinePlusBarChartModel(BasicDBList list, ChartSeries bench, boolean sort){
 
 	public HashMap<String, ChartSeries> getSerialMap(){
 	 return this.serialMap;
+	}
+	
+	public void addContent(BasicDBObject row, String rowId){
+		
+		Set<String> colKeys = row.keySet();
+		colKeys.remove("_id");
+		log.debug("rowID:" + rowId);
+		
+		for (String colKey: colKeys ){
+			
+			log.debug("col:" + colKey);
+			ChartSeries serial = (ChartSeries)(serialMap.get(colKey));
+			
+			int seriesIndex = this.indexOf(serial);
+			BasicDBObject item = new BasicDBObject();
+			item.put("series", seriesIndex);
+			item.put("x", rowId);
+			item.put("y", row.get(colKey));
+		
+			serial.getValue().add(item);
+			
+		}
 	}
 	
 }

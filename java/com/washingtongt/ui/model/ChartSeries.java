@@ -8,11 +8,16 @@ public class ChartSeries extends BasicDBObject{
 	/**
 	 * series
 	 */
+	
+	public static final int LEFT = 0;
+	public static final int RIGHT = 1;
+	
 	private static final long serialVersionUID = 1L;
 	private static String KEY = "key";
-	private static String ORIGINAL_KEY = "originalKey";
+	public static String ORIGINAL_KEY = "originalKey";
 	private static String VALUE = "values";
 	private static String BAR = "bar";
+	
 	
 	public ChartSeries(String key){
 		super();

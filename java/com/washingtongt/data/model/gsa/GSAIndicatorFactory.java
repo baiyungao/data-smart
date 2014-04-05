@@ -74,9 +74,26 @@ public class GSAIndicatorFactory {
 		  //"{$add: [ { $divide: [ { $subtract: [ \"$Date_Return\", \"$Date_Depart\" ] }, 86400000 ] }, 1 ] }"
 		  ind.setParameter(projectParameter);
 		  return ind;
+		  
+	  case "Other":
+		  Indicator indOther = new Indicator(AggregationOperator.SUM , GsaConstants.IDT_OTHER_EXPENSE,  GsaConstants.IDT_OTHER_EXPENSE); 
+		  
+			String[] others = new String[3]; 
+			others[0] =  "$" + GsaConstants.IDT_POV;
+			others[1] =  "$" + GsaConstants.IDT_TMC;
+			others[2] =  "$" + GsaConstants.IDT_VOUCHER_FEE;
+		
+			BasicDBObject otherProjectParameter = new BasicDBObject("$add",others);
+			indOther.setParameter(otherProjectParameter);
+		  return indOther;		  
 	 
 	  case "Trip_Counts":
-		  return new Indicator(AggregationOperator.COUNT , GsaConstants.IDT_TRIP_CT, GsaConstants.IDT_TRIP_CT);	  
+		  return new Indicator(AggregationOperator.COUNT , GsaConstants.IDT_TRIP_CT, GsaConstants.IDT_TRIP_CT);
+		  
+		  
+	  case "Local_trans":
+		  return new Indicator(AggregationOperator.COUNT , GsaConstants.IDT_LOCAL_TRANS, GsaConstants.IDT_LOCAL_TRANS);	  
+	  
 	  }
   
 	  return null;
