@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
@@ -19,6 +20,12 @@ public class TableModel  {
 	private int clientRows = 30;
 	private List<DBObject> contents =new ArrayList<DBObject>();
 	private String groupKey = null;  //by FY or other
+	
+	private boolean orderById = false; 
+	
+	//add sorting here
+	
+	Map<String, BasicDBObject> sortingMap = new TreeMap<String, BasicDBObject>();	
 
 	public TableModel(String[] headers, String defaultSorting, String group){
 		super();
@@ -84,6 +91,8 @@ public class TableModel  {
 	}
 	public void addContent(BasicDBList result, String item, String performanceField, double benchmark){
 		
+		
+		
 		if (result != null){
 			for (int i = 0; i < result.size(); i++){
 				//HashMap<String, Object> row  = new HashMap<String,Object>();
@@ -92,14 +101,21 @@ public class TableModel  {
 				Object id = row.get("_id");
 				if (id == null){
 					row.put("Item", item);
+					this.sortingMap.put(item, row);
 				}
 				else 
 				{
 					row.put("Item", ModelHelper.getRowId(row));
+					this.sortingMap.put(ModelHelper.getRowId(row), row);
 				}
 				
 				if (performanceField != null){
-				row.put(GsaConstants.IDT_PERFORMANCE, row.getDouble(performanceField)/benchmark);
+					double pValue = (benchmark-row.getDouble(performanceField))/benchmark;
+					if (pValue == 0){
+						row.put(GsaConstants.IDT_PERFORMANCE,null );}
+					else {
+						row.put(GsaConstants.IDT_PERFORMANCE,pValue );
+					}
 				}
 				
 				this.contents.add(row);
@@ -109,7 +125,12 @@ public class TableModel  {
 		
 		}
 
-	
+
+	private void updateContent(){
+		this.contents.clear();
+		this.contents.addAll(this.sortingMap.values());
+		
+	}
 	
 	public List<String> getCols() {
 		return cols;
@@ -130,11 +151,21 @@ public class TableModel  {
 	}
 	
 	public List<DBObject> getContents(){
+		if (this.isOrderById()) {
+			this.updateContent();}
 		return this.contents;
 	}
 
 	public String getGroupKey() {
 		return groupKey;
+	}
+
+	public boolean isOrderById() {
+		return orderById;
+	}
+
+	public void setOrderById(boolean orderById) {
+		this.orderById = orderById;
 	}
 
 

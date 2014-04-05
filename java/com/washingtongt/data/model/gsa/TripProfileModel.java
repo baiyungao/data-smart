@@ -2,8 +2,10 @@ package com.washingtongt.data.model.gsa;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
@@ -38,6 +40,7 @@ public class TripProfileModel {
 	private static String MODEL_TABLE_YEAR_SUMMARY = "YearSummaryTable";
 	private static String MODEL_TABLE_SUMMARY_BY_ORG = "SummaryTableByOrg";
 	private static String MODEL_TABLE_SUMMARY_BY_DESTINATION = "SummaryTableByDestination";
+	private static String MODEL_TABLE_COST_DRIVER = "CostDriverTable";
 	
 	private static String MODEL_CHART_SUMMARY_BY_MONTH = "SummaryChartByMonth";
 	private static String MODEL_CHART_SUMMARY_BY_ORG = "SummaryChartByOrg";
@@ -49,6 +52,8 @@ public class TripProfileModel {
 	private BasicDBObject match;
 	private TravelSumaryMeasure tsmByOrganization;
 	private TravelSumaryMeasure tsmByDestination;
+	private TravelCostDriverMeasure costDrivers;
+	
 	private String orgLevel; //organization or office
 	private FiscalYear benchmark;
 	
@@ -65,16 +70,16 @@ public class TripProfileModel {
 		
 		
 		FiscalYear fy2011 =new FiscalYear(GsaConstants.IDT_DATE_DEPARTURE, matchfy2011, 2011, 2010, 10, TravelSumaryMeasure.class);
-		fy2011.setName("FY2011");
+		fy2011.setName("2011");
 		fy2011.setBenchmark(true);
 		serialList.add(fy2011);
 		
 		FiscalYear fy2012 =new FiscalYear(GsaConstants.IDT_DATE_DEPARTURE, matchfy2012, 2012, 2011, 10, TravelSumaryMeasure.class);
-		fy2012.setName("FY2012");
+		fy2012.setName("2012");
 		serialList.add(fy2012);		
 		
 		FiscalYear fy2013 =new FiscalYear(GsaConstants.IDT_DATE_DEPARTURE, matchfy2013, 2013, 2012, 10, TravelSumaryMeasure.class);
-		fy2013.setName("FY2013");
+		fy2013.setName("2013");
 		serialList.add(fy2013);		
 		
 		this.setBenchmark(fy2011);
@@ -92,12 +97,20 @@ public class TripProfileModel {
 		tsmByDestination.setSortBy(sortFields);
 		tsmByDestination.setLimits(50);
 		
+		
+		costDrivers = new TravelCostDriverMeasure();
+		costDrivers.setMatchFields(match);
+		costDrivers.setGroupby("FY");
+		sortFields =  new BasicDBObject(GsaConstants.IDT_FY, 1);
+		costDrivers.setSortBy(sortFields);
+		
 	}
 	
 	public boolean populate(){
 
 		MongoUtil.getMeasurement(this.tsmByOrganization);
 		MongoUtil.getMeasurement(this.tsmByDestination);
+		MongoUtil.getMeasurement(this.costDrivers);
 		
 		return true;
 	}
@@ -161,7 +174,7 @@ public class TripProfileModel {
 				BasicDBList result = month.getMeasurmentResults();  //one row result only
 				if (result != null){
 					BasicDBObject row = (BasicDBObject)result.get(0);
-					chart.addContent(row, month.getName());
+					chart.addContent(row, month.getName(),GsaConstants.INDEX_TRAVEL_SUMMARY_CHART);
 				}
 			}
 		}
@@ -177,7 +190,12 @@ public class TripProfileModel {
 		}
 		
 		chart = new BarchartModel();
-		chart.addContent(this.getSummaryTableByOrg());
+		Set<String> exs = new  HashSet<String>();
+		for (String ex: GsaConstants.INDEX_TOTAL_COST_CHART_EX){
+			exs.add(ex);
+		}
+		
+		chart.addContent(this.getSummaryTableByOrg(),exs);
 		
 		return chart;
 	}
@@ -233,6 +251,29 @@ public class TripProfileModel {
 		BasicDBList results = this.getTsmByDestination().getResults();
 		model.addContent(results,"");
 		log.debug(this.getTsmByDestination().getDescription() + ": "  + results);
+		return model;
+	}
+
+	public TravelCostDriverMeasure getCostDrivers() {
+		return costDrivers;
+	}
+
+	public void setCostDrivers(TravelCostDriverMeasure costDrivers) {
+		this.costDrivers = costDrivers;
+	}
+	
+	public TableModel getCostDriverTable(){
+		
+		TableModel model = null;
+		
+		Object object = this.uiModelMap.get(MODEL_TABLE_COST_DRIVER);
+		if (object != null) {
+			return (TableModel)object;
+		}
+				
+		model =	new TableModel(GsaConstants.INDEX_TRAVEL_COST_DRIVER_MEASURE, "","");
+		model.addContent(this.costDrivers.getResults(), GsaConstants.IDT_FY);
+		model.setOrderById(true);
 		return model;
 	}
 			

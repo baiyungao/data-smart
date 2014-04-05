@@ -23,6 +23,7 @@ import com.mongodb.MongoException;
 import com.washingtongt.data.model.Indicator;
 import com.washingtongt.data.model.Measurement;
 import com.washingtongt.data.model.SerialBase;
+import com.washingtongt.data.model.gsa.CostDriverModel;
 import com.washingtongt.data.model.gsa.CostGapModel;
 import com.washingtongt.data.model.gsa.GSAIndicatorFactory;
 import com.washingtongt.data.model.gsa.GsaConstants;
@@ -34,6 +35,7 @@ import com.washingtongt.data.model.gsa.time.FiscalYear;
 import com.washingtongt.data.model.gsa.time.Month;
 import com.washingtongt.data.model.gsa.time.Quarter;
 import com.washingtongt.ui.model.BarchartModel;
+import com.washingtongt.ui.model.LinePlusBarChartModel;
 import com.washingtongt.ui.model.PieChartModel;
 import com.washingtongt.ui.model.TableModel;
 
@@ -761,6 +763,14 @@ public class MongoUtil {
 		DBObject myDoc = coll.findOne(match);
 		log.debug("find one:" + myDoc);
 		
+		
+		CostDriverModel cmodel = new CostDriverModel(null);
+		
+		LinePlusBarChartModel chartModel = cmodel.getCostDriverChartByMonth("2011");
+		
+		log.debug("char:" + chartModel);
+		
+		
 		TripProfileModel overAllTripModel = new TripProfileModel(null, GsaConstants.ORG_LEVEL_ORGANIZATION);
 		overAllTripModel.populate(); 
 		TableModel model = overAllTripModel.getSummaryTableByOrg();
@@ -769,6 +779,14 @@ public class MongoUtil {
 		
 		BarchartModel chart  = overAllTripModel.getTripSummaryChartByOrg();
 		log.debug("bar chart:" + chart );
+		
+		BasicDBList results = overAllTripModel.getCostDrivers().getResults();
+		log.debug("drivers:" + results);
+		
+		model = overAllTripModel.getCostDriverTable();
+		log.debug("Cost Driver Table:" + model.getContents());
+		
+		/*
 		
 		//BasicDBObject groupField = new BasicDBObject("Organization", "$Organization");
 		
@@ -786,7 +804,7 @@ public class MongoUtil {
 		
 		//BasicDBList results = MongoUtil.getMeasurement(TravelCostMeasure.benchMarkFY2011);
 		
-		/*
+		
 		Measurement tsmByDestination = new TravelSumaryMeasure();
 		tsmByDestination.setMatchFields(match);
 		tsmByDestination.setGroupby(GsaConstants.FIELD_LOCATION);
