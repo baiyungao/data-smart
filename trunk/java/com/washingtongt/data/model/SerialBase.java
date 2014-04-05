@@ -16,8 +16,10 @@ public interface SerialBase {
 	public Date getStart();
 	public Date getEnd();
 	public String getName();
+	public String getDisplayName();
 
 	public BasicDBList getMeasurmentResults();
 	public BasicDBList getMeasurmentResultsYTD();
+	public boolean isBenchmark();
 
 }

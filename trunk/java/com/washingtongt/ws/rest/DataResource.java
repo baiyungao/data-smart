@@ -2,23 +2,31 @@ package com.washingtongt.ws.rest;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
+import org.phoid.util.VariableStore;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.util.JSON;
+import com.washingtongt.access.AccessToken;
 import com.washingtongt.data.MongoUtil;
 import com.washingtongt.data.model.Measurement;
 import com.washingtongt.data.model.gsa.CostGapModel;
+import com.washingtongt.data.model.gsa.GsaConstants;
 import com.washingtongt.data.model.gsa.TravelCostMeasure;
+import com.washingtongt.data.model.gsa.TripProfileModel;
 import com.washingtongt.ui.model.BarchartModel;
 import com.washingtongt.ui.model.ChartSeries;
 import com.washingtongt.ui.model.LinePlusBarChartModel;
 import com.washingtongt.ui.model.PieChartModel;
+import com.washingtongt.web.ConsoleController;
 
 /**
  * Root resource (exposed at "data" path)
@@ -137,6 +145,69 @@ public class DataResource {
     	
     	return "";
     }
+    
+    
+    /*
+     *  the total tripcostsummary used in the home page
+     */
+    
+    @GET
+    @Path("tripCostSummary")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getTripCostSummaryChart(@Context HttpServletRequest request) {
+    	TripProfileModel overAllTripModel = null;
+    	ConsoleController controller = this.getController(request);
+    	if (controller != null){
+    		overAllTripModel = controller.getOverAllTripModel();
+    	}
+    	else {
+    		overAllTripModel = new TripProfileModel(null, GsaConstants.ORG_LEVEL_ORGANIZATION);
+    		overAllTripModel.populate();
+    	}
+    
+    	LinePlusBarChartModel model = overAllTripModel.getSummaryChartByMonth();
+    	
+    	if (model != null){
+			return JSON.serialize(model.toArray());
+		}
+    	
+    	return "";
+    }    
+    
+
+    private ConsoleController getController(HttpServletRequest request){
+    	
+    	HttpSession session = request.getSession(true);
+    	Object obj = session.getAttribute("controller");
+		
+    	
+    	return (ConsoleController)obj;
+    }
+  
+    
+    @GET
+    @Path("SummaryChartByOrg")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getSummaryChartByOrg(@Context HttpServletRequest request) {
+    	
+    	TripProfileModel overAllTripModel = null;
+    	ConsoleController controller = this.getController(request);
+    	if (controller != null){
+    		overAllTripModel = controller.getOverAllTripModel();
+    	}
+    	else {
+    		overAllTripModel = new TripProfileModel(null, GsaConstants.ORG_LEVEL_ORGANIZATION);
+    		overAllTripModel.populate();
+    	}
+    	 
+    	BarchartModel model = overAllTripModel.getTripSummaryChartByOrg();
+    	
+    	if (model != null){
+			return JSON.serialize(model.toArray());
+		}
+    	
+    	return "";
+    }      
     
     @GET
     @Path("costgap")

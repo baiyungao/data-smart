@@ -10,12 +10,17 @@ import com.washingtongt.data.model.Serial;
 
 public class Month extends Serial{
 	static final Logger log = Logger.getLogger(Month.class);	
+	static final String[] names = {"JAN", "FEB", "MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC" };
 	
 	private int year;
 	private int month;
 	private Date start;
 	private Date end;
 	
+	@Override
+	public String getName(){
+		return names[month-1] + " " + year;
+	}
 	
 	public Month(FiscalYear fy, String field, BasicDBObject match,int _year, int _month, Class<? extends Measurement> mClass){
 		this.year = _year;

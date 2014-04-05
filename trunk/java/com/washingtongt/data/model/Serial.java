@@ -18,6 +18,7 @@ public abstract class Serial implements SerialBase{
 	private BasicDBObject match;
 	private String field;
 	private String name;
+	private boolean isBenchmark;
 
 	@Override
 	public Measurement getMeasurement() {
@@ -106,6 +107,20 @@ public abstract class Serial implements SerialBase{
 			}
 		}
 		return result;	
+	}
+	@Override
+	public String getDisplayName(){
+		return this.getName() + (this.isBenchmark()?"-BK" :"");
+	}	
+	
+	@Override
+	public boolean isBenchmark() {
+		return isBenchmark;
+	}
+
+
+	public void setBenchmark(boolean isBenchmark) {
+		this.isBenchmark = isBenchmark;
 	}
 	
 

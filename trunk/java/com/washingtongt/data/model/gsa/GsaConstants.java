@@ -9,6 +9,7 @@ public class GsaConstants {
 	public static String IDT_MEALS_EXPENSE = "Meals_Incidentals";
 	public static String IDT_MISC_EXPENSE = "Misc_Expenses";
 	
+	public static String IDT_OTHER_EXPENSE = "Other";
 	public static String IDT_DAYS_OF_TRIP = "Days_Trip";
 	
 	public static String IDT_DATE_DEPARTURE = "Date_Depart";
@@ -16,13 +17,28 @@ public class GsaConstants {
 	
 	public static String IDT_TRIP_CT = "Trip_Counts";
 	public static String IDT_ID = "_id";
+	public static String IDT_LOCAL_TRANS = "Local_trans";
+	public static String IDT_POV = "POV";
+	public static String IDT_TMC = "TMC_Fee";
+	public static String IDT_VOUCHER_FEE = "Voucher_Fee";
 	
 	public static String IDT_FY = "FY";
+	public static String IDT_PERFORMANCE = "Performance";
 		
 	static final public String ORG_LEVEL_ORGANIZATION = "Organization";
 	static final public String ORG_LEVEL_Office = "Office";
 	
-	static final public String FIELD_LOCATION = "First_Destination";	
+	static final public String FIELD_LOCATION = "First_Destination";
+	
+	public static final String[] INDEX_TRAVEL_COST_DRIVER_MEASURE = 
+		{ 	IDT_AIR_EXPENSE,
+			IDT_MEALS_EXPENSE,
+			IDT_LODGING_EXPENSE,
+			IDT_CAR_RENTAL_EXPENSE,
+			IDT_MISC_EXPENSE,
+			IDT_LOCAL_TRANS,
+			IDT_OTHER_EXPENSE
+			};	
 	
 	public static final String[] INDEX_TRAVEL_COST_MEASURE = 
 		{ 	IDT_AIR_EXPENSE,
