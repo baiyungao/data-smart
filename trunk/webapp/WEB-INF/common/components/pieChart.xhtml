@@ -10,7 +10,7 @@
  <ui:composition>
 		
 
-  <div id="#{id}" class='chart full with-3d-shadow with-transitions'>
+  <div id="#{id}" class='chart #{chartType} with-3d-shadow with-transitions'>
     <svg></svg>
   </div>
 
@@ -38,8 +38,8 @@ queue()
 		console.log(#{id}_data);
 		
 		nv.addGraph(function() {
-		var width = 500,
-			height = 500;
+		var width = #{size},
+			height = #{size};
 
 		var chart = nv.models.pieChart()
 			.x(function(d) { return d.key })
@@ -48,6 +48,8 @@ queue()
 			.width(width)
 			.height(height);
 
+			chart.pie.showLabels(false);
+			
 		  d3.select("##{id} svg")
 			  .datum(#{id}_data)
 			.transition().duration(1200)

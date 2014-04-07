@@ -101,17 +101,19 @@
         <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
         <param-value>client</param-value>
     </context-param>
+	<!--
     <context-param>
         <param-name>org.richfaces.enableControlSkinning</param-name>
         <param-value>true</param-value>
     </context-param>
     <context-param>
         <param-name>org.richfaces.enableControlSkinningClasses</param-name>
-        <param-value>false</param-value>
+        <param-value>true</param-value>
     </context-param>
+	-->
     <context-param>
         <param-name>org.richfaces.skin</param-name>
-        <param-value>classic</param-value>
+        <param-value>blueSky</param-value>
     </context-param>   
 
 	
@@ -166,7 +168,7 @@
     <!-- Filter Mapping -->
 	<filter-mapping>
 		<filter-name>AccessAuthFilter</filter-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>/auth/*</url-pattern>
 	</filter-mapping>
     
     

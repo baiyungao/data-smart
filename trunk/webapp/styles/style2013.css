@@ -446,6 +446,33 @@ background-color: #E2E2E2;
         padding: 2px 5px 2px 5px; 
 		width: 30%;
 }
+.column_20 {
+
+        text-align:left;
+        padding: 2px 5px 2px 5px; 
+		width: 20%;
+}
+
+.column_40 {
+
+        text-align:left;
+        padding: 2px 5px 2px 5px; 
+		width: 40%;
+}
+
+.column_30 {
+
+        text-align:left;
+        padding: 2px 5px 2px 5px; 
+		width: 30%;
+}
+
+.column_70 {
+
+        text-align:left;
+        padding: 2px 5px 2px 5px; 
+		width: 70%;
+}
 /***********RFC-6923 fix ***********/
 .aligntop {text-align: center; vertical-align: top;}
 

@@ -23,23 +23,10 @@
     <body>
 
 	
-<h:form>
+	<gts:lineChart id="costdriverYTM"  chartType = "full" guideline="true" useDates="true"
+				   dateFormat="%b %Y" yformat=",f" yPre="$"  yAxisLabel=""
+				   wsurl="/gts/webapi/data/costDriverYtmLineChart/2012" />
 	
- <br/>
-<rich:collapsiblePanel>
-
-    <f:facet name="header">
-
-        <h:outputText value="This is the panel header"/>
-
-    </f:facet>
-
-    <h:outputText value="This is the panel content" />
-
-</rich:collapsiblePanel>
-	
-</h:form>
-
 	<gts:multiBarChart id="costgap" stacked="true" showControls="true" chartType = "half" wsurl="/gts/webapi/data/costgap" />	 <br/>
 	
 	<h:panelGrid columns="2" cellspacing="0" align="center" width="90%">		
@@ -47,7 +34,7 @@
 		
 		<gts:linePlusBarChart id="costByYear" xAxisTickFormat="FY %Y" rotateXAxisLabel="0" xAxisTimeFlag="true" chartType = "full" wsurl="/gts/webapi/data/benchmarkfy" />	
 
-		<gts:pieChart id="costpie" xAxisTickFormat="FY %Y" rotateXAxisLabel="0" chartType = "full" wsurl="/gts/webapi/data/costcomp" />	
+		<gts:pieChart id="costpie" xAxisTickFormat="FY %Y" size="500" rotateXAxisLabel="0" chartType = "full" wsurl="/gts/webapi/data/costcomp" />	
 	</h:panelGrid> 	
 	<br/>
 		
@@ -57,8 +44,8 @@
 	<gts:linePlusBarChart id="summaryByOrg" xAxisTimeFlag="false" rotateXAxisLabel="60" chartType="full" wsurl="/gts/webapi/data/benchmarkorg" />	
 	<br/>	
 	<gts:multiBarChart id="costByOrg" stacked="false" showControls="false" chartType="full" wsurl="/gts/webapi/data/summarybyorg" />
-    
-
+    <br/>
+<gts:pieChart id="costpie2011" size="400" xAxisTickFormat="FY %Y" rotateXAxisLabel="0" chartType = "full" wsurl="/gts/webapi/data/costdriver/2012" />	
 </body>
 </html>
 

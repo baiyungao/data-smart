@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:gts="http://www.washingtongt.com/jsf/gts"  class="bootstrap">	
+	
+<ui:composition template="/WEB-INF/common/Templates/HomePortal2013.xhtml">
+<ui:define name="title">Dash Board</ui:define>
+<ui:param name="help_link" value="http://www.myexostar.com/mag.aspx"/>
+<ui:define name="panel"> 
+
+<div id="primaryTab">
+    <ul>   	<li><h:outputLink styleClass="active" value="#{request.contextPath}/console/dashboard.jsf"><span>Dashboard</span></h:outputLink>  </li>
+			<li><h:outputLink styleClass="" value="www.iiibc.com" ><span>Reservation</span></h:outputLink>  </li>
+			<li><h:outputLink styleClass="" value="www.iiibc.com" ><span>Payment</span></h:outputLink>  </li>
+	</ul>
+</div>
+
+<br class="clear" />
+<br/>
+
+
+<h:form>
+
+	<c:set var="model" value="#{controller.orgModel}"/>
+	
+    <rich:panel header="Travel expense summary: #{controller.organization}">
+		<h2>Travel Voucher Expenses Trend </h2> (<strong>Notes: </strong> all data here are sample data provided by GSA for the contest.) <br/>
+		<h:panelGrid columns="2" cellspacing="0" cellpadding="0" width="90%" columnClasses="column_40,column_30" footerClass="subtitle" headerClass="sectionHeader"  >   	
+			<h:panelGroup>
+					<strong>Cost Trend Table</strong>: 	
+					<br/>
+					<gts:table model="#{model.yearSummaryTable}" 
+							   itemLabel="Fiscal year" performanceField="Total_Expenses" 
+							   performanceLabel="Cost cut vs. FY2011" />
+					<br/>
+			</h:panelGroup>				
+			<h:panelGroup>			
+					<strong>Cost Drivers Table</strong>: (Other = Local_Trans + POV + TMC_Fee + Voucher_Fee)	
+					<br/>
+					<gts:table model="#{model.costDriverTable}" 
+							   itemLabel="Fiscal year" />
+
+					<br/>
+			</h:panelGroup>				
+
+
+					<gts:linePlusBarChart id="tripcostsummary" rotateXAxisLabel="60" 
+										  leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre=""
+										  xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/data/tripCostSummaryOrg" />
+										  
+					<gts:lineChart id="costPCTYTM"  chartType = "full" guideline="true" useDates="true"
+							   dateFormat="%b %Y" yformat=".2%" yPre=""  yAxisLabel="" left="50"
+							   wsurl="/gts/webapi/data/tripCostPctOrg" />					  
+		</h:panelGrid> 
+    </rich:panel>	
+	
+	<br/> <br/> <br/>
+    <rich:panel header="Cost Distribution by Office">
+			<h:panelGrid columns="1" cellspacing="0" align="center" width="90%" headerClass="sectionHeader">		
+				
+				<gts:multiBarChart id="costByOrg" stacked="false" showControls="false" chartType="full" wsurl="/gts/webapi/data/SummaryChartByOfficePerOrg" />
+				
+				<gts:table model="#{model.summaryTableByOrg}"
+						  itemLabel="Office" />
+				 
+				
+			</h:panelGrid>
+    </rich:panel>	
+	
+
+	
+</h:form>
+<br/><br/>
+
+
+
+</ui:define>
+</ui:composition>	
+</html>
+

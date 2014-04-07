@@ -29,64 +29,57 @@
 
 <script>
 //<![CDATA[
-var #{id}_data = [];
 
-queue(1)
+queue()
     .defer(d3.json, "#{wsurl}", function(error, json) {
 		#{id}_data = json;
 		#{id}_drawChart();
-		})
+		});
 
-	/*
-	d3.json("#{wsurl}", function(error, json) {
-		#{id}_data = json;
-		
-		#{id}_drawChart();
-		}); 
-     */
-function #{id}_drawChart(){
-	console.log("loading ...");
-	console.log(#{id}_data);
-	nv.addGraph(function() {
-		chart = nv.models.linePlusBarChart()
-			.margin({top: 30, right: 40, bottom: 150, left: 90})
-			.x(function(d,i) { return i })
-			.color(d3.scale.category10().range());
+	function #{id}_drawChart(){
+		console.log(#{id}_data);
 
-		chart.xAxis.rotateLabels(#{rotateXAxisLabel});		
-		chart.xAxis.tickFormat(function(d) {
-		  var dx = #{id}_data[0].values[d] && #{id}_data[0].values[d].x || 0;
-		  if (#{xAxisTimeFlag}){
-		  return dx ? d3.time.format('#{xAxisTickFormat}')(new Date(dx)) : '';}
-		  else {
-		   return dx;
-		   }
-		  })
-		  .showMaxMin(false);
-		  
+	  nv.addGraph(function() {
+		var chart;
+		chart = nv.models.lineChart().useInteractiveGuideline(#{guideline});
 
-		chart.y1Axis
-			.tickFormat(function(d) { return '#{leftPre}' + d3.format('#{leftYformat}')(d) });
+		chart
+			.x(function(d,i) { 
+			  return d.x;
+			});
 
-		chart.y2Axis
-			.tickFormat(function(d) { return '#{rightPre}' + d3.format('#{rightYformat}')(d) });
 
-		chart.bars.forceY([0]).padData(true);
-		//chart.lines.forceY([0]);
+		var formatter;
+			if (#{useDates}) {
+				formatter = function(d,i) {
+						return d3.time.format('#{dateFormat}')(new Date(d));
+				}
+			}
+			else {
+				formatter = d3.format(",.1f");
+			}
+			chart.margin({top: 10, right: 60, bottom: 150, left: #{left}});		chart.xAxis // chart sub-models (ie. xAxis, yAxis, etc) when accessed directly, return themselves, not the parent chart, so need to chain separately
+				.tickFormat(
+					formatter
+				  );
+
+			
+		chart.yAxis
+			.axisLabel('#{yAxisLabel}')
+			.tickFormat(function(d) { return '#{yPre}' + d3.format('#{yformat}')(d) });
+
 
 		d3.select('##{id} svg')
 			.datum(#{id}_data)
-		  .transition().duration(500).call(chart);
+		  .transition().duration(500)
+			.call(chart);
 
 		nv.utils.windowResize(chart.update);
 
-		chart.dispatch.on('stateChange', function(e) { nv.log('New State:', JSON.stringify(e)); });
-
 		return chart;
-	   
-	  
-	 });
- }
+		});
+}
+//------
 
 
 //]]>
