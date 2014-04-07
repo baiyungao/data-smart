@@ -6,15 +6,15 @@ import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.washingtongt.data.MongoUtil;
 
-public abstract class Serial implements SerialBase{
+public abstract class Serie implements SerieBase{
 	
-	static final Logger log = Logger.getLogger(Serial.class);
+	static final Logger log = Logger.getLogger(Serie.class);
 	
 	
 	private Class<? extends Measurement> measurementClass;
 	protected Measurement measurement;
 	protected Measurement measurementYTD;
-	private Serial parent;
+	private Serie parent;
 	private BasicDBObject match;
 	private String field;
 	private String name;
@@ -32,11 +32,11 @@ public abstract class Serial implements SerialBase{
 		this.measurement = measurement;
 	}
 
-	public Serial getParent() {
+	public Serie getParent() {
 		return parent;
 	}
 
-	public void setParent(Serial parent) {
+	public void setParent(Serie parent) {
 		this.parent = parent;
 	}
 
