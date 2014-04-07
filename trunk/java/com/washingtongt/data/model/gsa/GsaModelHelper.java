@@ -2,6 +2,7 @@ package com.washingtongt.data.model.gsa;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
+import com.washingtongt.data.model.Model;
 import com.washingtongt.data.model.gsa.time.FiscalYear;
 import com.washingtongt.data.model.gsa.time.Month;
 import com.washingtongt.ui.model.ChartSeries;
@@ -12,7 +13,7 @@ public class GsaModelHelper {
 	static public ChartSeries getTotalExpenseReduceBenchMarkByMonth(String name, String year, int serieIndex ){
 	
 		
-		TripProfileModel model = (TripProfileModel) UITripModelMap.getDefault().findModel(name, "TripProfileModel");
+		Model model = (Model) UITripModelMap.getDefault().findModel(name, "TripProfileModel");
 		//TODO: General Serial here.
 		
 		FiscalYear benchMark = model.getBenchmark();

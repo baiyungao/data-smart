@@ -6,9 +6,9 @@ import org.apache.log4j.Logger;
 
 import com.mongodb.BasicDBObject;
 import com.washingtongt.data.model.Measurement;
-import com.washingtongt.data.model.Serial;
+import com.washingtongt.data.model.Serie;
 
-public class Month extends Serial{
+public class Month extends Serie{
 	static final Logger log = Logger.getLogger(Month.class);	
 	static final String[] names = {"JAN", "FEB", "MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC" };
 	

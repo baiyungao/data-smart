@@ -17,6 +17,19 @@ public class Indicator {
 	
 	private BasicDBList value = new BasicDBList();
 
+	public Indicator (AggregationOperator op, String factors){
+
+		this.op = op;
+		this.factors = factors;
+		this.label = factors;
+		
+		if (op.equals(AggregationOperator.COUNT)){
+			this.setCountIndicator(true);
+			log.debug("it is a count index:" + label);
+			
+		}
+	}	
+	
 	public Indicator (AggregationOperator op, String factors, String label){
 
 		this.op = op;

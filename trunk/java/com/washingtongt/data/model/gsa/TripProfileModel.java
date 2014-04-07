@@ -1,10 +1,6 @@
 package com.washingtongt.data.model.gsa;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -13,8 +9,8 @@ import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.washingtongt.data.MongoUtil;
 import com.washingtongt.data.model.Model;
-import com.washingtongt.data.model.Serial;
-import com.washingtongt.data.model.SerialBase;
+import com.washingtongt.data.model.Serie;
+import com.washingtongt.data.model.SerieBase;
 import com.washingtongt.data.model.gsa.time.FiscalYear;
 import com.washingtongt.data.model.gsa.time.Month;
 import com.washingtongt.ui.model.BarchartModel;
@@ -49,18 +45,11 @@ public class TripProfileModel extends Model {
 	
 	
 	
-	private List<FiscalYear> serialList = new ArrayList<FiscalYear>();
-	
-	private BasicDBObject match;
 	private TravelSumaryMeasure tsmByOrganization;
 	private TravelSumaryMeasure tsmByDestination;
 	private TravelCostDriverMeasure costDrivers;
 	
 	private String orgLevel; //organization or office
-	private FiscalYear benchmark;
-	
-	private Map<String, Object> uiModelMap = new HashMap<String, Object>();
-	
 	public TripProfileModel(BasicDBObject match, String orgLevel){
 		
 		this.match = match;
@@ -74,15 +63,15 @@ public class TripProfileModel extends Model {
 		FiscalYear fy2011 =new FiscalYear(GsaConstants.IDT_DATE_DEPARTURE, matchfy2011, 2011, 2010, 10, TravelSumaryMeasure.class);
 		fy2011.setName("2011");
 		fy2011.setBenchmark(true);
-		serialList.add(fy2011);
+		serieList.add(fy2011);
 		
 		FiscalYear fy2012 =new FiscalYear(GsaConstants.IDT_DATE_DEPARTURE, matchfy2012, 2012, 2011, 10, TravelSumaryMeasure.class);
 		fy2012.setName("2012");
-		serialList.add(fy2012);		
+		serieList.add(fy2012);		
 		
 		FiscalYear fy2013 =new FiscalYear(GsaConstants.IDT_DATE_DEPARTURE, matchfy2013, 2013, 2012, 10, TravelSumaryMeasure.class);
 		fy2013.setName("2013");
-		serialList.add(fy2013);		
+		serieList.add(fy2013);		
 		
 		this.setBenchmark(fy2011);
 		
@@ -117,10 +106,6 @@ public class TripProfileModel extends Model {
 		return true;
 	}
 	
-	public List<FiscalYear> getSerialList(){
-		return this.serialList;
-	}
-
 	public TravelSumaryMeasure getTsmByOrganization() {
 		return tsmByOrganization;
 	}
@@ -137,28 +122,7 @@ public class TripProfileModel extends Model {
 		this.tsmByDestination = tsmByDestination;
 	}
 
-	public FiscalYear getBenchmark() {
-		return benchmark;
-	}
 	
-	public FiscalYear getFiscalYear(String year){
-		
-			if (this.getSerialList()!=null){
-			
-			for (FiscalYear fyear: this.getSerialList()){
-				
-				if (fyear.getName().equalsIgnoreCase(year)){
-					return fyear;
-				}
-				
-			}
-		}
-		return null;
-	}
-
-	public void setBenchmark(FiscalYear baseLine) {
-		this.benchmark = baseLine;
-	}
 	
 	/* the method to get the summary cost model to render to the bar plus line chart
 	 * the chart 
@@ -185,7 +149,7 @@ public class TripProfileModel extends Model {
 		//chart.add(days_serial);
 		
 		
-		for (FiscalYear fy: serialList){
+		for (FiscalYear fy: serieList){
 			for (int i = 0; i < 12; i++){
 				Month month = fy.getMonth(i);
 				BasicDBList result = month.getMeasurmentResults();  //one row result only
@@ -237,7 +201,7 @@ public class TripProfileModel extends Model {
 		double benchmark = row.getDouble(GsaConstants.IDT_TOTAL_EXPENSE);
 		
 		
-		for (SerialBase s: getSerialList())
+		for (SerieBase s: getSerieList())
 		{
 		BasicDBList results = s.getMeasurmentResults();
 		model.addContent(results,s.getName(),GsaConstants.IDT_TOTAL_EXPENSE, benchmark);

@@ -1,10 +1,5 @@
 package com.washingtongt.data.model.gsa;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 
 import com.mongodb.BasicDBList;
@@ -18,13 +13,8 @@ import com.washingtongt.ui.model.LinePlusBarChartModel;
 
 public class CostDriverModel extends Model {
 
-	private List<FiscalYear> serialList = new ArrayList<FiscalYear>();
-
-	private BasicDBObject match;
 	static final Logger log = Logger.getLogger(CostDriverModel.class);
 
-	private Map<String, Object> uiModelMap = new HashMap<String, Object>();
-	private FiscalYear benchmark;
 	public CostDriverModel(BasicDBObject match){
 
 		this.match = match;
@@ -38,26 +28,19 @@ public class CostDriverModel extends Model {
 		FiscalYear fy2011 =new FiscalYear(GsaConstants.IDT_DATE_DEPARTURE, matchfy2011, 2011, 2010, 10, TravelCostDriverMeasure.class);
 		fy2011.setName("2011");
 		fy2011.setBenchmark(true);
-		serialList.add(fy2011);
+		serieList.add(fy2011);
 
 		FiscalYear fy2012 =new FiscalYear(GsaConstants.IDT_DATE_DEPARTURE, matchfy2012, 2012, 2011, 10, TravelCostDriverMeasure.class);
 		fy2012.setName("2012");
-		serialList.add(fy2012);		
+		serieList.add(fy2012);		
 
 		FiscalYear fy2013 =new FiscalYear(GsaConstants.IDT_DATE_DEPARTURE, matchfy2013, 2013, 2012, 10, TravelCostDriverMeasure.class);
 		fy2013.setName("2013");
-		serialList.add(fy2013);		
+		serieList.add(fy2013);		
 
 		this.setBenchmark(fy2011);
 
 	}
-	public FiscalYear getBenchmark() {
-		return benchmark;
-	}
-	public void setBenchmark(FiscalYear benchmark) {
-		this.benchmark = benchmark;
-	}
-
 	public LineChartModel getCostDriverChartYTDByMonth(String year){
 		
 		LineChartModel chart = new LineChartModel();
@@ -175,7 +158,7 @@ public LineChartModel getCostReducePercentageYTDByMonth(String year){
 
 	private FiscalYear getFYSerial(String fy){
 		
-		for (FiscalYear year: this.serialList){
+		for (FiscalYear year: this.serieList){
 			
 			if (year.getName().equalsIgnoreCase(fy)){
 				return year;

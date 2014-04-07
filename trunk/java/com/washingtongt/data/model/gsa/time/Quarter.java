@@ -8,9 +8,9 @@ import org.apache.log4j.Logger;
 
 import com.mongodb.BasicDBObject;
 import com.washingtongt.data.model.Measurement;
-import com.washingtongt.data.model.Serial;
+import com.washingtongt.data.model.Serie;
 
-public class Quarter extends Serial {
+public class Quarter extends Serie {
 	static final Logger log = Logger.getLogger(Quarter.class);
 	private Date start;
 	private Date end;
