@@ -23,5 +23,19 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
 	
+<navigation-rule>
+    <from-view-id>/console/dashboard.xhtml</from-view-id>
+    <navigation-case>
+      <from-outcome>showFyDetail</from-outcome>
+      <to-view-id>/console/dashboardFY.xhtml</to-view-id>
+      <redirect/>
+    </navigation-case>
+ <navigation-case>
+      <from-outcome>showOrgDetail</from-outcome>
+      <to-view-id>/console/dashboardOrg.xhtml</to-view-id>
+      <redirect/>
+    </navigation-case>	
+  </navigation-rule>
+	
 </faces-config>
         

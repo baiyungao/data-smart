@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:gts="http://www.washingtongt.com/jsf/gts"  class="bootstrap">	
+	
+<ui:composition template="/WEB-INF/common/Templates/HomePortal2013.xhtml">
+<ui:define name="title">Dash Board</ui:define>
+<ui:param name="help_link" value="http://www.myexostar.com/mag.aspx"/>
+<ui:define name="panel"> 
+
+<div id="primaryTab">
+    <ul>   	<li><h:outputLink styleClass="active" value="#{request.contextPath}/console/dashboard.jsf"><span>Dashboard</span></h:outputLink>  </li>
+			<li><h:outputLink styleClass="" value="www.iiibc.com" ><span>Reservation</span></h:outputLink>  </li>
+			<li><h:outputLink styleClass="" value="www.iiibc.com" ><span>Payment</span></h:outputLink>  </li>
+	</ul>
+</div>
+
+<br class="clear" />
+<br/>
+
+
+
+
+<h:form>
+
+<rich:panel header="Travel Expense Drivers Fiscal Year #{controller.fy}">
+
+
+			<h:panelGrid columns="2" cellspacing="0" cellpadding="0" width="100%" columnClasses = "column_40,column_40" footerClass="subtitle" headerClass="sectionHeader"  >   	
+						
+
+			<gts:multiBarChart id="costByMon" stacked="false" showControls="true" chartType="full" wsurl="/gts/webapi/data/costDriverDistribute/#{controller.fy}" />			
+			<gts:pieChart id="costpie" size="350" xAxisTickFormat="FY %Y" rotateXAxisLabel="0" 
+				 width="400" height="400"
+				 chartType = "full" wsurl="/gts/webapi/data/costdriver/#{controller.fy}" />	
+
+			
+
+			<gts:lineChart id="costdriverYTM"  chartType = "full" guideline="true" useDates="true"
+							   dateFormat="%b %Y" yformat=",f" yPre="$"  yAxisLabel="" left ="150"
+							   wsurl="/gts/webapi/data/costDriverYtmLineChart/#{controller.fy}" />
+							   
+<h:panelGroup   rendered="#{controller.fy !='2011'}">
+<h2>Travel Expense Cut vs. FY 2011 </h2>
+<br/>
+
+			<gts:lineChart id="costdriverPCTYTM"  chartType = "full" guideline="true" useDates="true"
+							   dateFormat="%b %Y" yformat=".2%" yPre=""  yAxisLabel="" left ="50"
+							   wsurl="/gts/webapi/data/costDriverYtmPctLineChart/#{controller.fy}" />		
+
+</h:panelGroup>								   
+
+			</h:panelGrid>	 
+                
+</rich:panel>
+
+
+
+    </h:form>
+<br/><br/>
+
+
+
+</ui:define>
+</ui:composition>	
+</html>
+

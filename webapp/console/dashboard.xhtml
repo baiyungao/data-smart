@@ -16,56 +16,75 @@
 <ui:define name="panel"> 
 
 <div id="primaryTab">
-    <ul>   	<li><h:outputLink styleClass="active" value="www.iiibc.com"><span>Dashboard</span></h:outputLink>  </li>
+    <ul>   	<li><h:outputLink styleClass="active" value="#{request.contextPath}/console/dashboard.jsf"><span>Dashboard</span></h:outputLink>  </li>
 			<li><h:outputLink styleClass="" value="www.iiibc.com" ><span>Reservation</span></h:outputLink>  </li>
 			<li><h:outputLink styleClass="" value="www.iiibc.com" ><span>Payment</span></h:outputLink>  </li>
 	</ul>
 </div>
-<div id="secondaryTab">
-	<ul>
-			<li><h:outputLink styleClass="active" value="www.iiibc.com"><span>Travel Cost Dashboard</span></h:outputLink> </li>
-            <li><h:outputLink styleClass="" value="www.iiibc.com" ><span>Cost Reduction Performance</span></h:outputLink> </li>
-	</ul>
-</div>
+
+<br class="clear" />
 <br/>
+
 
 <h:form>
 
-<h:panelGrid columns="3" cellspacing="0" cellpadding="0" width="90%" footerClass="subtitle" headerClass="sectionHeader"  >   	
-		<f:facet name="header">
-			<h:outputText value="Travel Cost Trend"/>
-		  </f:facet>	
+<!--
+		<ui:include src="/WEB-INF/common/Panels/overallCostTrendFacelet.xhtml">
+			<ui:param name="title" value="the Agency (GSA)"/>
+	        <ui:param name="wsurl" value="/gts/webapi/data/tripCostSummary"/>
+	        <ui:param name="panelId" value="agency" />
+	    </ui:include>
+-->
+	
+    <rich:panel header="Travel expense summary">
+			<h:panelGrid columns="2" cellspacing="0" cellpadding="0" width="90%" columnClasses="column_30,column_70" footerClass="subtitle" headerClass="sectionHeader"  >   	
+					<h:panelGroup>
+					<h2>Travel Voucher Expenses Trend for the Agency (GSA)</h2>
+					<br/><br/>
+					<strong>Cost Trend Table</strong>: 	
+					<br/>
+					<gts:table model="#{controller.overAllTripModel.yearSummaryTable}" 
+							   itemLabel="Fiscal year" performanceField="Total_Expenses" 
+							   performanceLabel="Cost cut vs. FY2011" actionClass="#{controller}" method="showFyDetail"
+							    assignField="fy"/>
+					<br/>
+					<strong>Cost Drivers Table</strong>: (Other = Local_Trans + POV + TMC_Fee + Voucher_Fee)	
+					<br/>
+					<gts:table model="#{controller.overAllTripModel.costDriverTable}" 
+							   itemLabel="Fiscal year" />
 
-		<gts:table model="#{controller.overAllTripModel.yearSummaryTable}" 
-				   itemLabel="Fiscal year" performanceField="Total_Expenses" actionClass="#{controller}" method="showFyDetail"/>
-				   
-		<gts:linePlusBarChart id="tripcostsummary" rotateXAxisLabel="60" 
-	 leftYformat=",.2f" rightYformat = ",f" leftPre="$" rightPre=""
-	 xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/data/tripCostSummary" />
-			   
+								   
+					<br/>
+					<strong>Notes: </strong> all data here are sample data provided by GSA for the contest.
+					<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+					</h:panelGroup>		   
+					<gts:linePlusBarChart id="tripcostsummary" rotateXAxisLabel="60" 
+				 leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre=""
+				 xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/data/tripCostSummary" />
+						   
 
-</h:panelGrid> 
+			</h:panelGrid> 
+    </rich:panel>	
+	
+	<br/> <br/>
+    <rich:panel header="Cost Distribution by Organization">
+			<h:panelGrid columns="1" cellspacing="0" align="center" width="90%" headerClass="sectionHeader">		
+				
+				<gts:multiBarChart id="costByOrg" stacked="false" showControls="false" chartType="full" wsurl="/gts/webapi/data/SummaryChartByOrg" />
+				
+				<gts:table model="#{controller.overAllTripModel.summaryTableByOrg}"
+						  itemLabel="Organization" actionClass="#{controller}" method="showOrgDetail"
+						  assignField="organization"/>
+				 
+				
+			</h:panelGrid>
+    </rich:panel>	
 	
 
-
-<br/>	
-<br/>
-
+	
+</h:form>
 
 	
-<h:panelGrid columns="1" cellspacing="0" align="center" width="90%" headerClass="sectionHeader">		
-		<f:facet name="header">
-			<h:outputText value="Cost Distribution by Organization"/>
-		  </f:facet>
-	
-	<gts:multiBarChart id="costByOrg" stacked="false" showControls="true" chartType="full" wsurl="/gts/webapi/data/SummaryChartByOrg" />
-	<gts:table model="#{controller.overAllTripModel.summaryTableByOrg}" itemLabel="Organization" />
-	
-	 
-	
-	</h:panelGrid>
-    
-</h:form>	
 
 
 </ui:define>

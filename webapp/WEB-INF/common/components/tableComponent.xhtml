@@ -21,13 +21,13 @@
             </rich:column>	
                <c:forEach items="#{model.cols}" var="col">
 				<rich:column>
-                    <h:outputText value="#{col}" />
+                    <h:outputText value="#{controller.labelMap[col]}" />
                 </rich:column>			
 				</c:forEach>
 				
 			<c:if test="#{not empty performanceField}" >
 			<rich:column>
-				<h:outputText value="Performance to Benchmark" />
+				<h:outputText value="#{performanceLabel}" />
             </rich:column>
 			</c:if>				
             </rich:columnGroup>
@@ -37,7 +37,9 @@
 		</f:facet>
 
 			<rich:column>
-				<h:commandLink  value="#{row['Item']}" action="#{actionClass[method]}" rendered = "#{not empty actionClass}"/>
+				<h:commandLink  value="#{row['Item']}" action="#{actionClass[method]}" rendered = "#{not empty actionClass}">
+					<a4j:param value="{#{assignField}:'#{row['Item']}'}" assignTo="#{controller.requestItem}" />
+				</h:commandLink>
 				<h:outputText  value="#{row['Item']}" rendered = "#{empty actionClass}"/>
             </rich:column>			
 		
@@ -51,9 +53,15 @@
 		
 		<c:if test="#{not empty performanceField}" >
 			<rich:column>
-				<h:outputText value="#{row['Performance']}" >
+			
+				<h:outputText value="#{row['Performance']}"  rendered="#{not empty row['Performance']}" >
 					 <f:convertNumber groupingUsed="true"  maxFractionDigits="2" type="percent" />
 				</h:outputText>
+				
+				<h:outputText value="--------"  rendered="#{empty row['Performance']}" >
+					
+				</h:outputText>
+            				
             </rich:column>
 		</c:if>
 		

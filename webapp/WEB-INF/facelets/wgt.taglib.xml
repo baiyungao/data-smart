@@ -17,6 +17,11 @@
 	    <tag-name>pieChart</tag-name>
 	    <source>../common/components/pieChart.xhtml</source>
 	</tag>	
+	<tag>
+	    <tag-name>lineChart</tag-name>
+	    <source>../common/components/lineChart.xhtml</source>
+	</tag>	
+	
 
 	<tag>
 	    <tag-name>table</tag-name>
