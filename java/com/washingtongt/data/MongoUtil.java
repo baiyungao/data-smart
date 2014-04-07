@@ -138,7 +138,7 @@ public class MongoUtil {
 		}
 		
 		log.debug("query string: " + dbList);
-		AggregationOutput output = getConnection().aggregate( dbList);
+		AggregationOutput output = getConnection(measure.getCollection()).aggregate( dbList);
 		
 		Collection<Object> results = output.getCommandResult().values();
 
@@ -268,9 +268,14 @@ public class MongoUtil {
 	}
 	
 	
-	private static DBCollection getConnection(){
-			DB gsaDB = MongoUtil.getMongoDB(db_name);
-		DBCollection coll = gsaDB.getCollection("travel_voucher");
+	private static DBCollection getConnection(String collectionName){
+		DB gsaDB = MongoUtil.getMongoDB(db_name);
+		
+		if ((collectionName == null) ||(collectionName.length() ==0)){
+			collectionName = GsaConstants.DB_C_VOURCHER;
+		}
+		
+		DBCollection coll = gsaDB.getCollection(collectionName);
 		return coll;
 	}
 	
@@ -301,7 +306,7 @@ public class MongoUtil {
 		dbList.add(group);
 		
 		
-		AggregationOutput output = getConnection().aggregate( dbList);
+		AggregationOutput output = getConnection(null).aggregate( dbList);
 		
 		Collection<Object> results = output.getCommandResult().values();
 
@@ -353,7 +358,7 @@ public class MongoUtil {
 		dbList.add(group);
 		//dbList.add(sort);
 		
-		AggregationOutput output = getConnection().aggregate( dbList);
+		AggregationOutput output = getConnection(null).aggregate( dbList);
 		
 		Collection<Object> results = output.getCommandResult().values();
 
@@ -403,7 +408,7 @@ public class MongoUtil {
 		dbList.add(group);
 		//dbList.add(sort);
 		
-		AggregationOutput output = getConnection().aggregate( dbList);
+		AggregationOutput output = getConnection(null).aggregate( dbList);
 		
 		Collection<Object> results = output.getCommandResult().values();
 
@@ -463,7 +468,7 @@ public class MongoUtil {
 		dbList.add(group);
 		dbList.add(sort);
 		
-		AggregationOutput output = getConnection().aggregate( dbList);
+		AggregationOutput output = getConnection(null).aggregate( dbList);
 		
 		Collection<Object> results = output.getCommandResult().values();
 
@@ -513,7 +518,7 @@ public class MongoUtil {
 		dbList.add(group);
 		dbList.add(sort);
 		
-		AggregationOutput output = getConnection().aggregate( dbList);
+		AggregationOutput output = getConnection(null).aggregate( dbList);
 		
 		Collection<Object> results = output.getCommandResult().values();
 
@@ -562,7 +567,7 @@ public class MongoUtil {
 		dbList.add(project);
 		dbList.add(group);
 		
-		AggregationOutput output = getConnection().aggregate( dbList);
+		AggregationOutput output = getConnection(null).aggregate( dbList);
 		//System.out.print("results: " + output.getCommandResult() );
 		
 		Collection<Object> results = output.getCommandResult().values();
@@ -670,7 +675,7 @@ public class MongoUtil {
 		dbList.add(group);
 		//dbList.add(sort);
 		
-		AggregationOutput output = getConnection().aggregate( dbList);
+		AggregationOutput output = getConnection(null).aggregate( dbList);
 		
 		Collection<Object> results = output.getCommandResult().values();
 
@@ -719,7 +724,7 @@ public class MongoUtil {
 		dbList.add(project);
 		dbList.add(group);
 		
-		AggregationOutput output = getConnection().aggregate( dbList);
+		AggregationOutput output = getConnection(null).aggregate( dbList);
 		//System.out.print("results: " + output.getCommandResult() );
 		
 		Collection<Object> results = output.getCommandResult().values();

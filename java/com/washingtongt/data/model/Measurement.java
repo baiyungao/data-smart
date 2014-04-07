@@ -6,6 +6,7 @@ import java.util.Map;
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
+import com.washingtongt.data.model.gsa.GsaConstants;
 
 /**
  * Assume we have data for FY2011, this is the bench mark for cost analysis
@@ -30,8 +31,10 @@ public class Measurement {
 
 
 	private BasicDBObject matchFields =null;
-	
 	private BasicDBObject compositionValue = null;
+	
+	private String collection=GsaConstants.DB_C_VOURCHER;  //where to get the data;
+	
 
 	public String getName() {
 		return name;
@@ -137,5 +140,13 @@ public class Measurement {
 
 	public void setLimits(int limits) {
 		this.limits = limits;
+	}
+
+	public String getCollection() {
+		return collection;
+	}
+
+	public void setCollection(String collection) {
+		this.collection = collection;
 	}
 }
