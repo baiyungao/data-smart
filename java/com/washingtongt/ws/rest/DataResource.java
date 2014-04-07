@@ -213,7 +213,56 @@ public class DataResource {
     	
     	return "";
     }    
+
+    /*
+     *  the total tripcostsummary used in the per organization page
+     */
     
+    @GET
+    @Path("tripCostSummaryOrg")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getTripCostSummaryOrgChart(@Context HttpServletRequest request) {
+    	TripProfileModel overAllTripModel = null;
+    	ConsoleController controller = this.getController(request);
+    	if (controller != null){
+    		overAllTripModel = controller.getOrgModel();
+    	}
+    	else {
+    		return null;
+    	}
+    
+    	LinePlusBarChartModel model = overAllTripModel.getSummaryChartByMonth();
+    	
+    	if (model != null){
+			return JSON.serialize(model.toArray());
+		}
+    	
+    	return "";
+    }    
+    
+    @GET
+    @Path("SummaryChartByOfficePerOrg")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getSummaryChartByOfficePerOrg(@Context HttpServletRequest request) {
+    	
+    	TripProfileModel overAllTripModel = null;
+    	ConsoleController controller = this.getController(request);
+    	if (controller != null){
+    		overAllTripModel = controller.getOrgModel();
+    	}
+    	else {
+    		return null;
+    	}
+    	 
+    	BarchartModel model = overAllTripModel.getTripSummaryChartByOrg();
+    	
+    	if (model != null){
+			return JSON.serialize(model.toArray());
+		}
+    	
+    	return "";
+    }      
+        
 
     private ConsoleController getController(HttpServletRequest request){
     	
@@ -303,4 +352,58 @@ public class DataResource {
     	return "";
     }    
     
+    
+    /**
+     * get the cost driver distribution for a year
+     */
+    @GET
+    @Path("costDriverYtmLineChart/{fy}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getCostDriverYtmLineChart(@PathParam("fy") String fy, @Context HttpServletRequest request) {
+    	log.debug("path para: fy " + fy);
+    	
+    	CostDriverModel costdriverModel = null;
+    	ConsoleController controller = this.getController(request);
+    	if (controller != null){
+    		costdriverModel = controller.getCostDriverModel();
+    	}
+    	else {
+    		costdriverModel = new CostDriverModel(null);
+    		
+    	}
+ 	
+    	if (costdriverModel != null){
+			return JSON.serialize(costdriverModel.getCostDriverChartYTDByMonth(fy).toArray());
+		}
+    	
+    	return "";
+    }       
+
+    /**
+     * get the cost driver distribution for a year
+     */
+    @GET
+    @Path("costDriverYtmPctLineChart/{fy}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getCostDriverYtmPctLineChart(@PathParam("fy") String fy, @Context HttpServletRequest request) {
+    	log.debug("path para: fy " + fy);
+    	
+    	CostDriverModel costdriverModel = null;
+    	ConsoleController controller = this.getController(request);
+    	if (controller != null){
+    		costdriverModel = controller.getCostDriverModel();
+    	}
+    	else {
+    		costdriverModel = new CostDriverModel(null);
+    		
+    	}
+ 	
+    	if (costdriverModel != null){
+			return JSON.serialize(costdriverModel.getCostReducePercentageYTDByMonth(fy).toArray());
+		}
+    	
+    	return "";
+    }       
+
+
 }

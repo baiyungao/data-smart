@@ -35,9 +35,11 @@ import com.washingtongt.data.model.gsa.time.FiscalYear;
 import com.washingtongt.data.model.gsa.time.Month;
 import com.washingtongt.data.model.gsa.time.Quarter;
 import com.washingtongt.ui.model.BarchartModel;
+import com.washingtongt.ui.model.LineChartModel;
 import com.washingtongt.ui.model.LinePlusBarChartModel;
 import com.washingtongt.ui.model.PieChartModel;
 import com.washingtongt.ui.model.TableModel;
+import com.washingtongt.web.UITripModelMap;
 
 public class MongoUtil {
 	
@@ -765,12 +767,22 @@ public class MongoUtil {
 		
 		
 		CostDriverModel cmodel = new CostDriverModel(null);
+		TripProfileModel overAllTripModel = new TripProfileModel(null, GsaConstants.ORG_LEVEL_ORGANIZATION);
+		overAllTripModel.populate(); 
 		
-		LinePlusBarChartModel chartModel = cmodel.getCostDriverChartByMonth("2011");
+		UITripModelMap.getDefault().load("ALL", overAllTripModel);
 		
-		log.debug("char:" + chartModel);
+		//LinePlusBarChartModel chartModel = cmodel.getCostDriverChartByMonth("2011");
 		
+		LineChartModel lineChart = cmodel.getCostDriverChartYTDByMonth("2011");
 		
+		log.debug("char:" + lineChart);
+		
+		lineChart = cmodel.getCostReducePercentageYTDByMonth("2012");
+		
+		log.debug("char:" + lineChart);
+		
+		/*
 		TripProfileModel overAllTripModel = new TripProfileModel(null, GsaConstants.ORG_LEVEL_ORGANIZATION);
 		overAllTripModel.populate(); 
 		TableModel model = overAllTripModel.getSummaryTableByOrg();

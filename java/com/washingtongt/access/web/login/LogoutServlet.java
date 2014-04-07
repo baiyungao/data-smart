@@ -45,8 +45,10 @@ public class LogoutServlet extends HttpServlet {
 		try {
 			HttpSession session = request.getSession(true);
 			AccessToken token = (AccessToken)session.getAttribute(AccessAuthManager.TOKEN_STRING);
-			token.invalid();
-			session.removeAttribute(AccessAuthManager.TOKEN_STRING);
+			if (token != null){
+				token.invalid();
+				session.removeAttribute(AccessAuthManager.TOKEN_STRING);
+			}
 			String path = request.getContextPath();
 			String loginUrl = path + AccessAuthManager.WEB_AUTH_URL;
 			

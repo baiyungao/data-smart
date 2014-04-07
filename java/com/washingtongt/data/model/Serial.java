@@ -100,10 +100,13 @@ public abstract class Serial implements SerialBase{
 	@Override
 	public BasicDBList getMeasurmentResultsYTD(){
 		BasicDBList result = null;
+		if (this.measurementYTD == null){
+			this.measurementYTD = this.getMeasurementYTD();
+		}
 		if (this.measurementYTD !=null){
 			result =  this.measurementYTD.getResults();
 			if (result == null) {
-				result =  MongoUtil.getMeasurement(this.getMeasurementYTD());
+				result =  MongoUtil.getMeasurement(this.measurementYTD);
 			}
 		}
 		return result;	
