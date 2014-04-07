@@ -27,6 +27,7 @@ import com.washingtongt.data.model.gsa.TravelCostMeasure;
 import com.washingtongt.data.model.gsa.TripProfileModel;
 import com.washingtongt.ui.model.BarchartModel;
 import com.washingtongt.ui.model.ChartSeries;
+import com.washingtongt.ui.model.LineChartModel;
 import com.washingtongt.ui.model.LinePlusBarChartModel;
 import com.washingtongt.ui.model.PieChartModel;
 import com.washingtongt.web.ConsoleController;
@@ -239,6 +240,35 @@ public class DataResource {
     	
     	return "";
     }    
+    
+    /**
+     * Usered by org dashboard
+     * @param request
+     * @return
+     */
+    @GET
+    @Path("tripCostPctOrg")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getTripCostPctOrgChart(@Context HttpServletRequest request) {
+    	TripProfileModel overAllTripModel = null;
+    	ConsoleController controller = this.getController(request);
+    	if (controller != null){
+    		overAllTripModel = controller.getOrgModel();
+    	}
+    	else {
+    		return null;
+    	}
+    
+    	LineChartModel model = overAllTripModel.getCostReducePercentageYTDByMonth();
+    	
+    	if (model != null){
+			return JSON.serialize(model.toArray());
+		}
+    	
+    	return "";
+    }    
+        
+    
     
     @GET
     @Path("SummaryChartByOfficePerOrg")

@@ -105,9 +105,9 @@ public LineChartModel getCostReducePercentageYTDByMonth(String year){
 			name = match.getString(GsaConstants.ORG_LEVEL_ORGANIZATION);
 		}
 		ChartSeries bench_serial = GsaModelHelper.getTotalExpenseReduceBenchMarkByMonth(name, year, 0);
-		
-		chart.add(air_serial);
+
 		chart.add(bench_serial);
+		chart.add(air_serial);
 		chart.add(meal_serial);
 		chart.add(lodging_serial);
 		chart.add(misc_serial);

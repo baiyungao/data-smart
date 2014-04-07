@@ -156,8 +156,12 @@ public LinePlusBarChartModel(BasicDBList list, ChartSeries bench, boolean sort){
 			BasicDBObject item = new BasicDBObject();
 			item.put("series", seriesIndex);
 			item.put("x", rowId);
+			if (row != null){
 			item.put("y", row.get(colKey));
-		
+			}
+			else {
+				item.put("y", 0);
+			}
 			serial.getValue().add(item);
 			
 		}
