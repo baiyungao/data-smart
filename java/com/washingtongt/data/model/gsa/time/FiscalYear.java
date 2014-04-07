@@ -7,9 +7,9 @@ import org.apache.log4j.Logger;
 import com.mongodb.BasicDBObject;
 import com.washingtongt.data.MongoUtil;
 import com.washingtongt.data.model.Measurement;
-import com.washingtongt.data.model.Serial;
+import com.washingtongt.data.model.Serie;
 
-public class FiscalYear extends Serial{
+public class FiscalYear extends Serie{
 
 	
 	static final Logger log = Logger.getLogger(FiscalYear.class);

@@ -44,7 +44,7 @@ public class ConsoleController {
 		}
 		else {
 			overAllTripModel = (TripProfileModel)model;
-			log.debug("load model from cache:" + overAllTripModel.getSerialList() );
+			log.debug("load model from cache:" + overAllTripModel.getSerieList() );
 		}
 		
 		model =uiModelMap.findModel("ALL", "CostDriverModel"); 

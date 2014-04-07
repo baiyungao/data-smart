@@ -38,21 +38,6 @@ public class GsaConstants {
 		labelMap = new HashMap<String, String>();
 		labelMap.put(IDT_AIR_EXPENSE, "Common_Carrier AIR_TRAIN");
 		labelMap.put(IDT_MEALS_EXPENSE, "Meals Incidentals");
-		/*
-		labelMap.put(IDT_AIR_EXPENSE, IDT_AIR_EXPENSE);
-		labelMap.put(IDT_CAR_RENTAL_EXPENSE, IDT_CAR_RENTAL_EXPENSE);
-		labelMap.put(IDT_DATE_DEPARTURE, IDT_DATE_DEPARTURE);
-		labelMap.put(IDT_DATE_RETURN, IDT_DATE_RETURN);
-		labelMap.put(IDT_DAYS_OF_TRIP, IDT_DAYS_OF_TRIP);
-		labelMap.put(IDT_FY, IDT_FY);
-		labelMap.put(IDT_LOCAL_TRANS, IDT_LOCAL_TRANS);
-		labelMap.put(IDT_LODGING_EXPENSE, IDT_LODGING_EXPENSE);
-		labelMap.put(IDT_MEALS_EXPENSE, IDT_MEALS_EXPENSE);
-		labelMap.put(IDT_MISC_EXPENSE, IDT_MISC_EXPENSE);
-		labelMap.put(IDT_OTHER_EXPENSE, IDT_OTHER_EXPENSE);
-		labelMap.put(IDT_TOTAL_EXPENSE, IDT_TOTAL_EXPENSE);
-		*/
-		
 		
 	}
 	
