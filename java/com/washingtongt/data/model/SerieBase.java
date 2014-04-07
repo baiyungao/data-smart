@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.mongodb.BasicDBList;
 
-public interface SerialBase {
+public interface SerieBase {
 	public static final int YEAR = 0;
 	public static final int QUARTER = 1;
 	public static final int MONTH = 2;
