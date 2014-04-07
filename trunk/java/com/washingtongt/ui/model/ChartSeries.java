@@ -1,5 +1,7 @@
 package com.washingtongt.ui.model;
 
+import org.apache.log4j.Logger;
+
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 
@@ -8,9 +10,10 @@ public class ChartSeries extends BasicDBObject{
 	/**
 	 * series
 	 */
-	
+	static final Logger log = Logger.getLogger(ChartSeries.class);
 	public static final int LEFT = 0;
 	public static final int RIGHT = 1;
+	public static final int NONE = -1;
 	
 	private static final long serialVersionUID = 1L;
 	private static String KEY = "key";
@@ -40,6 +43,8 @@ public class ChartSeries extends BasicDBObject{
 		case 1: //left
 			this.put(KEY, key + " (right axis)" );
 			break;
+		case -1: //NONE
+			this.put(KEY, key);
 		}
 		
 		this.put(VALUE, list);
@@ -48,6 +53,24 @@ public class ChartSeries extends BasicDBObject{
 	public BasicDBList getValue(){
 		return (BasicDBList)this.get(VALUE);
 	}
+	
+	public void addContent(BasicDBObject row, BasicDBObject benchMark, long rowId, String key, int serieIndex){
+		
+		
+			
+			BasicDBObject item = new BasicDBObject();
+			item.put("series", serieIndex);
+			item.put("x", rowId);
+			
+			double bm = benchMark.getDouble(key);
+			double value = row.getDouble(key);
+			double percent = ((double)(bm-value))/bm;
+			item.put("y", percent);
+		
+			this.getValue().add(item);
+			
+	
+	}	
 	
 
 }

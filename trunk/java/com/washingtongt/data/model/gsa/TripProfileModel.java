@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.washingtongt.data.MongoUtil;
+import com.washingtongt.data.model.Model;
 import com.washingtongt.data.model.Serial;
 import com.washingtongt.data.model.SerialBase;
 import com.washingtongt.data.model.gsa.time.FiscalYear;
@@ -33,7 +34,7 @@ import com.washingtongt.ui.model.TableModel;
  * @author gaob
  *
  */
-public class TripProfileModel {
+public class TripProfileModel extends Model {
 	
 	static final Logger log = Logger.getLogger(TripProfileModel.class);
 	
@@ -137,6 +138,21 @@ public class TripProfileModel {
 
 	public FiscalYear getBenchmark() {
 		return benchmark;
+	}
+	
+	public FiscalYear getFiscalYear(String year){
+		
+			if (this.getSerialList()!=null){
+			
+			for (FiscalYear fyear: this.getSerialList()){
+				
+				if (fyear.getName().equalsIgnoreCase(year)){
+					return fyear;
+				}
+				
+			}
+		}
+		return null;
 	}
 
 	public void setBenchmark(FiscalYear baseLine) {
