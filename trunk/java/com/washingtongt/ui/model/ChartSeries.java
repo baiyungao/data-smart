@@ -21,6 +21,9 @@ public class ChartSeries extends BasicDBObject{
 	private static String VALUE = "values";
 	private static String BAR = "bar";
 	
+	public void setKey(String value){
+		this.put(KEY, value);
+	}
 	
 	public ChartSeries(String key){
 		super();
@@ -55,15 +58,18 @@ public class ChartSeries extends BasicDBObject{
 	}
 	
 	public void addContent(BasicDBObject row, BasicDBObject benchMark, long rowId, String key, int serieIndex){
-		
-		
-			
-			BasicDBObject item = new BasicDBObject();
+	
+		BasicDBObject item = new BasicDBObject();
 			item.put("series", serieIndex);
 			item.put("x", rowId);
 			
 			double bm = benchMark.getDouble(key);
-			double value = row.getDouble(key);
+			
+			double value = 0;
+			if (row != null) {
+				value = row.getDouble(key);
+				}
+			
 			double percent = ((double)(bm-value))/bm;
 			item.put("y", percent);
 		

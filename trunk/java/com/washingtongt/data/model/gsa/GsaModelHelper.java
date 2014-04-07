@@ -18,7 +18,7 @@ public class GsaModelHelper {
 		FiscalYear benchMark = model.getBenchmark();
 		FiscalYear fy = model.getFiscalYear(year);
 		
-		ChartSeries bSerie = new ChartSeries("Expenses BM FY" + year);
+		ChartSeries bSerie = new ChartSeries(GsaConstants.IDT_TOTAL_EXPENSE);
 		
 		for (int i = 0; i < 12; i++){
 			Month month = fy.getMonth(i);
@@ -26,7 +26,10 @@ public class GsaModelHelper {
 			BasicDBList result = month.getMeasurmentResultsYTD();  //one row result only
 			BasicDBList bResult = bMonth.getMeasurmentResultsYTD();  //one row result only
 			if (result != null){
-				BasicDBObject row = (BasicDBObject)result.get(0);
+				BasicDBObject row = null;
+				if (result.size()  >0){
+					row = (BasicDBObject)result.get(0);
+				 }
 				BasicDBObject bRow = (BasicDBObject)bResult.get(0);
 				bSerie.addContent(row, bRow, month.getStart().getTime(), GsaConstants.IDT_TOTAL_EXPENSE, serieIndex);
 				

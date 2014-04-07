@@ -19,6 +19,7 @@ import com.washingtongt.data.model.gsa.time.FiscalYear;
 import com.washingtongt.data.model.gsa.time.Month;
 import com.washingtongt.ui.model.BarchartModel;
 import com.washingtongt.ui.model.ChartSeries;
+import com.washingtongt.ui.model.LineChartModel;
 import com.washingtongt.ui.model.LinePlusBarChartModel;
 import com.washingtongt.ui.model.TableModel;
 
@@ -189,7 +190,10 @@ public class TripProfileModel extends Model {
 				Month month = fy.getMonth(i);
 				BasicDBList result = month.getMeasurmentResults();  //one row result only
 				if (result != null){
-					BasicDBObject row = (BasicDBObject)result.get(0);
+					BasicDBObject row = null;
+					if (result.size() >0) {
+						row = (BasicDBObject)result.get(0);
+					}
 					chart.addContent(row, month.getName(),GsaConstants.INDEX_TRAVEL_SUMMARY_CHART);
 				}
 			}
@@ -292,6 +296,37 @@ public class TripProfileModel extends Model {
 		model.setOrderById(true);
 		return model;
 	}
+	
+public LineChartModel getCostReducePercentageYTDByMonth(){
+		
+		LineChartModel chart = new LineChartModel();
+	
+		String name = "ALL";
+		if (this.match != null){
+			name = match.getString(GsaConstants.ORG_LEVEL_ORGANIZATION);
+		}
+		
+		ChartSeries bench_serial = GsaModelHelper.getTotalExpenseReduceBenchMarkByMonth("ALL", "2012", 0); //bench mark
+		ChartSeries org_serial = GsaModelHelper.getTotalExpenseReduceBenchMarkByMonth(name, "2012", 1); //org
+		org_serial.setKey("2012" + GsaConstants.IDT_TOTAL_EXPENSE + "(org)");
+		bench_serial.setKey("2012" + GsaConstants.IDT_TOTAL_EXPENSE);
+		
+		ChartSeries bench_serial_1 = GsaModelHelper.getTotalExpenseReduceBenchMarkByMonth("ALL", "2013", 0); //bench mark
+		ChartSeries org_serial_1 = GsaModelHelper.getTotalExpenseReduceBenchMarkByMonth(name, "2013", 1); //org
+		org_serial_1.setKey("2013" + GsaConstants.IDT_TOTAL_EXPENSE + "(org)");
+		bench_serial_1.setKey("2013" + GsaConstants.IDT_TOTAL_EXPENSE);
+		
+		//bench_serial.getValue().addAll(bench_serial_1.getValue());
+		//org_serial.getValue().addAll(org_serial_1.getValue());
+		
+		chart.add(bench_serial);
+		chart.add(org_serial);
+		chart.add(bench_serial_1);
+		chart.add(org_serial_1);
+		
+		return chart;
+	}
+	
 			
 	
 }

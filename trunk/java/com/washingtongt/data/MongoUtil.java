@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.mongodb.QueryBuilder;
 
 import com.mongodb.AggregationOutput;
 import com.mongodb.BasicDBList;
@@ -22,23 +21,11 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
 import com.washingtongt.data.model.Indicator;
 import com.washingtongt.data.model.Measurement;
-import com.washingtongt.data.model.SerialBase;
 import com.washingtongt.data.model.gsa.CostDriverModel;
-import com.washingtongt.data.model.gsa.CostGapModel;
-import com.washingtongt.data.model.gsa.GSAIndicatorFactory;
 import com.washingtongt.data.model.gsa.GsaConstants;
-import com.washingtongt.data.model.gsa.TravelCostMeasure;
-import com.washingtongt.data.model.gsa.TravelSumaryMeasure;
 import com.washingtongt.data.model.gsa.TripProfileModel;
 import com.washingtongt.data.model.gsa.time.DateUtils;
-import com.washingtongt.data.model.gsa.time.FiscalYear;
-import com.washingtongt.data.model.gsa.time.Month;
-import com.washingtongt.data.model.gsa.time.Quarter;
-import com.washingtongt.ui.model.BarchartModel;
 import com.washingtongt.ui.model.LineChartModel;
-import com.washingtongt.ui.model.LinePlusBarChartModel;
-import com.washingtongt.ui.model.PieChartModel;
-import com.washingtongt.ui.model.TableModel;
 import com.washingtongt.web.UITripModelMap;
 
 public class MongoUtil {
@@ -772,15 +759,29 @@ public class MongoUtil {
 		
 		UITripModelMap.getDefault().load("ALL", overAllTripModel);
 		
+		match = new BasicDBObject("Organization", "Ofc of the Chief Acquisition") ;  //R9-Pacific Rim-SFO, CA
+		
+		
+		// TEST Trip Profile Model
+		TripProfileModel model = new TripProfileModel(match, GsaConstants.ORG_LEVEL_ORGANIZATION);
+		
+		model.populate();
+		
+		UITripModelMap.getDefault().load("Ofc of the Chief Acquisition", model);
+		
+		
+		
 		//LinePlusBarChartModel chartModel = cmodel.getCostDriverChartByMonth("2011");
 		
-		LineChartModel lineChart = cmodel.getCostDriverChartYTDByMonth("2011");
+		//LineChartModel lineChart = cmodel.getCostDriverChartYTDByMonth("2011");
 		
+		//log.debug("char:" + lineChart);
+		
+		//LineChartModel lineChart = cmodel.getCostReducePercentageYTDByMonth("2012");
+		LineChartModel lineChart =  model.getCostReducePercentageYTDByMonth();
 		log.debug("char:" + lineChart);
 		
-		lineChart = cmodel.getCostReducePercentageYTDByMonth("2012");
-		
-		log.debug("char:" + lineChart);
+		//log.debug("linebar:" + model.getSummaryChartByMonth());
 		
 		/*
 		TripProfileModel overAllTripModel = new TripProfileModel(null, GsaConstants.ORG_LEVEL_ORGANIZATION);
