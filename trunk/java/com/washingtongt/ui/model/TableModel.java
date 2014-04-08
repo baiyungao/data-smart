@@ -8,13 +8,17 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import org.apache.log4j.Logger;
+
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
+import com.washingtongt.data.model.Measurement;
 import com.washingtongt.data.model.gsa.GsaConstants;
 
 public class TableModel  {
 	
+	static final Logger log = Logger.getLogger(TableModel.class);
 	private ArrayList<String> cols;
 	private String header="Default Table";
 	private int clientRows = 30;
@@ -31,13 +35,29 @@ public class TableModel  {
 		super();
 		
 		this.groupKey = group;
+		this.setCols(headers);
+	}
+	
+	private void setCols(String[] headers){
 		cols = new ArrayList<String>();
-		
 		for (String col: headers){
 			cols.add(col);
 		}
 		
 	}
+	public TableModel(Measurement measurement, String keyColName){
+		
+		new TableModel(measurement.getIndexNames(), (String)null, (String)null);
+		
+		this.setCols(measurement.getIndexNames());
+		
+		if (measurement.isPopulated()){
+			this.addContent(measurement.getResults(), keyColName);
+		}
+		
+		log.debug("check the cols:" + this.cols);
+	}
+	
 	
 	public void addContentWithGroup(BasicDBList result, String item, String group)
 	{

@@ -21,11 +21,18 @@ public class AirConstants {
 	public static String IDT_ONLINE = "Online_Indicator";
 	public static String IDT_F_CATEGORY = "Fare_Category";
 	
-	public static String IDT_R_DAYS = "Days Ahead";
+	public static String IDT_R_DAYS = "Avg Rsv Days";
 	public static String IDT_T_COUNTS = "Counts";
 
+	public static String IDT_AVG_PRICE = "Avg Amount";
 	
 	public static final String[] INDEX_AIR_COST_SUMMARY_MEASURE = 
-		{ IDT_I_AMOUNT, IDT_T_COUNTS,IDT_TAX,IDT_T_AMOUNT,IDT_MILEAGE, IDT_R_DAYS	};		
-
+		{ IDT_T_COUNTS,IDT_T_AMOUNT,IDT_AVG_PRICE,IDT_MILEAGE, IDT_R_DAYS	};	
+	
+	public static final String[] INDEX_AIR_SUMMARY_CHART = 
+		{ 	IDT_T_AMOUNT,
+			IDT_T_COUNTS,
+			IDT_AVG_PRICE
+		};
+	
 }

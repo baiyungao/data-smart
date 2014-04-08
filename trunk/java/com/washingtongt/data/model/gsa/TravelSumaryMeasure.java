@@ -7,6 +7,7 @@ public class TravelSumaryMeasure extends Measurement {
 	
 public TravelSumaryMeasure(){
 	
+		this.setCollection(GsaConstants.DB_C_VOURCHER);
 		this.setDescription("Travel Summary Measure: total expense and counts");
 		this.setIndexNames(GsaConstants.INDEX_TRAVEL_SUMMARY_MEASURE);
 		

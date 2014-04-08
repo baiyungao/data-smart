@@ -8,7 +8,7 @@ public class TravelCostMeasure extends Measurement {
 
 	public TravelCostMeasure(){
 		
-		
+		this.setCollection(GsaConstants.DB_C_VOURCHER);
 		this.setDescription("Sum total expense and individual expense driver");
 		
 		this.setIndexNames(GsaConstants.INDEX_TRAVEL_COST_MEASURE);

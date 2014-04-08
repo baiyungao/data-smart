@@ -14,7 +14,7 @@ import com.washingtongt.data.model.SerieBase;
 import com.washingtongt.data.model.gsa.time.FiscalYear;
 import com.washingtongt.data.model.gsa.time.Month;
 import com.washingtongt.ui.model.BarchartModel;
-import com.washingtongt.ui.model.ChartSeries;
+import com.washingtongt.ui.model.ChartSerie;
 import com.washingtongt.ui.model.LineChartModel;
 import com.washingtongt.ui.model.LinePlusBarChartModel;
 import com.washingtongt.ui.model.TableModel;
@@ -140,8 +140,8 @@ public class TripProfileModel extends Model {
 		
 		chart = new LinePlusBarChartModel();
 	
-		ChartSeries cost_serial = new ChartSeries(GsaConstants.IDT_TOTAL_EXPENSE,ChartSeries.LEFT,true);
-		ChartSeries ct_serial = new ChartSeries(GsaConstants.IDT_TRIP_CT,ChartSeries.RIGHT,false);
+		ChartSerie cost_serial = new ChartSerie(GsaConstants.IDT_TOTAL_EXPENSE,ChartSerie.LEFT,true);
+		ChartSerie ct_serial = new ChartSerie(GsaConstants.IDT_TRIP_CT,ChartSerie.RIGHT,false);
 		//ChartSeries days_serial = new ChartSeries(GsaConstants.IDT_DAYS_OF_TRIP,ChartSeries.RIGHT,false);
 		
 		chart.add(cost_serial);
@@ -270,13 +270,13 @@ public LineChartModel getCostReducePercentageYTDByMonth(){
 			name = match.getString(GsaConstants.ORG_LEVEL_ORGANIZATION);
 		}
 		
-		ChartSeries bench_serial = GsaModelHelper.getTotalExpenseReduceBenchMarkByMonth("ALL", "2012", 0); //bench mark
-		ChartSeries org_serial = GsaModelHelper.getTotalExpenseReduceBenchMarkByMonth(name, "2012", 1); //org
+		ChartSerie bench_serial = GsaModelHelper.getTotalExpenseReduceBenchMarkByMonth("ALL", "2012", 0); //bench mark
+		ChartSerie org_serial = GsaModelHelper.getTotalExpenseReduceBenchMarkByMonth(name, "2012", 1); //org
 		org_serial.setKey("2012" + GsaConstants.IDT_TOTAL_EXPENSE + "(org)");
 		bench_serial.setKey("2012" + GsaConstants.IDT_TOTAL_EXPENSE);
 		
-		ChartSeries bench_serial_1 = GsaModelHelper.getTotalExpenseReduceBenchMarkByMonth("ALL", "2013", 0); //bench mark
-		ChartSeries org_serial_1 = GsaModelHelper.getTotalExpenseReduceBenchMarkByMonth(name, "2013", 1); //org
+		ChartSerie bench_serial_1 = GsaModelHelper.getTotalExpenseReduceBenchMarkByMonth("ALL", "2013", 0); //bench mark
+		ChartSerie org_serial_1 = GsaModelHelper.getTotalExpenseReduceBenchMarkByMonth(name, "2013", 1); //org
 		org_serial_1.setKey("2013" + GsaConstants.IDT_TOTAL_EXPENSE + "(org)");
 		bench_serial_1.setKey("2013" + GsaConstants.IDT_TOTAL_EXPENSE);
 		

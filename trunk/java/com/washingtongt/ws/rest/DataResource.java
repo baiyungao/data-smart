@@ -26,7 +26,7 @@ import com.washingtongt.data.model.gsa.GsaConstants;
 import com.washingtongt.data.model.gsa.TravelCostMeasure;
 import com.washingtongt.data.model.gsa.TripProfileModel;
 import com.washingtongt.ui.model.BarchartModel;
-import com.washingtongt.ui.model.ChartSeries;
+import com.washingtongt.ui.model.ChartSerie;
 import com.washingtongt.ui.model.LineChartModel;
 import com.washingtongt.ui.model.LinePlusBarChartModel;
 import com.washingtongt.ui.model.PieChartModel;
@@ -38,7 +38,7 @@ import com.washingtongt.web.ConsoleController;
 @Path("data")
 public class DataResource {
 
-	static final Logger log = Logger.getLogger(LinePlusBarChartModel.class);
+	static final Logger log = Logger.getLogger(DataResource.class);
     /**
      * Method handling HTTP GET requests. The returned object will be sent
      * to the client as "text/plain" media type.
@@ -95,7 +95,7 @@ public class DataResource {
     	
     	log.debug("getResults for bench mark:" + results);
     	LinePlusBarChartModel bModel = new LinePlusBarChartModel(benchMark,true);
-    	ChartSeries bSerial = bModel.getSerialMap().get("avg");
+    	ChartSerie bSerial = bModel.getSerialMap().get("avg");
     	
     	if (results != null){
 			return JSON.serialize(new LinePlusBarChartModel(results,bSerial,true).toArray());

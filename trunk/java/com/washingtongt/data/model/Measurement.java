@@ -3,10 +3,11 @@ package com.washingtongt.data.model;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
-import com.washingtongt.data.model.gsa.GsaConstants;
 
 /**
  * Assume we have data for FY2011, this is the bench mark for cost analysis
@@ -16,7 +17,7 @@ import com.washingtongt.data.model.gsa.GsaConstants;
  *
  */
 public class Measurement {
-
+	static final Logger log = Logger.getLogger(Measurement.class);
 	private String name;
 	private String description;
 	private String groupby;
@@ -33,7 +34,7 @@ public class Measurement {
 	private BasicDBObject matchFields =null;
 	private BasicDBObject compositionValue = null;
 	
-	private String collection=GsaConstants.DB_C_VOURCHER;  //where to get the data;
+	private String collection=null;  //where to get the data;
 	
 
 	public String getName() {
@@ -61,6 +62,7 @@ public class Measurement {
 	
 	public void addIndicator(String name, Indicator indicator){
 		this.indicators.put(name, indicator);
+		log.debug("add indicator:" + name + " indicatoros" + this.indicators.keySet());
 	}
 	
 	public String getGroupby() {

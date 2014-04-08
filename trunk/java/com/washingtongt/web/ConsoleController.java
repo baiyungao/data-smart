@@ -1,69 +1,67 @@
 package com.washingtongt.web;
 
-import java.util.HashMap;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import org.apache.log4j.Logger;
 
 import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
 import com.washingtongt.data.model.Model;
 import com.washingtongt.data.model.gsa.CostDriverModel;
 import com.washingtongt.data.model.gsa.GsaConstants;
 import com.washingtongt.data.model.gsa.TripProfileModel;
+import com.washingtongt.data.model.gsa.reservation.AirConstants;
+import com.washingtongt.data.model.gsa.reservation.AirProfileModel;
 
 @ManagedBean(name="controller")
 @SessionScoped
-public class ConsoleController {
+public class ConsoleController extends WebController {
 	static final Logger log = Logger.getLogger(ConsoleController.class);
 	private TripProfileModel overAllTripModel;
 	private CostDriverModel costDriverModel;
 	private String fy;           //parameter from request
 	private String office;       //parameter from request
 	private String organization; //parameter from requeste 
-	private String requestItem;
-	
-	private UILabelMap labelMap = new UILabelMap();
-	private UITripModelMap uiModelMap = UITripModelMap.getDefault();  //one instance
-	
 	private TripProfileModel orgModel  = null;
+	
+
+	
 	
 	public ConsoleController(){
 		
 		//all sessions share the data model to improve the performance
 	
 		
-		Model model =uiModelMap.findModel("ALL", "TripProfileModel");
+		Model model =dataModelMap.findModel("ALL", "TripProfileModel");
 		
 		if (model == null){
 			overAllTripModel = new TripProfileModel(null, GsaConstants.ORG_LEVEL_ORGANIZATION);
 			overAllTripModel.populate(); 
-			uiModelMap.load("ALL",  overAllTripModel);
+			dataModelMap.load("ALL",  overAllTripModel);
 		}
 		else {
 			overAllTripModel = (TripProfileModel)model;
 			log.debug("load model from cache:" + overAllTripModel.getSerieList() );
 		}
 		
-		model =uiModelMap.findModel("ALL", "CostDriverModel"); 
+		model =dataModelMap.findModel("ALL", "CostDriverModel"); 
 		
 		if (model == null){
 			costDriverModel = new CostDriverModel(null); 
-			uiModelMap.load("ALL", costDriverModel);			
+			dataModelMap.load("ALL", costDriverModel);			
 		}
 		else {
 			costDriverModel = (CostDriverModel)model;
 			log.debug("load model from cache:" + costDriverModel.getCostDriverChartByMonth("2011") );
 		}
 		
+		
 	}
 	
-	public String getHello(){
-		return "I will win";
-	}
 
+	
 	public TripProfileModel getOverAllTripModel(){
 		return this.overAllTripModel;
 	}
@@ -103,14 +101,14 @@ public class ConsoleController {
 		log.debug("select org:" + this.organization);
 		log.debug("select office:" + this.office);
 		
-		Model model = this.uiModelMap.findModel(this.organization, "TripProfileModel");
+		Model model = this.dataModelMap.findModel(this.organization, "TripProfileModel");
 		
 		if (model == null){
 			//create a new instance here;
 			BasicDBObject match = new BasicDBObject("Organization", this.organization);
 			orgModel = new TripProfileModel(match, GsaConstants.ORG_LEVEL_Office);
 			orgModel.populate(); 
-			uiModelMap.load(this.organization,  orgModel);			
+			dataModelMap.load(this.organization,  orgModel);			
 			
 		}else
 		{

@@ -19,10 +19,14 @@ public class AirIndicatorFactory {
 		  case "Total_Amount":
 			  return  new Indicator(AggregationOperator.SUM , AirConstants.IDT_T_AMOUNT);
 		
-		  case "IDT_MILEAGE":  
+		  case "Mileage":  
 			return  new Indicator(AggregationOperator.SUM , AirConstants.IDT_MILEAGE);
 			
-		  case "Days Ahead":
+		  case "Avg Amount":  
+				return  new Indicator(AggregationOperator.AVG , AirConstants.IDT_T_AMOUNT, AirConstants.IDT_AVG_PRICE);	
+			
+			
+		  case "Avg Rsv Days":
 			  Indicator ind = new Indicator(AggregationOperator.AVG , AirConstants.IDT_R_DAYS); 
 			  
 				String[] timeDiff = new String[2]; 
