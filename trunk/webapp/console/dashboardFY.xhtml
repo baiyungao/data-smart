@@ -14,14 +14,7 @@
 <ui:define name="title">Dash Board</ui:define>
 <ui:param name="help_link" value="http://www.myexostar.com/mag.aspx"/>
 <ui:define name="panel"> 
-
-<div id="primaryTab">
-    <ul>   	<li><h:outputLink styleClass="active" value="#{request.contextPath}/console/dashboard.jsf"><span>Dashboard</span></h:outputLink>  </li>
-			<li><h:outputLink styleClass="" value="www.iiibc.com" ><span>Reservation</span></h:outputLink>  </li>
-			<li><h:outputLink styleClass="" value="www.iiibc.com" ><span>Payment</span></h:outputLink>  </li>
-	</ul>
-</div>
-
+<gts:tab activeTab ="1"/>
 <br class="clear" />
 <br/>
 
