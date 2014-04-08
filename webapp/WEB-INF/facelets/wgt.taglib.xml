@@ -5,6 +5,16 @@
 <facelet-taglib>
     <namespace>http://www.washingtongt.com/jsf/gts</namespace>
 	<tag>
+	    <tag-name>tab</tag-name>
+	    <source>../common/components/tabLayout.xhtml</source>
+	</tag>
+	
+	<tag>
+	    <tag-name>map</tag-name>
+	    <source>../common/components/mapLayout.xhtml</source>
+	</tag>	
+	
+	<tag>
 	    <tag-name>multiBarChart</tag-name>
 	    <source>../common/components/multiBarChart.xhtml</source>
 	</tag>
