@@ -17,10 +17,10 @@ public class LinePlusBarChartModel extends BasicDBList{
 	 */
 	private static final long serialVersionUID = 1L;
 	static final Logger log = Logger.getLogger(LinePlusBarChartModel.class);
-	private HashMap<String, ChartSeries> serialMap = new HashMap<String, ChartSeries>();
+	private HashMap<String, ChartSerie> serialMap = new HashMap<String, ChartSerie>();
 	
-	public void add(ChartSeries cs){
-		serialMap.put((String)cs.get(ChartSeries.ORIGINAL_KEY), cs);
+	public void add(ChartSerie cs){
+		serialMap.put((String)cs.get(ChartSerie.ORIGINAL_KEY), cs);
 		super.add(cs);
 	}
 	
@@ -48,13 +48,13 @@ public class LinePlusBarChartModel extends BasicDBList{
 			for (String colKey: colKeys ){
 				
 				log.debug("col:" + colKey);
-				ChartSeries serial = (ChartSeries)(serialMap.get(colKey));
+				ChartSerie serial = (ChartSerie)(serialMap.get(colKey));
 				if (serial == null){
 					if (colKey.equalsIgnoreCase("count")){
-						serial = new ChartSeries(colKey,0,true);}
+						serial = new ChartSerie(colKey,0,true);}
 					else 
 					{
-						serial = new ChartSeries(colKey,1,false);
+						serial = new ChartSerie(colKey,1,false);
 					}
 					//serialMap.put(colKey, serial);
 					this.add(serial);
@@ -74,7 +74,7 @@ public class LinePlusBarChartModel extends BasicDBList{
 		
 	}
 	
-public LinePlusBarChartModel(BasicDBList list, ChartSeries bench, boolean sort){
+public LinePlusBarChartModel(BasicDBList list, ChartSerie bench, boolean sort){
 		
 		super();
 		if (sort) {
@@ -94,13 +94,13 @@ public LinePlusBarChartModel(BasicDBList list, ChartSeries bench, boolean sort){
 			for (String colKey: colKeys ){
 				
 				log.debug("col:" + colKey);
-				ChartSeries serial = (ChartSeries)(serialMap.get(colKey));
+				ChartSerie serial = (ChartSerie)(serialMap.get(colKey));
 				if (serial == null){
 					if (colKey.equalsIgnoreCase("count")){
-						serial = new ChartSeries(colKey,0,true);}
+						serial = new ChartSerie(colKey,0,true);}
 					else 
 					{
-						serial = new ChartSeries(colKey,1,false);
+						serial = new ChartSerie(colKey,1,false);
 					}
 					//serialMap.put(colKey, serial);
 					this.add(serial);
@@ -140,7 +140,7 @@ public LinePlusBarChartModel(BasicDBList list, ChartSeries bench, boolean sort){
 		
 	}
 
-	public HashMap<String, ChartSeries> getSerialMap(){
+	public HashMap<String, ChartSerie> getSerialMap(){
 	 return this.serialMap;
 	}
 	
@@ -149,21 +149,22 @@ public LinePlusBarChartModel(BasicDBList list, ChartSeries bench, boolean sort){
 		
 		for (String colKey: charIndex ){
 			
-			log.debug("col:" + colKey);
-			ChartSeries serial = (ChartSeries)(serialMap.get(colKey));
-			
-			int seriesIndex = this.indexOf(serial);
-			BasicDBObject item = new BasicDBObject();
-			item.put("series", seriesIndex);
-			item.put("x", rowId);
-			if (row != null){
-			item.put("y", row.get(colKey));
+				log.debug("col:" + colKey);
+				ChartSerie serie = (ChartSerie)(serialMap.get(colKey));
+				
+				int seriesIndex = this.indexOf(serie);
+				BasicDBObject item = new BasicDBObject();
+				item.put("series", seriesIndex);
+				item.put("x", rowId);
+				if (row != null){
+				item.put("y", row.get(colKey));
 			}
 			else {
 				item.put("y", 0);
 			}
-			serial.getValue().add(item);
-			
+		    if (serie!= null){
+		    	serie.getValue().add(item);
+		    }
 		}
 	}
 	

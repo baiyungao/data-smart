@@ -17,6 +17,8 @@ public class FiscalYear extends Serie{
 	private int fiscalYear;
 	private int startYear;
 	private int startMonth;
+	private Date start;
+	private Date end;
 	Month[] monthes = new Month[12];
 	Quarter[] quarters = new Quarter[4];
 	
@@ -55,6 +57,9 @@ public class FiscalYear extends Serie{
 			}
 			quarter.addMonth(month);
 		}
+		
+		start = monthes[0].getStart();
+		end = monthes[11].getStart();
 	}
 
 	public int getFiscalYear() {
@@ -99,6 +104,17 @@ public class FiscalYear extends Serie{
 	public void updateMatch() {
 		// TODO Auto-generated method stub
 		
+		BasicDBObject matchFields =  this.measurement.getMatchFields();
+		
+		BasicDBObject timeRange = new BasicDBObject("$gte",start ).append("$lt",end);
+		//BasicDBObject timeMatch = new BasicDBObject(this.getField(), timeRange);
+		if (matchFields != null) {
+			matchFields.append(this.getField(), timeRange);
+		}
+		else {
+			matchFields = new BasicDBObject(this.getField(), timeRange);;
+		}
+		log.debug("matchfields: " + matchFields);		
 	}
 
 	@Override
@@ -113,24 +129,5 @@ public class FiscalYear extends Serie{
 		return monthes[11]!=null?monthes[11].getEnd():null;
 	}
 
-	/*
-	@Override
-	public boolean populate() {
-		//populate all measurement by query data from database
-		this.getMeasurement();
-		MongoUtil.getMeasurement(this.measurement);
-		for(Month month: monthes){
-			if (month != null){
-				month.populate();
-			}
-		}
-		
-		for (Quarter quarter: quarters){
-			if (quarter != null){
-				quarter.populate();
-			}
-		}
-		return true;
-	}
-	*/
+
 }

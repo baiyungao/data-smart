@@ -5,21 +5,21 @@ import com.mongodb.BasicDBObject;
 import com.washingtongt.data.model.Model;
 import com.washingtongt.data.model.gsa.time.FiscalYear;
 import com.washingtongt.data.model.gsa.time.Month;
-import com.washingtongt.ui.model.ChartSeries;
-import com.washingtongt.web.UITripModelMap;
+import com.washingtongt.ui.model.ChartSerie;
+import com.washingtongt.web.DataModelMap;
 
 public class GsaModelHelper {
 	
-	static public ChartSeries getTotalExpenseReduceBenchMarkByMonth(String name, String year, int serieIndex ){
+	static public ChartSerie getTotalExpenseReduceBenchMarkByMonth(String name, String year, int serieIndex ){
 	
 		
-		Model model = (Model) UITripModelMap.getDefault().findModel(name, "TripProfileModel");
+		Model model = (Model) DataModelMap.getDefault().findModel(name, "TripProfileModel");
 		//TODO: General Serial here.
 		
 		FiscalYear benchMark = model.getBenchmark();
 		FiscalYear fy = model.getFiscalYear(year);
 		
-		ChartSeries bSerie = new ChartSeries(GsaConstants.IDT_TOTAL_EXPENSE);
+		ChartSerie bSerie = new ChartSerie(GsaConstants.IDT_TOTAL_EXPENSE);
 		
 		for (int i = 0; i < 12; i++){
 			Month month = fy.getMonth(i);

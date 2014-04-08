@@ -19,11 +19,11 @@ public class BarchartModel extends BasicDBList{
 	static final Logger log = Logger.getLogger(BarchartModel.class);
 	
 	
-	Map<String, ChartSeries> serialMap = new HashMap<String, ChartSeries>();
+	Map<String, ChartSerie> serialMap = new HashMap<String, ChartSerie>();
 	
 	public BarchartModel(){
 		super();
-		serialMap = new HashMap<String, ChartSeries>();
+		serialMap = new HashMap<String, ChartSerie>();
 	}
 	
 
@@ -31,7 +31,7 @@ public class BarchartModel extends BasicDBList{
 		
 		super();
 		
-		serialMap = new HashMap<String, ChartSeries>();
+		serialMap = new HashMap<String, ChartSerie>();
 		
 		for (int i = 0; i<list.size(); i++){
 			BasicDBObject row = (BasicDBObject)(list.get(i));
@@ -46,9 +46,9 @@ public class BarchartModel extends BasicDBList{
 			for (String colKey: colKeys ){
 				
 				log.debug("col:" + colKey);
-				ChartSeries serial = (ChartSeries)(serialMap.get(colKey));
+				ChartSerie serial = (ChartSerie)(serialMap.get(colKey));
 				if (serial == null){
-					serial = new ChartSeries(colKey);
+					serial = new ChartSerie(colKey);
 					serialMap.put(colKey, serial);
 					this.add(serial);
 				}
@@ -93,9 +93,9 @@ public void addContent(TableModel model, Set<String> exs){
 				log.debug("bypass index:" + colKey);
 				continue; //bypass the counts data;
 			}
-			ChartSeries serial = (ChartSeries)(this.serialMap.get(colKey));
+			ChartSerie serial = (ChartSerie)(this.serialMap.get(colKey));
 			if (serial == null) {
-				serial = new ChartSeries(colKey);
+				serial = new ChartSerie(colKey);
 				serialMap.put(colKey, serial);
 				this.add(serial);
 			}

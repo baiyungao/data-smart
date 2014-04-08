@@ -15,18 +15,20 @@ import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
 import com.washingtongt.data.model.Indicator;
 import com.washingtongt.data.model.Measurement;
+import com.washingtongt.data.model.gsa.AirportMap;
 import com.washingtongt.data.model.gsa.CostDriverModel;
 import com.washingtongt.data.model.gsa.GsaConstants;
 import com.washingtongt.data.model.gsa.TripProfileModel;
 import com.washingtongt.data.model.gsa.time.DateUtils;
 import com.washingtongt.ui.model.LineChartModel;
-import com.washingtongt.web.UITripModelMap;
+import com.washingtongt.web.DataModelMap;
 
 public class MongoUtil {
 	
@@ -150,11 +152,11 @@ public class MongoUtil {
 				if (result instanceof BasicDBList ){
 					BasicDBList list = (BasicDBList)result;
 					measure.setResults(list);
+					measure.setPopulated(true);
 					return list;
 				}
 			}
 		}		
-		
 		return null;
 	}
 	
@@ -487,6 +489,19 @@ public class MongoUtil {
 		return null;
 	}	
 	
+	public static BasicDBList getAirportGeo(){
+		BasicDBList airportList = new BasicDBList();
+		DB gsaDB = MongoUtil.getMongoDB(db_name);
+		DBCollection coll = gsaDB.getCollection(GsaConstants.DB_C_AIRPORT);
+		DBCursor results =  coll.find();
+		while (results.hasNext()){
+			DBObject airport = results.next();
+			airportList.add(airport);
+		}
+		log.debug("airports:" + airportList);
+		return airportList;
+	}
+	
 	public static BasicDBList getTravelTripCountsByMonth(){
 		
 		List<DBObject> dbList = new ArrayList<DBObject>();
@@ -762,7 +777,7 @@ public class MongoUtil {
 		TripProfileModel overAllTripModel = new TripProfileModel(null, GsaConstants.ORG_LEVEL_ORGANIZATION);
 		overAllTripModel.populate(); 
 		
-		UITripModelMap.getDefault().load("ALL", overAllTripModel);
+		DataModelMap.getDefault().load("ALL", overAllTripModel);
 		
 		match = new BasicDBObject("Organization", "Ofc of the Chief Acquisition") ;  //R9-Pacific Rim-SFO, CA
 		
@@ -772,7 +787,7 @@ public class MongoUtil {
 		
 		model.populate();
 		
-		UITripModelMap.getDefault().load("Ofc of the Chief Acquisition", model);
+		DataModelMap.getDefault().load("Ofc of the Chief Acquisition", model);
 		
 		
 		
@@ -940,7 +955,8 @@ public class MongoUtil {
 			log.debug(results);
 		}
 		*/
-		
+	
+		log.debug("IAD" + AirportMap.airportMap.get("IAD"));
 	}
 
 }

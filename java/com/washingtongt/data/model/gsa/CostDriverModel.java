@@ -7,7 +7,7 @@ import com.mongodb.BasicDBObject;
 import com.washingtongt.data.model.Model;
 import com.washingtongt.data.model.gsa.time.FiscalYear;
 import com.washingtongt.data.model.gsa.time.Month;
-import com.washingtongt.ui.model.ChartSeries;
+import com.washingtongt.ui.model.ChartSerie;
 import com.washingtongt.ui.model.LineChartModel;
 import com.washingtongt.ui.model.LinePlusBarChartModel;
 
@@ -44,12 +44,12 @@ public class CostDriverModel extends Model {
 	public LineChartModel getCostDriverChartYTDByMonth(String year){
 		
 		LineChartModel chart = new LineChartModel();
-		ChartSeries meal_serial = new ChartSeries(GsaConstants.IDT_MEALS_EXPENSE);
-		ChartSeries carrental_serial = new ChartSeries(GsaConstants.IDT_CAR_RENTAL_EXPENSE);
-		ChartSeries lodging_serial = new ChartSeries(GsaConstants.IDT_LODGING_EXPENSE);
-		ChartSeries air_serial = new ChartSeries(GsaConstants.IDT_AIR_EXPENSE);
-		ChartSeries misc_serial = new ChartSeries(GsaConstants.IDT_MISC_EXPENSE);
-		ChartSeries other_serial = new ChartSeries(GsaConstants.IDT_OTHER_EXPENSE);
+		ChartSerie meal_serial = new ChartSerie(GsaConstants.IDT_MEALS_EXPENSE);
+		ChartSerie carrental_serial = new ChartSerie(GsaConstants.IDT_CAR_RENTAL_EXPENSE);
+		ChartSerie lodging_serial = new ChartSerie(GsaConstants.IDT_LODGING_EXPENSE);
+		ChartSerie air_serial = new ChartSerie(GsaConstants.IDT_AIR_EXPENSE);
+		ChartSerie misc_serial = new ChartSerie(GsaConstants.IDT_MISC_EXPENSE);
+		ChartSerie other_serial = new ChartSerie(GsaConstants.IDT_OTHER_EXPENSE);
 		
 		chart.add(meal_serial);
 		chart.add(carrental_serial);
@@ -76,18 +76,18 @@ public class CostDriverModel extends Model {
 public LineChartModel getCostReducePercentageYTDByMonth(String year){
 		
 		LineChartModel chart = new LineChartModel();
-		ChartSeries meal_serial = new ChartSeries(GsaConstants.IDT_MEALS_EXPENSE);
-		ChartSeries carrental_serial = new ChartSeries(GsaConstants.IDT_CAR_RENTAL_EXPENSE);
-		ChartSeries lodging_serial = new ChartSeries(GsaConstants.IDT_LODGING_EXPENSE);
-		ChartSeries air_serial = new ChartSeries(GsaConstants.IDT_AIR_EXPENSE);
-		ChartSeries misc_serial = new ChartSeries(GsaConstants.IDT_MISC_EXPENSE);
-		ChartSeries other_serial = new ChartSeries(GsaConstants.IDT_OTHER_EXPENSE);
+		ChartSerie meal_serial = new ChartSerie(GsaConstants.IDT_MEALS_EXPENSE);
+		ChartSerie carrental_serial = new ChartSerie(GsaConstants.IDT_CAR_RENTAL_EXPENSE);
+		ChartSerie lodging_serial = new ChartSerie(GsaConstants.IDT_LODGING_EXPENSE);
+		ChartSerie air_serial = new ChartSerie(GsaConstants.IDT_AIR_EXPENSE);
+		ChartSerie misc_serial = new ChartSerie(GsaConstants.IDT_MISC_EXPENSE);
+		ChartSerie other_serial = new ChartSerie(GsaConstants.IDT_OTHER_EXPENSE);
 		
 		String name = "ALL";
 		if (this.match != null){
 			name = match.getString(GsaConstants.ORG_LEVEL_ORGANIZATION);
 		}
-		ChartSeries bench_serial = GsaModelHelper.getTotalExpenseReduceBenchMarkByMonth(name, year, 0);
+		ChartSerie bench_serial = GsaModelHelper.getTotalExpenseReduceBenchMarkByMonth(name, year, 0);
 
 		chart.add(bench_serial);
 		chart.add(air_serial);
@@ -124,12 +124,12 @@ public LineChartModel getCostReducePercentageYTDByMonth(String year){
 			
 		chart = new LinePlusBarChartModel();
 	
-		ChartSeries meal_serial = new ChartSeries(GsaConstants.IDT_MEALS_EXPENSE,ChartSeries.LEFT,true);
-		ChartSeries carrental_serial = new ChartSeries(GsaConstants.IDT_CAR_RENTAL_EXPENSE,ChartSeries.LEFT,true);
-		ChartSeries lodging_serial = new ChartSeries(GsaConstants.IDT_LODGING_EXPENSE,ChartSeries.LEFT,true);
-		ChartSeries air_serial = new ChartSeries(GsaConstants.IDT_AIR_EXPENSE,ChartSeries.LEFT,true);
-		ChartSeries misc_serial = new ChartSeries(GsaConstants.IDT_MISC_EXPENSE,ChartSeries.LEFT,true);
-		ChartSeries other_serial = new ChartSeries(GsaConstants.IDT_OTHER_EXPENSE,ChartSeries.LEFT,true);
+		ChartSerie meal_serial = new ChartSerie(GsaConstants.IDT_MEALS_EXPENSE,ChartSerie.LEFT,true);
+		ChartSerie carrental_serial = new ChartSerie(GsaConstants.IDT_CAR_RENTAL_EXPENSE,ChartSerie.LEFT,true);
+		ChartSerie lodging_serial = new ChartSerie(GsaConstants.IDT_LODGING_EXPENSE,ChartSerie.LEFT,true);
+		ChartSerie air_serial = new ChartSerie(GsaConstants.IDT_AIR_EXPENSE,ChartSerie.LEFT,true);
+		ChartSerie misc_serial = new ChartSerie(GsaConstants.IDT_MISC_EXPENSE,ChartSerie.LEFT,true);
+		ChartSerie other_serial = new ChartSerie(GsaConstants.IDT_OTHER_EXPENSE,ChartSerie.LEFT,true);
 		
 		//ChartSeries ct_serial = new ChartSeries(GsaConstants.IDT_TRIP_CT,ChartSeries.RIGHT,false);
 		//ChartSeries days_serial = new ChartSeries(GsaConstants.IDT_DAYS_OF_TRIP,ChartSeries.RIGHT,false);
@@ -166,5 +166,10 @@ public LineChartModel getCostReducePercentageYTDByMonth(String year){
 		}
 		return null;
 		
+	}
+	@Override
+	public boolean populate() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 }

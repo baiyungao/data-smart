@@ -15,7 +15,7 @@ public class LineChartModel extends BasicDBList{
 	private static final long serialVersionUID = 1L;
 	static final Logger log = Logger.getLogger(LineChartModel.class);
 	
-	private HashMap<String, ChartSeries> serialMap = new HashMap<String, ChartSeries>();
+	private HashMap<String, ChartSerie> serialMap = new HashMap<String, ChartSerie>();
 	
 	
 	
@@ -23,7 +23,7 @@ public class LineChartModel extends BasicDBList{
 		super();
 	}
 	
-	public void add(ChartSeries cs){
+	public void add(ChartSerie cs){
 		serialMap.put((String)cs.get("key"), cs);
 		super.add(cs);
 	}
@@ -35,7 +35,7 @@ public class LineChartModel extends BasicDBList{
 		for (String colKey: charIndex ){
 			
 			log.debug("col:" + colKey);
-			ChartSeries serial = (ChartSeries)(serialMap.get(colKey));
+			ChartSerie serial = (ChartSerie)(serialMap.get(colKey));
 			
 			int seriesIndex = this.indexOf(serial);
 			BasicDBObject item = new BasicDBObject();
@@ -54,7 +54,7 @@ public class LineChartModel extends BasicDBList{
 		for (String colKey: charIndex ){
 			
 			log.debug("col:" + colKey);
-			ChartSeries serial = (ChartSeries)(serialMap.get(colKey));
+			ChartSerie serial = (ChartSerie)(serialMap.get(colKey));
 			
 			int seriesIndex = this.indexOf(serial);
 			BasicDBObject item = new BasicDBObject();

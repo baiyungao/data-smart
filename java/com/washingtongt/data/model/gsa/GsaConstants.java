@@ -4,8 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GsaConstants {
+	public static String DB_NAME = "gsa";
 	public static String DB_C_VOURCHER = "travel_voucher";
+
 	public static String DB_C_R_AIR = "Air_Reservation";
+	public static String DB_C_AIRPORT = "airport_geo";
+	
 	
 	public static String IDT_TOTAL_EXPENSE = "Total_Expenses";
 	public static String IDT_AIR_EXPENSE = "Common_Carrier_AIR_TRAIN";
