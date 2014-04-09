@@ -11,7 +11,8 @@ public class CardAirConstants {
 	public static String IDT_P_DATE = "TRANSPOSTINGDATEID";
 	public static String IDT_T_AMOUNT = "TRANSACTION_AMOUNT";
 	
-	public static String IDT_MERCHANT_GROUP = "ISSUING_CARRIER";
+	public static String IDT_ISSUING_CARRIER = "ISSUING_CARRIER";
+	public static String IDT_MERCHANT_CITY= "MERCHANT_CITY";
 	public static String IDT_AGENCY_BUREAU_NAME = "AGENCY_BUREAU_NAME";
 	public static String IDT_FY = "FY";
 	
