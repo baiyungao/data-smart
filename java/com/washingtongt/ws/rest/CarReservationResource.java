@@ -38,7 +38,7 @@ public class CarReservationResource {
     	CarProfileModel model = null;
     	CarReservationController controller = this.getController(request);
     	if (controller != null){
-    		model = controller.getCardAirProfileModel();
+    		model = controller.getCarProfileModel();
     	}
     	else {
     		return "";
@@ -60,7 +60,7 @@ public class CarReservationResource {
     	CarProfileModel model = null;
     	CarReservationController controller = this.getController(request);
     	if (controller != null){
-    		model = controller.getCardAirProfileModel();
+    		model = controller.getCarProfileModel();
     	}
     	else {
     		return "";
@@ -82,7 +82,7 @@ public class CarReservationResource {
     	CarProfileModel model = null;
     	CarReservationController controller = this.getController(request);
     	if (controller != null){
-    		model = controller.getCardAirProfileModel();
+    		model = controller.getCarProfileModel();
     	}
     	else {
     		return "";
