@@ -49,7 +49,7 @@ function #{id}_drawChart(){
 	console.log(#{id}_data);
 	nv.addGraph(function() {
 		chart = nv.models.linePlusBarChart()
-			.margin({top: 30, right: 40, bottom: 150, left: 90})
+			.margin({top: 30, right: 40, bottom: #{(empty bottom)? 60:bottom}, left: 90})
 			.x(function(d,i) { return i })
 			.color(d3.scale.category10().range());
 

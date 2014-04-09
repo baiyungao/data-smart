@@ -41,7 +41,7 @@ queue()
 
 		nv.addGraph(function() {
 			var chart = nv.models.multiBarChart()
-			  .margin({top: 10, right: 50, bottom: 150, left: 100})
+			  .margin({top: 10, right: 50, bottom: #{(empty bottom)?150:bottom}, left: 100})
 			  .transitionDuration(50)
 			  .reduceXTicks(false)   //If 'false', every single x-axis tick label will be rendered.
 			  .rotateLabels(60)      //Angle to rotate x-axis labels.
