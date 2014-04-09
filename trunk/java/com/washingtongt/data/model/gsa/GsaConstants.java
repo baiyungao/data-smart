@@ -8,6 +8,9 @@ public class GsaConstants {
 	public static String DB_C_VOURCHER = "travel_voucher";
 
 	public static String DB_C_R_AIR = "Air_Reservation";
+	public static String DB_C_R_HOTEL = "Hotel_Reservation";
+	public static String DB_C_R_CAR = "Car_Reservation";
+	
 	public static String DB_C_AIRPORT = "airport_geo";
 	
 	

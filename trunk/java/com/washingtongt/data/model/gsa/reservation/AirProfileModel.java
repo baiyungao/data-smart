@@ -1,16 +1,12 @@
 package com.washingtongt.data.model.gsa.reservation;
 
-import java.util.List;
-
 import org.apache.log4j.Logger;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
 import com.washingtongt.data.MongoUtil;
 import com.washingtongt.data.model.Measurement;
 import com.washingtongt.data.model.Model;
-import com.washingtongt.data.model.gsa.AirportMap;
 import com.washingtongt.data.model.gsa.time.FiscalYear;
 import com.washingtongt.data.model.gsa.time.Month;
 import com.washingtongt.ui.model.ChartSerie;
@@ -22,6 +18,7 @@ public class AirProfileModel extends Model {
 	static final Logger log = Logger.getLogger(AirProfileModel.class);
 	
 	private static String UI_LINEBAR_CHART_MODEL = "UI_LINEBAR_CHART_MODEL";
+	private static String UI_LINEBAR_CHART_MODEL_AL = "UI_LINEBAR_CHART_MODEL_AL";
 	
 	private static String MG_AIR_SUM_BY_AIRLINE = "MG_AIR_SUM_BY_AIRLINE";
 	private static String MG_AIR_SUM_BY_ORIGN = "MG_AIR_SUM_BY_ORIGN";
@@ -109,7 +106,7 @@ public class AirProfileModel extends Model {
 	public LinePlusBarChartModel getSummaryChartByAirline(){
 		LinePlusBarChartModel chart =null;
 		
-		Object object = this.uiModelMap.get(UI_LINEBAR_CHART_MODEL + this.getClass().getSimpleName());
+		Object object = this.uiModelMap.get(UI_LINEBAR_CHART_MODEL_AL + this.getClass().getSimpleName());
 		if (object != null) {
 			return (LinePlusBarChartModel)object;
 		}

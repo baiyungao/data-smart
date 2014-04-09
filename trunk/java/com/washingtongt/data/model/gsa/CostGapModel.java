@@ -51,7 +51,7 @@ public class CostGapModel {
 						Indicator cIndicator = m.getIndicators().get(key);
 						Indicator preIndicator = previous.getIndicators().get(key);
 						
-						Object cV = cIndicator.getValue();
+						//Object cV = cIndicator.getValue();
 
 						log.debug("curent Indicator" + cIndicator + " value " + cIndicator.getValue() );
 						log.debug("previous Indicator" + preIndicator + " value " + preIndicator.getValue());

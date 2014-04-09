@@ -141,9 +141,7 @@ public class TableModel  {
 				this.contents.add(row);
 			}
 		}
-		
-		
-		}
+	}
 
 
 	private void updateContent(){
