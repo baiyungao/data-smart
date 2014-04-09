@@ -25,11 +25,12 @@
 	<c:set var="model" value="#{controller.orgModel}"/>
 	
     <rich:panel header="Travel expense summary: #{controller.organization}">
-		<h2>Travel Voucher Expenses Trend </h2> (<strong>Notes: </strong> all data here are sample data provided by GSA for the contest.) <br/><br/>
-		<h:panelGrid columns="2" cellspacing="0" cellpadding="0" width="90%" columnClasses="column_40,column_30" footerClass="subtitle" headerClass="sectionHeader"  >   	
+		<h2>Travel Voucher Expenses Trend </h2> <br/><br/>
+		
+		<h:panelGrid columns="2" cellspacing="0" cellpadding="0" width="90%" columnClasses="column_40,column_40" footerClass="subtitle" headerClass="sectionHeader"  >   	
 			<h:panelGroup>
 					<strong>Cost Trend Table</strong>: 	
-					<br/>
+					<br/>This table describes overall travel expense trends for the organization last 3 fiscal year.<br/>
 					<gts:table model="#{model.yearSummaryTable}" 
 							   itemLabel="Fiscal year" performanceField="Total_Expenses" 
 							   performanceLabel="Cost cut vs. FY2011" />
@@ -37,30 +38,35 @@
 			</h:panelGroup>				
 			<h:panelGroup>			
 					<strong>Cost Drivers Table</strong>: (Other = Local_Trans + POV + TMC_Fee + Voucher_Fee)	
-					<br/>
+					<br/>This table describes each expense category trends for the organization last 3 fiscal year.<br/>
 					<gts:table model="#{model.costDriverTable}" 
 							   itemLabel="Fiscal year" />
 
 					<br/>
 			</h:panelGroup>				
 
-
+			<h:panelGroup>	<br/><br/>
+			The following chart illustrates monthly total travel expense (left axis) and total counts of travel for the Office last 3 fiscal years.<br/>
 					<gts:linePlusBarChart id="tripcostsummary" rotateXAxisLabel="60" 
-										  leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre=""
+										  leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre="" bottom = "60"
 										  xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/data/tripCostSummaryOrg" />
-										  
+			</h:panelGroup>
+			<h:panelGroup>	<br/><br/>
+			The following chart illustrates monthly organization expense change percentage to the benchmark vs. the agency data last 2 fiscal years. (Benchmark is FY2011)<br/>							  
 					<gts:lineChart id="costPCTYTM"  chartType = "full" guideline="true" useDates="true"
-							   dateFormat="%b %Y" yformat=".2%" yPre=""  yAxisLabel="" left="50"
+							   dateFormat="%b %Y" yformat=".2%" yPre=""  yAxisLabel="" left="50" bottom="60"
 							   wsurl="/gts/webapi/data/tripCostPctOrg" />					  
+			</h:panelGroup>				   
 		</h:panelGrid> 
     </rich:panel>	
 	
 	<br/> <br/> <br/>
     <rich:panel header="Cost Distribution by Office">
 			<h:panelGrid columns="1" cellspacing="0" align="center" width="90%" headerClass="sectionHeader">		
-				
+				<p>This chart illustrates total travel expense for each office in the organization in last 3 fiscal years. </p>
 				<gts:multiBarChart id="costByOrg" stacked="false" showControls="false" chartType="full" wsurl="/gts/webapi/data/SummaryChartByOfficePerOrg" />
-				
+				<br/>
+				<p>The following table describes total travel expense, total sum of travel days and total count of travel for each office in the office last 3 fiscal years. </p>
 				<gts:table model="#{model.summaryTableByOrg}"
 						  itemLabel="Office" />
 				 
