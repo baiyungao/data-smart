@@ -15,15 +15,32 @@
  
 <div id="primaryTab">
   <ul>
-	<li><h:outputLink styleClass="#{(activeTab == '1')? 'active':''}" value="#{request.contextPath}/console/dashboard.jsf"><span>Travel Voucher</span></h:outputLink>  </li>
-	<li><h:outputLink styleClass="#{(activeTab == '2')? 'active':''}" value="#{request.contextPath}/console/air_reservation.jsf" ><span>Air Ticket Reservation</span></h:outputLink>  </li>
-	<li><h:outputLink styleClass="#{(activeTab == '3')? 'active':''}" value="#{request.contextPath}/console/hotel_reservation.jsf" ><span>Hotel Reservation</span></h:outputLink>  </li>
-	<li><h:outputLink styleClass="#{(activeTab == '4')? 'active':''}" value="#{request.contextPath}/console/car_reservation.jsf" ><span>Car Reservation</span></h:outputLink>  </li>
-	<li><h:outputLink styleClass="#{(activeTab == '5')? 'active':''}" value="#{request.contextPath}/console/air_paycard.jsf" ><span>Air Ticket Pay Card</span></h:outputLink>  </li>
-	<li><h:outputLink styleClass="#{(activeTab == '6')? 'active':''}" value="#{request.contextPath}/console/hotel_parcard.jsf" ><span>Hotel Pay Card</span></h:outputLink>  </li>
-	<li><h:outputLink styleClass="#{(activeTab == '7')? 'active':''}" value="#{request.contextPath}/console/car_parcard.jsf" ><span>Car Pay Card</span></h:outputLink>  </li>
+	<li><h:outputLink styleClass="#{(primary == '1')? 'active':''}" value="#{request.contextPath}/console/dashboard.jsf"><span>Travel Voucher</span></h:outputLink>  </li>
+	<li><h:outputLink styleClass="#{(primary == '2')? 'active':''}" value="#{request.contextPath}/console/air_reservation.jsf" ><span>Reservation</span></h:outputLink>  </li>
+	<li><h:outputLink styleClass="#{(primary == '3')? 'active':''}" value="#{request.contextPath}/console/air_paycard.jsf" ><span>Travel Card</span></h:outputLink>  </li>
   </ul>
 </div>
+
+<c:if test="#{not empty secondary}" >
+<div id="secondaryTab">
+<c:if test="#{primary == '2'}"  >
+  <ul>
+	<li><h:outputLink styleClass="#{(secondary == '1')? 'active':''}" value="#{request.contextPath}/console/air_reservation.jsf" ><span>Air Ticket Reservation</span></h:outputLink>  </li>
+	<li><h:outputLink styleClass="#{(secondary == '2')? 'active':''}" value="#{request.contextPath}/console/hotel_reservation.jsf" ><span>Hotel Reservation</span></h:outputLink>  </li>
+	<li><h:outputLink styleClass="#{(secondary == '3')? 'active':''}" value="#{request.contextPath}/console/car_reservation.jsf" ><span>Car Reservation</span></h:outputLink>  </li>
+  </ul>
+</c:if>
+<c:if test="#{primary == '3'}" >
+  <ul>
+  	<li><h:outputLink styleClass="#{(secondary == '1')? 'active':''}" value="#{request.contextPath}/console/air_paycard.jsf" ><span>Travel Card Air Ticket</span></h:outputLink>  </li>
+	<li><h:outputLink styleClass="#{(secondary == '2')? 'active':''}" value="#{request.contextPath}/console/lodging_parcard.jsf" ><span>Travel Card Lodging</span></h:outputLink>  </li>
+	<li><h:outputLink styleClass="#{(secondary == '3')? 'active':''}" value="#{request.contextPath}/console/car_parcard.jsf" ><span>Travel Card Car</span></h:outputLink>  </li>
+  </ul>
+</c:if>
+  
+ </div>
+</c:if>
+
 
 </ui:composition>
 
