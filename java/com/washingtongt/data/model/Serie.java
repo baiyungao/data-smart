@@ -22,7 +22,9 @@ public abstract class Serie implements SerieBase{
 
 	@Override
 	public Measurement getMeasurement() {
-		this.measurement.setMatchFields((BasicDBObject)match.clone());
+		if (match != null){
+			this.measurement.setMatchFields((BasicDBObject)match.clone());
+		}
 		this.updateMatch();
 		return measurement;
 	}

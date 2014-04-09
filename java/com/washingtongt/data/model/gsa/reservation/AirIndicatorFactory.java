@@ -4,7 +4,6 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.washingtongt.data.model.AggregationOperator;
 import com.washingtongt.data.model.Indicator;
-import com.washingtongt.data.model.gsa.GsaConstants;
 
 public class AirIndicatorFactory {
 	

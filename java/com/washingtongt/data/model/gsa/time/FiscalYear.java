@@ -112,7 +112,8 @@ public class FiscalYear extends Serie{
 			matchFields.append(this.getField(), timeRange);
 		}
 		else {
-			matchFields = new BasicDBObject(this.getField(), timeRange);;
+			matchFields = new BasicDBObject(this.getField(), timeRange);
+			this.measurement.setMatchFields(matchFields);
 		}
 		log.debug("matchfields: " + matchFields);		
 	}

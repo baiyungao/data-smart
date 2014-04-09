@@ -9,7 +9,6 @@ import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.washingtongt.data.MongoUtil;
 import com.washingtongt.data.model.Model;
-import com.washingtongt.data.model.Serie;
 import com.washingtongt.data.model.SerieBase;
 import com.washingtongt.data.model.gsa.time.FiscalYear;
 import com.washingtongt.data.model.gsa.time.Month;

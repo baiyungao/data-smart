@@ -23,7 +23,6 @@ import com.mongodb.MongoException;
 import com.washingtongt.data.model.Indicator;
 import com.washingtongt.data.model.Measurement;
 import com.washingtongt.data.model.gsa.AirportMap;
-import com.washingtongt.data.model.gsa.CostDriverModel;
 import com.washingtongt.data.model.gsa.GsaConstants;
 import com.washingtongt.data.model.gsa.TripProfileModel;
 import com.washingtongt.data.model.gsa.time.DateUtils;
@@ -555,7 +554,7 @@ public class MongoUtil {
 	public static BasicDBList getTravelCostSummary(){
 		List<DBObject> dbList = new ArrayList<DBObject>();
 			// create our pipeline operations, first with the $match
-		DBObject match = new BasicDBObject("$match", new BasicDBObject("FY", "2011") );
+		//DBObject match = new BasicDBObject("$match", new BasicDBObject("FY", "2011") );
 
 		// build the $projection operation
 		DBObject fields = new BasicDBObject("Office", 1);
@@ -773,7 +772,7 @@ public class MongoUtil {
 		log.debug("find one:" + myDoc);
 		
 		
-		CostDriverModel cmodel = new CostDriverModel(null);
+		//CostDriverModel cmodel = new CostDriverModel(null);
 		TripProfileModel overAllTripModel = new TripProfileModel(null, GsaConstants.ORG_LEVEL_ORGANIZATION);
 		overAllTripModel.populate(); 
 		
