@@ -11,6 +11,11 @@ public class GsaConstants {
 	public static String DB_C_R_HOTEL = "Hotel_Reservation";
 	public static String DB_C_R_CAR = "Car_Reservation";
 	
+	public static String DB_TC_CAR = "Paycard_Car";
+	public static String DB_TC_AIR = "Paycard_Air";
+	public static String DB_TC_LODGING = "Paycard_Lodging";
+	
+	
 	public static String DB_C_AIRPORT = "airport_geo";
 	
 	
