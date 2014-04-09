@@ -23,34 +23,43 @@
 
 <h:form>
 
-<rich:panel header="Travel Expense Drivers Fiscal Year #{controller.fy}">
+<rich:panel header="Travel Expense Detail for  Fiscal Year #{controller.fy}">
 
 
-			<h:panelGrid columns="2" cellspacing="0" cellpadding="0" width="100%" columnClasses = "column_40,column_40" footerClass="subtitle" headerClass="sectionHeader"  >   	
+<h:panelGrid columns="2" cellspacing="0" cellpadding="0" width="100%" border="1" columnClasses = "column_40,column_40" footerClass="subtitle" headerClass="sectionHeader"  >   	
 						
+		<h:panelGroup>	
+		<h2>Monthly travel expense by each category</h2><br/>
+			<gts:multiBarChart id="costByMon" stacked="false" showControls="true" chartType="full" bottom = "60"
+							   wsurl="/gts/webapi/data/costDriverDistribute/#{controller.fy}" />
 
-			<gts:multiBarChart id="costByMon" stacked="false" showControls="true" chartType="full" wsurl="/gts/webapi/data/costDriverDistribute/#{controller.fy}" />			
+		</h:panelGroup>
+		<h:panelGroup>
+			<br/> <br/><br/><h2>Annual traval expense composition</h2><br/>
 			<gts:pieChart id="costpie" size="350" xAxisTickFormat="FY %Y" rotateXAxisLabel="0" 
 				 width="400" height="400"
 				 chartType = "full" wsurl="/gts/webapi/data/costdriver/#{controller.fy}" />	
 
 			
-
+		</h:panelGroup>
+		<h:panelGroup>
+		<h2>Monthly travel expense YTM (year to month) by each category</h2><br/>
 			<gts:lineChart id="costdriverYTM"  chartType = "full" guideline="true" useDates="true"
 							   dateFormat="%b %Y" yformat=",f" yPre="$"  yAxisLabel="" left ="150"
 							   wsurl="/gts/webapi/data/costDriverYtmLineChart/#{controller.fy}" />
-							   
-<h:panelGroup   rendered="#{controller.fy !='2011'}">
-<h2>Travel Expense Cut vs. FY 2011 </h2>
-<br/>
+		</h:panelGroup>
+		
+			<h:panelGroup   rendered="#{controller.fy !='2011'}">
+			<h2>Travel Expense Percentage vs. FY 2011 </h2>
+			<br/>
 
 			<gts:lineChart id="costdriverPCTYTM"  chartType = "full" guideline="true" useDates="true"
 							   dateFormat="%b %Y" yformat=".2%" yPre=""  yAxisLabel="" left ="50"
 							   wsurl="/gts/webapi/data/costDriverYtmPctLineChart/#{controller.fy}" />		
 
-</h:panelGroup>								   
+			</h:panelGroup>								   
 
-			</h:panelGrid>	 
+</h:panelGrid>	 
                 
 </rich:panel>
 
