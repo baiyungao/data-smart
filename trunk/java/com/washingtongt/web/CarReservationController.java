@@ -7,18 +7,18 @@ import org.apache.log4j.Logger;
 
 import com.mongodb.BasicDBObject;
 import com.washingtongt.data.model.Model;
-import com.washingtongt.data.model.gsa.travelcard.air.CardAirConstants;
+import com.washingtongt.data.model.gsa.reservation.CarConstants;
 import com.washingtongt.data.model.gsa.reservation.CarProfileModel;
 import com.washingtongt.ui.model.TableModel;
 
-@ManagedBean(name="caController")
+@ManagedBean(name="crController")
 @SessionScoped
 public class CarReservationController extends WebController {
 	static final Logger log = Logger.getLogger(AirReservationController.class);
-	private CarProfileModel cardAirProfileModel;
+	private CarProfileModel carProfileModel;
 	
-	public CarProfileModel getCardAirProfileModel() {
-		return cardAirProfileModel;
+	public CarProfileModel getCarProfileModel() {
+		return carProfileModel;
 	}
 	
 	public CarReservationController(){
@@ -26,21 +26,22 @@ public class CarReservationController extends WebController {
 	}
 
 	private void init(){
-		Model model = dataModelMap.findModel("ALL", "CardAirProfileModel");
+		Model model = dataModelMap.findModel("ALL", "CarProfileModel");
 		if (model != null){
-			this.cardAirProfileModel = (CarProfileModel) model;
+			this.carProfileModel = (CarProfileModel) model;
 		}else {
+			//BasicDBObject priceCrietia = new BasicDBObject("$gt", 0);
 			
 			BasicDBObject match =  null; //new BasicDBObject(AirConstants.IDT_T_AMOUNT, priceCrietia);;
-			this.cardAirProfileModel = new CarProfileModel(match);
-			this.cardAirProfileModel.populate();
-			dataModelMap.load("ALL",  cardAirProfileModel);
+			this.carProfileModel = new CarProfileModel(match);
+			this.carProfileModel.populate();
+			dataModelMap.load("ALL",  carProfileModel);
 		}
 	}		
 	
 
 	public TableModel getYearSummaryModel(){
-		return this.cardAirProfileModel.getSerialListTable(CardAirConstants.INDEX_TC_AIR_SUMMARY_MEASURE, CardAirConstants.IDT_T_AMOUNT);
+		return this.carProfileModel.getSerialListTable(CarConstants.INDEX_CAR_COST_SUMMARY_MEASURE, CarConstants.IDT_T_CHARGE);
 	}
 
 
