@@ -58,7 +58,7 @@ queue()
 			else {
 				formatter = d3.format(",.1f");
 			}
-			chart.margin({top: 10, right: 60, bottom: 150, left: #{left}});		chart.xAxis // chart sub-models (ie. xAxis, yAxis, etc) when accessed directly, return themselves, not the parent chart, so need to chain separately
+			chart.margin({top: 10, right: 60, bottom: #{(empty bottom)? 60:bottom}, left: #{(empty left)?150:left}});		chart.xAxis // chart sub-models (ie. xAxis, yAxis, etc) when accessed directly, return themselves, not the parent chart, so need to chain separately
 				.tickFormat(
 					formatter
 				  );
