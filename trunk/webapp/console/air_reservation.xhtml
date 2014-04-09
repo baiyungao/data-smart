@@ -32,32 +32,32 @@
 					<br/>
 					<gts:table model="#{arController.yearSummaryModel}" 
 							   itemLabel="Fiscal year" performanceField="Total_Amount" 
-							   performanceLabel="Expense cut vs. FY2011" actionClass="#{controller}" method="showFyDetail"
-							    assignField="fy"/>
+							   performanceLabel="Expense cut vs. FY2011"/>
 					<br/>
 					
 
 								   
 					<br/>
-					<strong>Notes: </strong> all data here are sample data provided by GSA for the contest.
 					<br/><br/><br/><br/><br/><br/><br/><br/><br/>
-					</h:panelGroup>		   
+					</h:panelGroup>	
+					<h:panelGroup>	
+					The following chart illustrates monthly total air tickets expense (left axis) and total counts  (right axis) of air tickets for the GSA last 3 fiscal years. <br/>					
 					<gts:linePlusBarChart id="tripcostsummary" rotateXAxisLabel="60" 
 				 leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre=""
 				 xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/air/airCostSummary" />
-						   
+					</h:panelGroup>	   
 
 			</h:panelGrid> 
     </rich:panel>	
 
 	<br/> <br/>
-    <rich:panel header="Air tickets summary by Airline (Top 10 frequently used airlines)">
+    <rich:panel header="Air tickets summary by Airline (Top 20 frequently used airlines)">
 	<h:panelGrid columns="2" cellspacing="0" cellpadding="0" width="90%" columnClasses="column_40,column_40" footerClass="subtitle" headerClass="sectionHeader"  >   	
 			
-	<gts:table model="#{arController.airProfileModel.summaryByAirline}"  itemLabel="Airline Name"  actionClass="#{controller}" method="showFyDetail"    />
+	<gts:table model="#{arController.airProfileModel.summaryByAirline}"  itemLabel="Airline Name"    />
 	<h:panelGroup>
 	
-	<strong>Chart: total air tickets expense by each Airline and tickets booked</strong>
+	 Total air tickets expense (left axis) and total counts (right axis) of air tickets for each Airline last 3 years.
 	<br/><br/>
 	<gts:linePlusBarChart id="airsummarybyAirline" rotateXAxisLabel="60" 
 				 leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre=""

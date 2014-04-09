@@ -37,26 +37,28 @@
 
 								   
 					<br/>
-					<strong>Notes: </strong> all data here are sample data provided by GSA for the contest.
+					
 					<br/><br/><br/><br/><br/><br/><br/><br/><br/>
-					</h:panelGroup>		   
+					</h:panelGroup>	
+					<h:panelGroup>
+					The following chart illustrates monthly total car rental expense (left axis) and total counts (right axis) of car rental for the GSA last 3 fiscal years. <br/>					
+										
 					<gts:linePlusBarChart id="tripcostsummary" rotateXAxisLabel="60"  leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre=""
 					xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/car/carCostSummary" />
-						   
+					</h:panelGroup>	   
 
 			</h:panelGrid> 
     </rich:panel>	
 
 	<br/> 
-    <rich:panel header="Car Rental summary by Car Renter Chain (Top 15 frequently used airlines)">
+    <rich:panel header="Car Rental summary by Car Renter Chain (Top 15 frequently used car rental chain)">
 		<h:panelGrid columns="2" cellspacing="0" cellpadding="0" width="90%" columnClasses="column_40,column_40" footerClass="subtitle" headerClass="sectionHeader"  >   	
 						
-		<gts:table model="#{crController.carProfileModel.summaryByChain}"  itemLabel="Hotel Chain"  />
+		<gts:table model="#{crController.carProfileModel.summaryByChain}"  itemLabel="Car Rental Chain"  />
 		<h:panelGroup>
-		
-		<strong>Chart: total hotel stay expense by each Hotel Chain</strong>
+		Total car rental expense (left axis) and total counts (right axis) of car rental by each car rental chain
 		<br/>
-		<gts:linePlusBarChart id="hotelsummarybyChain" rotateXAxisLabel="60" 
+		<gts:linePlusBarChart id="carsummarybyChain" rotateXAxisLabel="60" 
 					 leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre=""
 					 xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/car/carCostSummaryByChain" />
 		</h:panelGroup>
@@ -66,13 +68,13 @@
 	
 	
 	<br/>
-    <rich:panel header="Car summary by City (Top 10 frequently used airlines)">
+    <rich:panel header="Car rental summary by City (Top 10 frequently travelled city)">
 		<h:panelGrid columns="2" cellspacing="0" cellpadding="0" width="90%" columnClasses="column_40,column_40" footerClass="subtitle" headerClass="sectionHeader"  >   	
 						
 		<gts:table model="#{crController.carProfileModel.summaryByCity}"  itemLabel="City"  />
 		<h:panelGroup>
 		
-		<strong>Chart: total car rental expense by city</strong>
+		total car rental expense (left axis) and total counts (right axis) of car rental by city
 		<br/>
 		<gts:linePlusBarChart id="carsummarybyCity" rotateXAxisLabel="60" 
 					 leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre=""
