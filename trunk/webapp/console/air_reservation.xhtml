@@ -15,9 +15,9 @@
 <ui:param name="help_link" value="http://www.myexostar.com/mag.aspx"/>
 <ui:define name="panel"> 
 
-<gts:tab activeTab ="2"/>
+<gts:tab primary ="2" secondary ="1"/>
+
 <br class="clear" />
-<br/>
 
 
 <h:form>
@@ -75,7 +75,7 @@
 				<gts:table model="#{arController.airProfileModel.summaryByRouting}"  itemLabel="Flight Route"     />
 			<h:panelGroup>
 			<!-- flight routing here -->
-			<iframe src="/gts/console/googleMaps/googleMap.jsf" width="100%" height="100%" frameborder="0" scrolling="no"  ></iframe>			
+			<iframe src="/gts/console/googleMaps/googleMap.jsf" width="100%" height="550px" frameborder="0" scrolling="no"  ></iframe>			
 			</h:panelGroup>
 			</h:panelGrid> 		   
             
@@ -87,7 +87,7 @@
 			<gts:table model="#{arController.airProfileModel.summaryByDestination}"  itemLabel="Destination" />
 			<h:panelGroup>
 			
-				<iframe src="/gts/console/googleMaps/googleMapDesc.jsf" width="100%" height="100%" frameborder="0" scrolling="no"  ></iframe>			
+				<iframe src="/gts/console/googleMaps/googleMapDesc.jsf" width="100%" height="550px" frameborder="0" scrolling="no"  ></iframe>			
 				
 			</h:panelGroup>
 			</h:panelGrid> 		   
@@ -97,7 +97,7 @@
 				<gts:table model="#{arController.airProfileModel.summaryByOrign}"  itemLabel="Origin" />
 			<h:panelGroup>
 			
-			<iframe src="/gts/console/googleMaps/googleMapOrign.jsf" width="100%" height="100%" frameborder="0" scrolling="no"  ></iframe>		
+			<iframe src="/gts/console/googleMaps/googleMapOrign.jsf" width="100%" height="550px" frameborder="0" scrolling="no"  ></iframe>		
 			</h:panelGroup>
 			</h:panelGrid> 		   
             

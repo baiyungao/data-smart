@@ -15,22 +15,20 @@
 <ui:param name="help_link" value="http://www.myexostar.com/mag.aspx"/>
 <ui:define name="panel"> 
 
-<gts:tab primary ="3" secondary ="1"/>
-
+<gts:tab primary ="3" secondary ="2"/>
 <br class="clear" />
-
 
 <h:form>
 
 
-    <rich:panel header="Travel Card for air tickets summary">
+    <rich:panel header="Travel Card for lodging summary">
 			<h:panelGrid columns="2" cellspacing="0" cellpadding="0" width="90%" columnClasses="column_40,column_60" footerClass="subtitle" headerClass="sectionHeader"  >   	
 					<h:panelGroup>
-					<h2>Travel Card for air tickets summary for the Agency (GSA)</h2>
+					<h2>Travel Card for lodging summary for the Agency (GSA)</h2>
 					<br/><br/>
 					<strong>Car Trend Table</strong>: 	
 					<br/>
-					<gts:table model="#{caController.yearSummaryModel}" 
+					<gts:table model="#{clController.yearSummaryModel}" 
 							   itemLabel="Fiscal year" performanceField="Total_Amount" 
 							   performanceLabel="Expense cut vs. FY2011" />
 					<br/>
@@ -42,7 +40,7 @@
 					<br/><br/><br/><br/><br/><br/><br/><br/><br/>
 					</h:panelGroup>		   
 					<gts:linePlusBarChart id="tripcostsummary" rotateXAxisLabel="60"  leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre=""
-					xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/chargeAir/airChargeSummary" />
+					xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/chargeLodging/lodgingChargeSummary" />
 						   
 
 			</h:panelGrid> 
@@ -52,14 +50,14 @@
     <rich:panel header="Car Rental summary by Car Renter Chain (Top 15 frequently used airlines)">
 		<h:panelGrid columns="2" cellspacing="0" cellpadding="0" width="90%" columnClasses="column_40,column_40" footerClass="subtitle" headerClass="sectionHeader"  >   	
 						
-		<gts:table model="#{caController.cardAirProfileModel.summaryByChain}"  itemLabel="Hotel Chain"  />
+		<gts:table model="#{clController.cardLodgingProfileModel.summaryByCity}"  itemLabel="City"  />
 		<h:panelGroup>
 		
 		<strong>Chart: total ticket charged by each Carrier</strong>
 		<br/>
 		<gts:linePlusBarChart id="hotelsummarybyChain" rotateXAxisLabel="60" 
 					 leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre=""
-					 xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/chargeAir/airChargeSummaryByChain" />
+					 xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/chargeLodging/lodgingChargeSummaryByCity" />
 		</h:panelGroup>
 
 	</h:panelGrid> 
@@ -70,14 +68,14 @@
     <rich:panel header="Car summary by City (Top 10 frequently used airlines)">
 		<h:panelGrid columns="2" cellspacing="0" cellpadding="0" width="90%" columnClasses="column_40,column_40" footerClass="subtitle" headerClass="sectionHeader"  >   	
 						
-		<gts:table model="#{caController.cardAirProfileModel.summaryByBureau}"  itemLabel="Bureau"  />
+		<gts:table model="#{clController.cardLodgingProfileModel.summaryByBureau}"  itemLabel="Bureau"  />
 		<h:panelGroup>
 		
 		<strong>Chart: total car rental expense by city</strong>
 		<br/>
 		<gts:linePlusBarChart id="carsummarybyCity" rotateXAxisLabel="60" 
 					 leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre=""
-					 xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/chargeAir/airChargeSummaryByBureau" />
+					 xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/chargeLodging/lodgingChargeSummaryByBureau" />
 		</h:panelGroup>
 
 	</h:panelGrid> 
