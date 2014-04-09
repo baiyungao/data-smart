@@ -8,7 +8,6 @@ import org.apache.log4j.Logger;
 import com.mongodb.BasicDBObject;
 import com.washingtongt.data.model.Model;
 import com.washingtongt.data.model.gsa.travelcard.air.CardAirConstants;
-import com.washingtongt.data.model.gsa.reservation.CarProfileModel;
 import com.washingtongt.data.model.gsa.travelcard.air.CardAirProfileModel;
 import com.washingtongt.ui.model.TableModel;
 
