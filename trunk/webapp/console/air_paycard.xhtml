@@ -23,39 +23,44 @@
 <h:form>
 
 
-    <rich:panel header="Travel Card for air tickets summary">
+    <rich:panel header="Travel card transaction summary  for air tickets purchase">
 			<h:panelGrid columns="2" cellspacing="0" cellpadding="0" width="90%" columnClasses="column_40,column_60" footerClass="subtitle" headerClass="sectionHeader"  >   	
 					<h:panelGroup>
-					<h2>Travel Card for air tickets summary for the Agency (GSA)</h2>
+					<h2>Air tickets transaction summary for the Agency (GSA)</h2>
 					<br/><br/>
-					<strong>Car Trend Table</strong>: 	
+					<strong>Travel card charge trend for air tickets</strong>: 	
 					<br/>
 					<gts:table model="#{caController.yearSummaryModel}" 
 							   itemLabel="Fiscal year" performanceField="Total_Amount" 
-							   performanceLabel="Expense cut vs. FY2011" />
+							   performanceLabel="Cost Reduction vs. FY2011" />
 					<br/>
 					
 
 								   
 					<br/>
-					<strong>Notes: </strong> all data here are sample data provided by GSA for the contest.
+					
 					<br/><br/><br/><br/><br/><br/><br/><br/><br/>
 					</h:panelGroup>		   
+					<h:panelGroup>
+					The following chart illustrates monthly total transaction charge for air tickets (left axis) and total counts of transactions (right axis) for the GSA last 3 fiscal years. <br/>					
+					
 					<gts:linePlusBarChart id="tripcostsummary" rotateXAxisLabel="60"  leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre=""
 					xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/chargeAir/airChargeSummary" />
-						   
+					</h:panelGroup>		   	   
 
 			</h:panelGrid> 
     </rich:panel>	
 
 	<br/> 
-    <rich:panel header="Car Rental summary by Car Renter Chain (Top 15 frequently used airlines)">
+    <rich:panel header="Travel card transaction summary  for air tickets purchase by Issuing Carrier (Top 20 Issuing Carriers)">
 		<h:panelGrid columns="2" cellspacing="0" cellpadding="0" width="90%" columnClasses="column_40,column_40" footerClass="subtitle" headerClass="sectionHeader"  >   	
-						
-		<gts:table model="#{caController.cardAirProfileModel.summaryByChain}"  itemLabel="Hotel Chain"  />
+		<h:panelGroup>				
+		<gts:table model="#{caController.cardAirProfileModel.summaryByChain}"  itemLabel="Issuing Carrier"  />
+		<br/><br/><br/><br/><br/>
+		</h:panelGroup>
 		<h:panelGroup>
 		
-		<strong>Chart: total ticket charged by each Carrier</strong>
+		The following chart illustrates monthly total transaction charge for air tickets (left axis) and total counts of transactions (right axis)  by issuing carrier.
 		<br/>
 		<gts:linePlusBarChart id="hotelsummarybyChain" rotateXAxisLabel="60" 
 					 leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre=""
@@ -67,16 +72,18 @@
 	
 	
 	<br/>
-    <rich:panel header="Car summary by City (Top 10 frequently used airlines)">
+    <rich:panel header="Travel card transaction summary  for air tickets purchase by Bureaus (Top 10 Bureaus)">
 		<h:panelGrid columns="2" cellspacing="0" cellpadding="0" width="90%" columnClasses="column_40,column_40" footerClass="subtitle" headerClass="sectionHeader"  >   	
-						
+		<h:panelGroup>
 		<gts:table model="#{caController.cardAirProfileModel.summaryByBureau}"  itemLabel="Bureau"  />
+		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+		</h:panelGroup>
 		<h:panelGroup>
 		
-		<strong>Chart: total car rental expense by city</strong>
-		<br/>
-		<gts:linePlusBarChart id="carsummarybyCity" rotateXAxisLabel="60" 
-					 leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre=""
+		The following chart illustrates monthly total transaction charge for air tickets (left axis) and total counts of transactions (right axis)  by Bureaus in GSA.
+		<br/><br/>
+		<gts:linePlusBarChart id="carsummarybyCity" rotateXAxisLabel="30" 
+					 leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre="" bottom="170"
 					 xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/chargeAir/airChargeSummaryByBureau" />
 		</h:panelGroup>
 

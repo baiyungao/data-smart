@@ -111,13 +111,19 @@
 		   return path;	
 	}
 	
-
 	function ready() {
 		console.log("ready to render ..");
 		  var mapOptions = {
 			zoom: 4,
-			center: new google.maps.LatLng(41.97861,-87.90472)
+			center: new google.maps.LatLng(41.97861,-87.90472),
 			//mapTypeId: google.maps.MapTypeId.TERRAIN     
+			panControl: false,
+			zoomControl: false,
+			scaleControl: false,
+			mapTypeControl: false,
+			streetViewControl: false,
+			overviewMapControl: false
+ 
 		  };
 
 		  var map = new google.maps.Map(document.getElementById('map-canvas'),
