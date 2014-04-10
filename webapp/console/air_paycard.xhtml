@@ -60,11 +60,14 @@
 		</h:panelGroup>
 		<h:panelGroup>
 		
-		The following chart illustrates monthly total transaction charge for air tickets (left axis) and total counts of transactions (right axis)  by issuing carrier.
+		The following chart illustrates monthly total transaction charge for air tickets by issuing carrier.
 		<br/>
+		<gts:multiBarChart id="hotelsummarybyChain" stacked="false" showControls="false" chartType="full" wsurl="/gts/webapi/chargeAir/airChargeSummaryByChain" />
+		<!--
 		<gts:linePlusBarChart id="hotelsummarybyChain" rotateXAxisLabel="60" 
 					 leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre=""
 					 xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/chargeAir/airChargeSummaryByChain" />
+		-->
 		</h:panelGroup>
 
 	</h:panelGrid> 
@@ -80,11 +83,14 @@
 		</h:panelGroup>
 		<h:panelGroup>
 		
-		The following chart illustrates monthly total transaction charge for air tickets (left axis) and total counts of transactions (right axis)  by Bureaus in GSA.
+		The following chart illustrates monthly total transaction charge for air tickets by Bureaus in GSA.
 		<br/><br/>
+		<gts:multiBarChart id="carsummarybyCity" stacked="false" showControls="false" chartType="full" bottom="170" wsurl="/gts/webapi/chargeAir/airChargeSummaryByBureau" />
+		<!--		
 		<gts:linePlusBarChart id="carsummarybyCity" rotateXAxisLabel="30" 
 					 leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre="" bottom="170"
 					 xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/chargeAir/airChargeSummaryByBureau" />
+		-->
 		</h:panelGroup>
 
 	</h:panelGrid> 

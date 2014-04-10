@@ -57,11 +57,14 @@
 	<gts:table model="#{arController.airProfileModel.summaryByAirline}"  itemLabel="Airline Name"    />
 	<h:panelGroup>
 	
-	 Total air tickets expense (left axis) and total counts (right axis) of air tickets for each Airline last 3 years.
+	 Total air tickets expense for each Airline last 3 years.
 	<br/><br/>
+	<gts:multiBarChart id="costByOrg" stacked="false" showControls="false" chartType="full" wsurl="/gts/webapi/air/airCostSummaryByAirline" />
+	<!--
 	<gts:linePlusBarChart id="airsummarybyAirline" rotateXAxisLabel="60" 
 				 leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre=""
 				 xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/air/airCostSummaryByAirline" />
+				 -->
 	</h:panelGroup>
 	</h:panelGrid> 
     </rich:panel>	

@@ -58,11 +58,14 @@
 		</h:panelGroup>
 		<h:panelGroup>
 		
-		The following chart illustrates monthly total transaction charge for lodging (left axis) and total counts of transactions (right axis)  by cities
+		The following chart illustrates monthly total transaction charge for lodging  by cities
 		<br/>
+		<gts:multiBarChart id="hotelsummarybyChain" stacked="false" showControls="false" bottom="100" chartType="full" wsurl="/gts/webapi/chargeLodging/lodgingChargeSummaryByCity" />
+		<!--
 		<gts:linePlusBarChart id="hotelsummarybyChain" rotateXAxisLabel="30" 
 					 leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre=""   bottom="100"
 					 xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/chargeLodging/lodgingChargeSummaryByCity" />
+		-->
 		</h:panelGroup>
 
 	</h:panelGrid> 
@@ -79,12 +82,14 @@
 		</h:panelGroup>
 		<h:panelGroup>
 		
-		The following chart illustrates monthly total transaction charge for lodging (left axis) and total counts of transactions (right axis)  by Bureaus in GSA.
+		The following chart illustrates monthly total transaction charge for lodging by Bureaus in GSA.
 		<br/>
-		
+		<gts:multiBarChart id="carsummarybyCity" stacked="false" showControls="false" bottom="170" chartType="full" wsurl="/gts/webapi/chargeLodging/lodgingChargeSummaryByBureau" />
+		<!--
 		<gts:linePlusBarChart id="carsummarybyCity" rotateXAxisLabel="30" 
 					 leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre=""   bottom="170"
 					 xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/chargeLodging/lodgingChargeSummaryByBureau" />
+					 -->
 		</h:panelGroup>
 
 	</h:panelGrid> 
