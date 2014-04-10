@@ -51,7 +51,7 @@
 										  leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre="" bottom = "60"
 										  xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/data/tripCostSummaryOrg" />
 			</h:panelGroup>
-			<h:panelGroup>	<br/><br/>
+			<h:panelGroup render="#{model.benchmark != null}">	<br/><br/> 
 			The following chart illustrates monthly organization expense change percentage to the benchmark vs. the agency data last 2 fiscal years. (Benchmark is FY2011)<br/>							  
 					<gts:lineChart id="costPCTYTM"  chartType = "full" guideline="true" useDates="true"
 							   dateFormat="%b %Y" yformat=".2%" yPre=""  yAxisLabel="" left="50" bottom="60"

@@ -45,9 +45,13 @@
 		
 		<c:forEach items="#{model.cols}" var="col2">
 			<rich:column>
-				<h:outputText value="#{row[col2]}" >
+				<h:outputText value="#{row[col2]}" rendered = "#{not controller.currencyFields[col2]}">
 					 <f:convertNumber groupingUsed="true"  maxFractionDigits="0" />
 				</h:outputText>
+				<h:outputText value="#{row[col2]}" rendered = "#{controller.currencyFields[col2]}">
+					 <f:convertNumber groupingUsed="true"  maxFractionDigits="0" currencyCode="USD" type="currency"/>
+				</h:outputText>
+								
             </rich:column>			
 		</c:forEach>
 		
