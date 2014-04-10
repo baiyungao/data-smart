@@ -21,7 +21,7 @@
 <h:form>
 
 
-    <rich:panel header="Travel Card for lodging summary">
+    <rich:panel header="Travel card transaction summary for lodging ">
 			<h:panelGrid columns="2" cellspacing="0" cellpadding="0" width="90%" columnClasses="column_40,column_60" footerClass="subtitle" headerClass="sectionHeader"  >   	
 					<h:panelGroup>
 					<h2>Travel Card for lodging summary for the Agency (GSA)</h2>
@@ -36,27 +36,32 @@
 
 								   
 					<br/>
-					<strong>Notes: </strong> all data here are sample data provided by GSA for the contest.
+					
 					<br/><br/><br/><br/><br/><br/><br/><br/><br/>
-					</h:panelGroup>		   
+					</h:panelGroup>	
+					<h:panelGroup>
+					The following chart illustrates monthly total transaction charge for lodging (left axis) and total counts of transactions (right axis) last 3 fiscal years. <br/>					
+							
 					<gts:linePlusBarChart id="tripcostsummary" rotateXAxisLabel="60"  leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre=""
 					xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/chargeLodging/lodgingChargeSummary" />
-						   
+					</h:panelGroup>		   
 
 			</h:panelGrid> 
     </rich:panel>	
 
 	<br/> 
-    <rich:panel header="Car Rental summary by Car Renter Chain (Top 15 frequently used airlines)">
+    <rich:panel header="Travel card charge summary for lodging by city(Top 15 Cities)">
 		<h:panelGrid columns="2" cellspacing="0" cellpadding="0" width="90%" columnClasses="column_40,column_40" footerClass="subtitle" headerClass="sectionHeader"  >   	
-						
+		<h:panelGroup>					
 		<gts:table model="#{clController.cardLodgingProfileModel.summaryByCity}"  itemLabel="City"  />
+		<br/><br/><br/><br/><br/><br/>
+		</h:panelGroup>
 		<h:panelGroup>
 		
-		<strong>Chart: total ticket charged by each Carrier</strong>
+		The following chart illustrates monthly total transaction charge for lodging (left axis) and total counts of transactions (right axis)  by cities
 		<br/>
-		<gts:linePlusBarChart id="hotelsummarybyChain" rotateXAxisLabel="60" 
-					 leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre=""
+		<gts:linePlusBarChart id="hotelsummarybyChain" rotateXAxisLabel="30" 
+					 leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre=""   bottom="100"
 					 xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/chargeLodging/lodgingChargeSummaryByCity" />
 		</h:panelGroup>
 
@@ -65,16 +70,20 @@
 	
 	
 	<br/>
-    <rich:panel header="Car summary by City (Top 10 frequently used airlines)">
+    <rich:panel header="Travel card charge summary for lodging by Bureaus (Top 10 Bureaus)">
 		<h:panelGrid columns="2" cellspacing="0" cellpadding="0" width="90%" columnClasses="column_40,column_40" footerClass="subtitle" headerClass="sectionHeader"  >   	
 						
+		<h:panelGroup>				
 		<gts:table model="#{clController.cardLodgingProfileModel.summaryByBureau}"  itemLabel="Bureau"  />
+		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+		</h:panelGroup>
 		<h:panelGroup>
 		
-		<strong>Chart: total car rental expense by city</strong>
+		The following chart illustrates monthly total transaction charge for lodging (left axis) and total counts of transactions (right axis)  by Bureaus in GSA.
 		<br/>
-		<gts:linePlusBarChart id="carsummarybyCity" rotateXAxisLabel="60" 
-					 leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre=""
+		
+		<gts:linePlusBarChart id="carsummarybyCity" rotateXAxisLabel="30" 
+					 leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre=""   bottom="170"
 					 xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/chargeLodging/lodgingChargeSummaryByBureau" />
 		</h:panelGroup>
 
