@@ -64,7 +64,7 @@
     <rich:panel header="Cost Distribution by Office">
 			<h:panelGrid columns="1" cellspacing="0" align="center" width="90%" headerClass="sectionHeader">		
 				<p>This chart illustrates total travel expense for each office in the organization in last 3 fiscal years. </p>
-				<gts:multiBarChart id="costByOrg" stacked="false" showControls="false" chartType="full" wsurl="/gts/webapi/data/SummaryChartByOfficePerOrg" />
+				<gts:multiBarChart id="costByOrg" stacked="false" showControls="false" bottom="250" chartType="full" wsurl="/gts/webapi/data/SummaryChartByOfficePerOrg" />
 				<br/>
 				<p>The following table describes total travel expense, total sum of travel days and total count of travel for each office in the office last 3 fiscal years. </p>
 				<gts:table model="#{model.summaryTableByOrg}"

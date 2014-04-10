@@ -56,11 +56,15 @@
 						
 		<gts:table model="#{crController.carProfileModel.summaryByChain}"  itemLabel="Car Rental Chain"  />
 		<h:panelGroup>
-		Total car rental expense (left axis) and total counts (right axis) of car rental by each car rental chain
+		Total car rental expense by each car rental chain
 		<br/>
+		<gts:multiBarChart id="costByOrg" stacked="false" showControls="false" chartType="full" wsurl="/gts/webapi/car/carCostSummaryByChain" />
+		<!--
 		<gts:linePlusBarChart id="carsummarybyChain" rotateXAxisLabel="60" 
 					 leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre=""
 					 xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/car/carCostSummaryByChain" />
+		-->
+		
 		</h:panelGroup>
 
 	</h:panelGrid> 
@@ -74,11 +78,15 @@
 		<gts:table model="#{crController.carProfileModel.summaryByCity}"  itemLabel="City"  />
 		<h:panelGroup>
 		
-		total car rental expense (left axis) and total counts (right axis) of car rental by city
+		Total car rental expense by city
 		<br/>
+		
+		<gts:multiBarChart id="carsummarybyCity" stacked="false" showControls="false" chartType="full" wsurl="/gts/webapi/car/carCostSummaryByCity" />
+		<!--
 		<gts:linePlusBarChart id="carsummarybyCity" rotateXAxisLabel="60" 
 					 leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre=""
 					 xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/car/carCostSummaryByCity" />
+					 -->
 		</h:panelGroup>
 
 	</h:panelGrid> 
