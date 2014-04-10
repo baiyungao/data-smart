@@ -26,6 +26,10 @@ public final class AccessToken implements Serializable {
 		
 	}
 
+	public String getId(){
+		return id;
+	}
+	
 	private AccessToken(String user){
 		id = user;
 		issueTime = new Date();

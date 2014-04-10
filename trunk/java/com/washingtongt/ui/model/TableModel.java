@@ -130,7 +130,7 @@ public class TableModel  {
 				}
 				
 				if (performanceField != null){
-					double pValue = (benchmark-row.getDouble(performanceField))/benchmark;
+					double pValue = (benchmark!=0)?(benchmark-row.getDouble(performanceField))/benchmark:0;
 					if (pValue == 0){
 						row.put(GsaConstants.IDT_PERFORMANCE,null );}
 					else {

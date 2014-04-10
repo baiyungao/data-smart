@@ -52,6 +52,12 @@ public class GsaConstants {
 		labelMap = new HashMap<String, String>();
 		labelMap.put(IDT_AIR_EXPENSE, "Common_Carrier AIR_TRAIN");
 		labelMap.put(IDT_MEALS_EXPENSE, "Meals Incidentals");
+		labelMap.put("Total_Amount", "Total Cost");
+		labelMap.put("Avg Amount", "Avg Cost per Ticket");
+		labelMap.put("Total_Charge", "Total Cost");
+		labelMap.put("Avg Rate", "Avg Daily Rate");
+		
+		
 		
 	}
 	
@@ -59,8 +65,8 @@ public class GsaConstants {
 		{ 	IDT_AIR_EXPENSE,
 			IDT_MEALS_EXPENSE,
 			IDT_LODGING_EXPENSE,
-			IDT_CAR_RENTAL_EXPENSE,
 			IDT_MISC_EXPENSE,
+			IDT_CAR_RENTAL_EXPENSE,
 			IDT_OTHER_EXPENSE
 			};	
 	
@@ -68,8 +74,8 @@ public class GsaConstants {
 		{ 	IDT_AIR_EXPENSE,
 			IDT_MEALS_EXPENSE,
 			IDT_LODGING_EXPENSE,
-			IDT_CAR_RENTAL_EXPENSE,
 			IDT_MISC_EXPENSE,
+			IDT_CAR_RENTAL_EXPENSE,
 			IDT_DAYS_OF_TRIP,
 			IDT_TRIP_CT
 			};

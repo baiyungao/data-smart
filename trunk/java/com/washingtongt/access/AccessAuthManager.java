@@ -1,7 +1,9 @@
 package com.washingtongt.access;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +25,7 @@ public class AccessAuthManager {
 
 	private static String POST_AUTH_URL = "/login/postauth.wgt";
 	public static String WEB_AUTH_URL = "/login/login.jsf";
+	public static String WEB_HOME_URL = "/console/dashboard.jsf";
 	private static String REDIRECT_URL = "redirect_url";
 	public static String TOKEN_STRING = "WGTXM_Tokan";
 
@@ -32,6 +35,7 @@ public class AccessAuthManager {
 	static {
 		unAuthPaths.add("/public/");
 		unAuthPaths.add("/help/");
+		unAuthPaths.add("/data/");
 		unAuthPaths.add("/login/");
 		unAuthPaths.add("/styles/");
 		unAuthPaths.add("/images/");
@@ -88,10 +92,17 @@ public class AccessAuthManager {
 			String name = hRequest.getParameter("j_username");
 			String password = hRequest.getParameter("j_password");
 
-			token = AccessToken.issue(name);
-			session.setAttribute(TOKEN_STRING, token);
-			log.debug("login passed, go ahead token: expired" + token.isExpired()+ " "+ redirectURL);
-			redirectPage(hResponse, redirectURL);
+			if (this.auth(name, password)) {
+				token = AccessToken.issue(name);
+				session.setAttribute(TOKEN_STRING, token);
+				log.debug("login passed, go ahead token: expired" + token.isExpired()+ " "+ redirectURL);
+				redirectPage(hResponse, path + WEB_HOME_URL);
+			}
+			else {
+				redirectPage(hResponse, path + WEB_AUTH_URL);
+				log.error("login error:" + name + " " + password + " from:" + hRequest.getRemoteAddr() + " host:" + hRequest.getRemoteHost());
+			}
+			
 			return false;
 		}
 
@@ -109,6 +120,21 @@ public class AccessAuthManager {
 		}
 	}
 
+	private boolean auth(String name, String password){
+		String value = userMap.get(name);
+		log.debug("password:" + password + " value:" + value);
+		return ((value!=null) && value.equals(password));
+	}
+	
+	private static Map<String, String> userMap = new HashMap<String, String>();
+	
+	static{
+		
+		userMap.put("gsa", "0d3pt");
+		userMap.put("odataxpt", "abcd1234*");
+		userMap.put("demo", "g00d");
+	}
+	
 	private boolean isUnauthPath(String url, String path){
 
 		for (String upath: unAuthPaths ){

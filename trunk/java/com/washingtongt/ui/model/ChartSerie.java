@@ -30,6 +30,7 @@ public class ChartSerie extends BasicDBObject{
 		BasicDBList list = new BasicDBList (); 
 		this.put(KEY, key);
 		this.put(VALUE, list);
+		this.put(ORIGINAL_KEY, key);
 	}
 
 

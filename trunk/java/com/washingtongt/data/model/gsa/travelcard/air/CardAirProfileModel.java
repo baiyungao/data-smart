@@ -47,7 +47,7 @@ public class CardAirProfileModel extends Model {
 		
 		BasicDBObject sortFields =  new BasicDBObject(CardAirConstants.IDT_T_AMOUNT, -1);
 		
-		Measurement airSumByChian = new CardAirSummaryMeasure(match,CardAirConstants.IDT_ISSUING_CARRIER,sortFields,15);
+		Measurement airSumByChian = new CardAirSummaryMeasure(match,CardAirConstants.IDT_ISSUING_CARRIER,sortFields,20);
 		this.measurementMap.put(MG_CAR_SUM_BY_CHAIN, airSumByChian);
 		
 		sortFields =  new BasicDBObject(CardAirConstants.IDT_T_AMOUNT, -1);
@@ -123,11 +123,11 @@ public class CardAirProfileModel extends Model {
 		
 		chart = new LinePlusBarChartModel();
 	
-		ChartSerie cost_serial = new ChartSerie(CardAirConstants.IDT_T_AMOUNT,ChartSerie.LEFT,true);
-		ChartSerie ct_serial = new ChartSerie(CardAirConstants.IDT_C_COUNTS,ChartSerie.RIGHT,false);
+		ChartSerie cost_serial = new ChartSerie(CardAirConstants.IDT_T_AMOUNT);
+		//ChartSerie ct_serial = new ChartSerie(CardAirConstants.IDT_C_COUNTS,ChartSerie.RIGHT,false);
 		
 		chart.add(cost_serial);
-		chart.add(ct_serial);
+		//chart.add(ct_serial);
 		
 		BasicDBList results = this.getMeasurementMap().get(MG_CAR_SUM_BY_CHAIN).getResults();
 		for (int i = 0; i < results.size();i++){
@@ -155,11 +155,11 @@ public class CardAirProfileModel extends Model {
 		
 		chart = new LinePlusBarChartModel();
 	
-		ChartSerie cost_serial = new ChartSerie(CardAirConstants.IDT_T_AMOUNT,ChartSerie.LEFT,true);
-		ChartSerie ct_serial = new ChartSerie(CardAirConstants.IDT_C_COUNTS,ChartSerie.RIGHT,false);
+		ChartSerie cost_serial = new ChartSerie(CardAirConstants.IDT_T_AMOUNT);
+		//ChartSerie ct_serial = new ChartSerie(CardAirConstants.IDT_C_COUNTS,ChartSerie.RIGHT,false);
 		
 		chart.add(cost_serial);
-		chart.add(ct_serial);
+		//chart.add(ct_serial);
 		
 		BasicDBList results = this.getMeasurementMap().get(MG_CAR_SUM_BY_BUREAU).getResults();
 		for (int i = 0; i < results.size();i++){
