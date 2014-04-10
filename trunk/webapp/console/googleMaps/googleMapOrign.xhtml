@@ -104,16 +104,14 @@
 		    var marker = new google.maps.Marker({
 				  position: start_geo,
 				  icon:image,
-				  title: 'Airport: ' + orign + '  Total flights: ' + counts
-			  });
-			
-			google.maps.event.addListener(marker, 'click', function(){
-			alert( "Origin_Airport_Code: " + orign 
+				  title: "Origin Airport   : " + orign 
 				   + "\n \n Route Summary  :" 
 			          + "\n Flights Counts :  " + counts 
-			  	      + "\n Total_Amount   :  " + total_Amount 
-				      + "\n Total Mileage  :  " + mileage);
-			});			
+			  	      + "\n Total Cost     :  $" + total_Amount 
+				      + "\n Total Mileage  :  " + mileage
+			  });
+			
+				
 		   return marker;	
 	}
 	
@@ -139,7 +137,10 @@
 
 		  //flightPath.setMap(map);
 
-		  markers.forEach(function(marker){marker.setMap(map)});
+		  markers.forEach(function(marker){
+		  marker.setMap(map);
+		  
+		  });
 		}
 		google.maps.event.addDomListener(window, 'load', initialize); 
 	//]]>
