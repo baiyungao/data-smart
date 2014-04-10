@@ -58,7 +58,7 @@ text-body {font-size:12px; color:#626262; line-height:18px;}
 .logo{ width:40%; float:left; padding:15px 0 0;}
 .top-nav{ width:60%; float:right; text-align:right; color:#fff; padding:24px 0 0; font-size:14px;}
 .top-nav ul{ margin:0; padding:0 30px 0 0; float:right;}
-.top-nav ul li{ margin:0 10px 0 0; padding:0 20px; list-style-type:none; background:url(../images/top-nav-bg.gif) repeat-x left top; border:1px solid #000; border-radius:3px; -moz-border-radius:3px; -webkit-border-radius:3px; -o-border-radius:3px; display:block; float:left; line-height:28px;}
+.top-nav ul li{ margin:0 10px 0 0; padding:0 20px; list-style-type:none; background:url(../images/top-nav-bg.gif) repeat-x left top;  border-radius:3px; -moz-border-radius:3px; -webkit-border-radius:3px; -o-border-radius:3px; display:block; float:left; line-height:28px;}
 .top-nav ul li a{ color:#fff;}
 
 /*-----------------------------container css-----------------------------*/
@@ -71,18 +71,18 @@ text-body {font-size:12px; color:#626262; line-height:18px;}
 #primaryTab{ float:left; width:100%; border-bottom:2px solid #4e89bd; color:#626262;}
 #primaryTab ul{ margin:0; padding:0;}
 #primaryTab ul li{ margin:0 3px 0 0; list-style-type:none; display:block; float:left; background:#d6dde5; border-radius:5px 5px 0 0; -moz-border-radius:5px 5px 0 0; -o-border-radius:5px 5px 0 0; -webkit-border-radius:5px 5px 0 0; line-height:25px;}
-#primaryTab ul li a{ color:#626262; padding:5px 20px;}
+#primaryTab ul li a{ color:#626262; padding:5px 20px; font-size: 12px; }
 #primaryTab ul li a:hover{ color:#fff; background:url(../images/navigation-bg.gif) repeat-x left top; border-radius:5px 5px 0 0; -moz-border-radius:5px 5px 0 0; -o-border-radius:5px 5px 0 0; -webkit-border-radius:5px 5px 0 0; padding:5px 20px;}
-#primaryTab ul li a.active{ color:#fff; background:url(../images/navigation-bg.gif) repeat-x left top; border-radius:5px 5px 0 0; -moz-border-radius:5px 5px 0 0; -o-border-radius:5px 5px 0 0; -webkit-border-radius:5px 5px 0 0; padding:5px 20px;}
+#primaryTab ul li a.active{ font-weight:bold; color:#fff; background:url(../images/navigation-bg.gif) repeat-x left top; border-radius:5px 5px 0 0; -moz-border-radius:5px 5px 0 0; -o-border-radius:5px 5px 0 0; -webkit-border-radius:5px 5px 0 0; padding:5px 20px;}
 
 
 /*-----------------------------SecondaryTab css--------------------------*/
 #secondaryTab{ float:left; width:100%; background:url(../images/sub-nav-bg.gif) repeat-x left top;}
 #secondaryTab ul{ margin:0; padding:0 0 0 15px;}
 #secondaryTab ul li{ margin:0; padding:0 5px; list-style-type:none; display:block; float:left; line-height:29px;}
-#secondaryTab ul li a{ color:#626262;}
+#secondaryTab ul li a{ color:#626262; text-decoration:underline;}
 #secondaryTab ul li a:hover{ color:#00498f;}
-#secondaryTab ul li a.active{ color:#00498f;}
+#secondaryTab ul li a.active{ color:#00498f; font-weight:bold;}
 
 
 /*-------------------------table css--------------------------------------*/
