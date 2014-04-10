@@ -19,6 +19,11 @@ public class CardCarUtilTest {
 	public static void main(String[] args){
 		
 		
+		String a = "good";
+		String b = "good";
+		log.debug(a == b);
+		
+		/*
 		log.debug("start air ticketing");
 		
 		DB gsaDB = MongoUtil.getMongoDB(GsaConstants.DB_NAME);

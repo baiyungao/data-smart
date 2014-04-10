@@ -196,8 +196,8 @@ public class TripProfileModel extends Model {
 		//add performance field here
 		
 		BasicDBList result = getBenchmark().getMeasurmentResults();
-		BasicDBObject  row = (BasicDBObject)result.get(0);
-		double benchmark = row.getDouble(GsaConstants.IDT_TOTAL_EXPENSE);
+		BasicDBObject  row = ((result!= null)&&(result.size() > 0))?(BasicDBObject)result.get(0):null;
+		double benchmark = (row != null)?row.getDouble(GsaConstants.IDT_TOTAL_EXPENSE):0;
 		
 		
 		for (SerieBase s: getSerieList())
@@ -271,13 +271,13 @@ public LineChartModel getCostReducePercentageYTDByMonth(){
 		
 		ChartSerie bench_serial = GsaModelHelper.getTotalExpenseReduceBenchMarkByMonth("ALL", "2012", 0); //bench mark
 		ChartSerie org_serial = GsaModelHelper.getTotalExpenseReduceBenchMarkByMonth(name, "2012", 1); //org
-		org_serial.setKey("2012" + GsaConstants.IDT_TOTAL_EXPENSE + "(org)");
-		bench_serial.setKey("2012" + GsaConstants.IDT_TOTAL_EXPENSE);
+		org_serial.setKey("2012" + GsaConstants.IDT_TOTAL_EXPENSE + " (organization)");
+		bench_serial.setKey("2012" + GsaConstants.IDT_TOTAL_EXPENSE + " (GSA)");
 		
 		ChartSerie bench_serial_1 = GsaModelHelper.getTotalExpenseReduceBenchMarkByMonth("ALL", "2013", 0); //bench mark
 		ChartSerie org_serial_1 = GsaModelHelper.getTotalExpenseReduceBenchMarkByMonth(name, "2013", 1); //org
-		org_serial_1.setKey("2013" + GsaConstants.IDT_TOTAL_EXPENSE + "(org)");
-		bench_serial_1.setKey("2013" + GsaConstants.IDT_TOTAL_EXPENSE);
+		org_serial_1.setKey("2013" + GsaConstants.IDT_TOTAL_EXPENSE + " (organization)");
+		bench_serial_1.setKey("2013" + GsaConstants.IDT_TOTAL_EXPENSE  + " (GSA)");
 		
 		//bench_serial.getValue().addAll(bench_serial_1.getValue());
 		//org_serial.getValue().addAll(org_serial_1.getValue());

@@ -50,7 +50,7 @@ public class AirProfileModel extends Model {
 		
 		BasicDBObject sortFields =  new BasicDBObject(AirConstants.IDT_T_AMOUNT, -1);
 		
-		airsumByAirline = new AirSummaryMeasure(match,AirConstants.IDT_A_NAME,sortFields,15);
+		airsumByAirline = new AirSummaryMeasure(match,AirConstants.IDT_A_NAME,sortFields,20);
 		this.measurementMap.put(MG_AIR_SUM_BY_AIRLINE, airsumByAirline);
 		
 		sortFields =  new BasicDBObject(AirConstants.IDT_T_COUNTS, -1);
@@ -113,13 +113,13 @@ public class AirProfileModel extends Model {
 		
 		chart = new LinePlusBarChartModel();
 	
-		ChartSerie cost_serial = new ChartSerie(AirConstants.IDT_T_AMOUNT,ChartSerie.LEFT,true);
-		ChartSerie ct_serial = new ChartSerie(AirConstants.IDT_T_COUNTS,ChartSerie.RIGHT,false);
+		ChartSerie cost_serial = new ChartSerie(AirConstants.IDT_T_AMOUNT);
+		//ChartSerie ct_serial = new ChartSerie(AirConstants.IDT_T_COUNTS,ChartSerie.RIGHT,false);
 		//ChartSeries av_serial = new ChartSeries(AirConstants.IDT_AVG_PRICE,ChartSeries.RIGHT,false);
 		//ChartSeries days_serial = new ChartSeries(GsaConstants.IDT_DAYS_OF_TRIP,ChartSeries.RIGHT,false);
 		
 		chart.add(cost_serial);
-		chart.add(ct_serial);
+		//chart.add(ct_serial);
 		//chart.add(av_serial);
 		
 		BasicDBList results = this.getAirsumByAirline().getResults();

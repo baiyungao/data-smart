@@ -123,11 +123,11 @@ public class HotelProfileModel extends Model {
 		
 		chart = new LinePlusBarChartModel();
 	
-		ChartSerie cost_serial = new ChartSerie(HotelConstants.IDT_T_CHARGE,ChartSerie.LEFT,true);
-		ChartSerie ct_serial = new ChartSerie(HotelConstants.IDT_H_COUNTS,ChartSerie.RIGHT,false);
+		ChartSerie cost_serial = new ChartSerie(HotelConstants.IDT_T_CHARGE);
+		//ChartSerie ct_serial = new ChartSerie(HotelConstants.IDT_H_COUNTS,ChartSerie.RIGHT,false);
 		
 		chart.add(cost_serial);
-		chart.add(ct_serial);
+		//chart.add(ct_serial);
 		
 		BasicDBList results = this.getMeasurementMap().get(MG_HOTEL_SUM_BY_CHAIN).getResults();
 		for (int i = 0; i < results.size();i++){
@@ -155,11 +155,11 @@ public class HotelProfileModel extends Model {
 		
 		chart = new LinePlusBarChartModel();
 	
-		ChartSerie cost_serial = new ChartSerie(HotelConstants.IDT_T_CHARGE,ChartSerie.LEFT,true);
-		ChartSerie ct_serial = new ChartSerie(HotelConstants.IDT_H_COUNTS,ChartSerie.RIGHT,false);
+		ChartSerie cost_serial = new ChartSerie(HotelConstants.IDT_T_CHARGE);
+		//ChartSerie ct_serial = new ChartSerie(HotelConstants.IDT_H_COUNTS,ChartSerie.RIGHT,false);
 		
 		chart.add(cost_serial);
-		chart.add(ct_serial);
+		//chart.add(ct_serial);
 		
 		BasicDBList results = this.getMeasurementMap().get(MG_HOTEL_SUM_BY_CITY).getResults();
 		for (int i = 0; i < results.size();i++){

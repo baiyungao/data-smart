@@ -12,6 +12,7 @@ import com.washingtongt.data.MongoUtil;
 import com.washingtongt.data.model.Measurement;
 import com.washingtongt.data.model.gsa.GsaConstants;
 import com.washingtongt.data.model.gsa.time.FiscalYear;
+import com.washingtongt.ui.model.LinePlusBarChartModel;
 import com.washingtongt.ui.model.TableModel;
 
 public class AirUtilTest {
@@ -59,9 +60,9 @@ public class AirUtilTest {
 		log.debug("JSON:" + JSON.serialize(model.getSummaryByRouting().getContents().toArray()));
 	
 		
-		//LinePlusBarChartModel lModel = model.getSummaryChartByAirline();
+		LinePlusBarChartModel lModel = model.getSummaryChartByAirline();
 				
-		//log.debug("Line bar:" +lModel );
+		log.debug("Line bar:" +lModel );
 		
 		//log.debug("IAD" + AirportMap.airportMap.get("IAD"));
 				
