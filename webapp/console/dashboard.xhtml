@@ -43,11 +43,16 @@
 					<gts:table model="#{controller.overAllTripModel.costDriverTable}" 
 							   itemLabel="Fiscal year" />
 					<br/>
-			</h:panelGroup>				
+			</h:panelGroup>
+				<h:panelGroup>
+				  <br/>
+					The following chart illustrates the GSA travel expense FY2011-FY2013 Cost drivers<br/>
+						
 				  <img src="..\images\GsaFydrivers.png" alt="Expense Waterfall" height="80%" width="80%" border="0" />
+				  </h:panelGroup>	
 				  <h:panelGroup>
 				  <br/>
-					The following chart illustrates monthly total travel expense (left axis) and total counts of travel for the GSA last 3 fiscal years. <br/>
+					The following chart illustrates monthly total travel expense (left axis) and total counts (right axis) of travel for the GSA last 3 fiscal years. <br/>
 					<gts:linePlusBarChart id="tripcostsummary" rotateXAxisLabel="60" bottom="60"
 										  leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre=""
 										  xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/data/tripCostSummary" />				  
