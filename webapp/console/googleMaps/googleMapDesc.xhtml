@@ -104,16 +104,14 @@
 		    var marker = new google.maps.Marker({
 				  position: end_geo,
 				  icon:image,
-				  title: 'Airport: ' + dest + '  Total flights: ' + counts
-			  });
-			
-			google.maps.event.addListener(marker, 'click', function(){
-			alert( "Destination_Airport_Code: " + dest 
+				  title: "Destination Airport: " + dest 
 				   + "\n \n Route Summary  :" 
 			          + "\n Flights Counts :  " + counts 
-			  	      + "\n Total_Amount   :  " + total_Amount 
-				      + "\n Total Mileage  :  " + mileage);
-			});			
+			  	      + "\n Total Cost     :  $" + total_Amount 
+				      + "\n Total Mileage  :  " + mileage
+			  });
+			
+				
 		   return marker;	
 	}
 	
