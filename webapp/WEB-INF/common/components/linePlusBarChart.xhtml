@@ -53,7 +53,7 @@ function #{id}_drawChart(){
 			.x(function(d,i) { return i })
 			.color(d3.scale.category10().range());
 
-		chart.xAxis.rotateLabels(#{rotateXAxisLabel});		
+		chart.xAxis.rotateLabels(#{rotateXAxisLabel});	
 		chart.xAxis.tickFormat(function(d) {
 		  var dx = #{id}_data[0].values[d] && #{id}_data[0].values[d].x || 0;
 		  if (#{xAxisTimeFlag}){

@@ -52,7 +52,7 @@ queue()
 
 		 
 			chart.yAxis
-				.tickFormat(d3.format(',.1f'));
+				.tickFormat(function(d) { return '$' + d3.format(',f')(d) });
 		 
 			d3.select('##{id} svg')
 				.datum(#{id}_data)
