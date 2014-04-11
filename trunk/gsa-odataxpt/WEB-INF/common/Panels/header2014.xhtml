@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:exo="http://www.exostar.com/jsf">
+<ui:composition>
+<!--header start-->
+<div class="header">
+<!--logo div start-->
+<div class="logo"><img src="#{request.contextPath}/images/gsa-logo.png" alt="GSA Travel Data Challenge" title="GSA Travel Data Challenge" /></div>
+<!--logo div end-->
+
+<!--header nav start-->
+<div class="top-nav">
+<ul>
+<li><a target="_blank" href="http://www.washingtongt.com">Help</a></li>
+<li><a href="#{request.contextPath}/login/Logout">Logout (#{controller.authToken.id})</a></li>
+</ul>
+</div>
+<!--header nav end-->
+</div>
+<!--header end-->
+</ui:composition>
+</html>
