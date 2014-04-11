@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:gts="http://www.washingtongt.com/jsf/gts"  class="bootstrap">	
+	
+<ui:composition template="/WEB-INF/common/Templates/HomePortal2013.xhtml">
+<ui:define name="title">GSA Travel - Rental Car Reservation Dash Board</ui:define>
+<ui:param name="help_link" value="http://www.myexostar.com/mag.aspx"/>
+<ui:define name="panel"> 
+
+<gts:tab primary ="2" secondary ="3"/>
+<br class="clear" />
+
+
+<h:form>
+
+
+    <rich:panel header="Car reservation summary">
+			<h:panelGrid columns="2" cellspacing="0" cellpadding="0" width="90%" columnClasses="column_40,column_60" footerClass="subtitle" headerClass="sectionHeader"  >   	
+					<h:panelGroup>
+					<h2>Car reservation summary for the Agency (GSA)</h2>
+					<br/><br/>
+					<strong>Car Trend Table</strong>: 	
+					<br/>
+					<gts:table model="#{crController.yearSummaryModel}" 
+							   itemLabel="Fiscal year" performanceField="Total_Amount" 
+							   performanceLabel="Expense cut vs. FY2011" />
+					<br/>
+					
+
+								   
+					<br/>
+					
+					<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+					</h:panelGroup>	
+					<h:panelGroup>
+					The following chart illustrates monthly total car rental expense (left axis) and total counts (right axis) of car rental for the GSA last 3 fiscal years. <br/>					
+										
+					<gts:linePlusBarChart id="tripcostsummary" rotateXAxisLabel="60"  leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre=""
+					xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/car/carCostSummary" />
+					</h:panelGroup>	   
+
+			</h:panelGrid> 
+    </rich:panel>	
+
+	<br/> 
+    <rich:panel header="Car Rental summary by Car Renter Chain (Top 15 frequently used car rental chain)">
+		<h:panelGrid columns="2" cellspacing="0" cellpadding="0" width="90%" columnClasses="column_40,column_40" footerClass="subtitle" headerClass="sectionHeader"  >   	
+						
+		<gts:table model="#{crController.carProfileModel.summaryByChain}"  itemLabel="Car Rental Chain"  />
+		<h:panelGroup>
+		Total car rental expense by each car rental chain
+		<br/>
+		<gts:multiBarChart id="costByOrg" stacked="false" showControls="false" chartType="full" wsurl="/gts/webapi/car/carCostSummaryByChain" />
+		<!--
+		<gts:linePlusBarChart id="carsummarybyChain" rotateXAxisLabel="60" 
+					 leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre=""
+					 xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/car/carCostSummaryByChain" />
+		-->
+		
+		</h:panelGroup>
+
+	</h:panelGrid> 
+    </rich:panel>	
+	
+	
+	<br/>
+    <rich:panel header="Car rental summary by City (Top 10 frequently travelled city)">
+		<h:panelGrid columns="2" cellspacing="0" cellpadding="0" width="90%" columnClasses="column_40,column_40" footerClass="subtitle" headerClass="sectionHeader"  >   	
+						
+		<gts:table model="#{crController.carProfileModel.summaryByCity}"  itemLabel="City"  />
+		<h:panelGroup>
+		
+		Total car rental expense by city
+		<br/>
+		
+		<gts:multiBarChart id="carsummarybyCity" stacked="false" showControls="false" chartType="full" wsurl="/gts/webapi/car/carCostSummaryByCity" />
+		<!--
+		<gts:linePlusBarChart id="carsummarybyCity" rotateXAxisLabel="60" 
+					 leftYformat=",f" rightYformat = ",f" leftPre="$" rightPre=""
+					 xAxisTimeFlag="false" chartType="full" wsurl="/gts/webapi/car/carCostSummaryByCity" />
+					 -->
+		</h:panelGroup>
+
+	</h:panelGrid> 
+    </rich:panel>	
+	
+	
+</h:form>
+
+	
+
+
+</ui:define>
+</ui:composition>	
+</html>
+

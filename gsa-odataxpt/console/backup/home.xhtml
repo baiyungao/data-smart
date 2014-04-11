@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:gts="http://www.washingtongt.com/jsf/gts"  class="bootstrap">	
+	
+<head>
+ 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>GSA Travel Challenge</title>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width"/>
+
+     <link href="../nvd3/nv.d3.css" rel="stylesheet" type="text/css" />   
+	 <link href="../styles/chart.css" rel="stylesheet" type="text/css" />   
+ </head>
+    <body>
+
+	
+	<gts:lineChart id="costdriverYTM"  chartType = "full" guideline="true" useDates="true"
+				   dateFormat="%b %Y" yformat=",f" yPre="$"  yAxisLabel=""
+				   wsurl="/gts/webapi/data/costDriverYtmLineChart/2012" />
+	
+	<gts:multiBarChart id="costgap" stacked="true" showControls="true" chartType = "half" wsurl="/gts/webapi/data/costgap" />	 <br/>
+	
+	<h:panelGrid columns="2" cellspacing="0" align="center" width="90%">		
+		
+		
+		<gts:linePlusBarChart id="costByYear" xAxisTickFormat="FY %Y" rotateXAxisLabel="0" xAxisTimeFlag="true" chartType = "full" wsurl="/gts/webapi/data/benchmarkfy" />	
+
+		<gts:pieChart id="costpie" xAxisTickFormat="FY %Y" size="500" rotateXAxisLabel="0" chartType = "full" wsurl="/gts/webapi/data/costcomp" />	
+	</h:panelGrid> 	
+	<br/>
+		
+	<gts:linePlusBarChart id="costByMonth" xAxisTickFormat="%b %Y" rotateXAxisLabel="60" xAxisTimeFlag="true" chartType="full" wsurl="/gts/webapi/data/benchmark" />	
+
+	<br/>	
+	<gts:linePlusBarChart id="summaryByOrg" xAxisTimeFlag="false" rotateXAxisLabel="60" chartType="full" wsurl="/gts/webapi/data/benchmarkorg" />	
+	<br/>	
+	<gts:multiBarChart id="costByOrg" stacked="false" showControls="false" chartType="full" wsurl="/gts/webapi/data/summarybyorg" />
+    <br/>
+<gts:pieChart id="costpie2011" size="400" xAxisTickFormat="FY %Y" rotateXAxisLabel="0" chartType = "full" wsurl="/gts/webapi/data/costdriver/2012" />	
+</body>
+</html>
+
