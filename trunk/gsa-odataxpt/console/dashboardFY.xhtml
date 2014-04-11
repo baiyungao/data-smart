@@ -29,13 +29,13 @@
 <h:panelGrid columns="2" cellspacing="0" cellpadding="0" width="100%" border="1" columnClasses = "column_40,column_40" footerClass="subtitle" headerClass="sectionHeader"  >   	
 						
 		<h:panelGroup>	
-		<h2>Monthly travel expense by each category</h2><br/>
+		<h2>Monthly Travel Expense by Category</h2><br/>
 			<gts:multiBarChart id="costByMon" stacked="false" showControls="true" chartType="full" bottom = "60"
 							   wsurl="/gts/webapi/data/costDriverDistribute/#{controller.fy}" />
 
 		</h:panelGroup>
 		<h:panelGroup>
-			<br/> <br/><br/><h2>Annual traval expense composition</h2><br/>
+			<br/> <br/><br/><h2>Annual Traval Expense Composition</h2><br/>
 			<gts:pieChart id="costpie" size="350" xAxisTickFormat="FY %Y" rotateXAxisLabel="0" 
 				 width="400" height="400"
 				 chartType = "full" wsurl="/gts/webapi/data/costdriver/#{controller.fy}" />	
@@ -43,14 +43,14 @@
 			
 		</h:panelGroup>
 		<h:panelGroup>
-		<h2>Monthly travel expense YTM (year to month) by each category</h2><br/>
+		<h2>YTD Travel Expense by Category</h2><br/>
 			<gts:lineChart id="costdriverYTM"  chartType = "full" guideline="true" useDates="true"
 							   dateFormat="%b %Y" yformat=",f" yPre="$"  yAxisLabel="" left ="150"
 							   wsurl="/gts/webapi/data/costDriverYtmLineChart/#{controller.fy}" />
 		</h:panelGroup>
 		
 			<h:panelGroup   rendered="#{controller.fy !='2011'}">
-			<h2>Travel Expense Percentage vs. FY 2011 </h2>
+			<h2>YTD Travel Expense Percentage by Category vs. FY 2011 </h2>
 			<br/>
 
 			<gts:lineChart id="costdriverPCTYTM"  chartType = "full" guideline="true" useDates="true"
