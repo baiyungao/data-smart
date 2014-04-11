@@ -1,0 +1,17 @@
+#********  Release notes *********************************************************************
+#     Special setting  for production 
+#
+#    web.xml                 set myface in production mode
+#	 log4j.property          set the debug level to  error level
+#    homePortal2013.xhtml    contains special google paralytics code for website analysis
+#***********************************************************************************************
+oDataXpt for GSA
+
+Version 1.01
+Updated: 4/11/2014
+Released by: gaob
+
+Contents:
+
+initial implementation of oDataXpt for GSA dataset.
+Bug fix: organization name contains single quote cause the application 500 error 
