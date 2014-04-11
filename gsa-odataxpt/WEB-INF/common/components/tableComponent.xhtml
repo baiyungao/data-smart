@@ -38,7 +38,8 @@
 
 			<rich:column>
 				<h:commandLink  value="#{row['Item']}" action="#{actionClass[method]}" rendered = "#{not empty actionClass}">
-					<a4j:param value="{#{assignField}:'#{row['Item']}'}" assignTo="#{controller.requestItem}" />
+					<a4j:param value="#{assignField}" assignTo="#{controller.paraName}" />
+					<a4j:param value="#{row['Item']}" assignTo="#{controller.paraValue}" />
 				</h:commandLink>
 				<h:outputText  value="#{row['Item']}" rendered = "#{empty actionClass}"/>
             </rich:column>			
