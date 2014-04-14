@@ -17,7 +17,13 @@ public class AirIndicatorFactory {
 			
 		  case "Total_Amount":
 			  return  new Indicator(AggregationOperator.SUM , AirConstants.IDT_T_AMOUNT);
+			  
+		  case "Lowest Price":
+			  return  new Indicator(AggregationOperator.MIN , AirConstants.IDT_T_AMOUNT, AirConstants.IDT_LOWEST_PRICE);			  
 		
+		  case "Highest Price":
+			  return  new Indicator(AggregationOperator.MAX , AirConstants.IDT_T_AMOUNT, AirConstants.IDT_HIGHEST_PRICE);			  
+	
 		  case "Mileage":  
 			return  new Indicator(AggregationOperator.SUM , AirConstants.IDT_MILEAGE);
 			

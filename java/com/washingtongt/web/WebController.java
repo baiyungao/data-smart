@@ -22,6 +22,8 @@ import com.washingtongt.data.model.gsa.travelcard.lodging.CardLodgingConstants;
 public class WebController {
 
 	protected String requestItem;
+	private String paraName;
+	private String paraValue;
 	protected UILabelMap labelMap = new UILabelMap();
 	protected DataModelMap dataModelMap = DataModelMap.getDefault();
 
@@ -73,6 +75,22 @@ public class WebController {
 	
 	public Map<String, Boolean> getCurrencyFields(){
 		return currencyFields;
+	}
+
+	public String getParaName() {
+		return paraName;
+	}
+
+	public void setParaName(String paraName) {
+		this.paraName = paraName;
+	}
+
+	public String getParaValue() {
+		return paraValue;
+	}
+
+	public void setParaValue(String paraValue) {
+		this.paraValue = paraValue;
 	}
 	
 	

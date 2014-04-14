@@ -13,7 +13,36 @@ public class DateUtils {
 		calendar.set(Calendar.YEAR, year);
 		Date date = calendar.getTime();
 		return date;
+	}	
+	
+	public static Date getDate(int year,int month,int day){
+		
+		Calendar calendar = Calendar.getInstance();
+		calendar.clear();
+		calendar.set(Calendar.MONTH, month-1);
+		calendar.set(Calendar.YEAR, year);
+		calendar.set(Calendar.DAY_OF_MONTH, day);
+		
+		Date date = calendar.getTime();
+		return date;
 	}
+	
+	public static Date getTomorrow(Date today){
+		
+		Calendar calendar = Calendar.getInstance();
+		calendar.clear();
+		calendar.setTime(new Date(today.getTime()));
+		
+		calendar.add(Calendar.DATE, 1);
+		Date tomorrow = calendar.getTime();
+		return tomorrow;
+	}
+	
+	public static Date getTodayEnd(Date today){
+		Date tomorrow = getTomorrow(today);
+		return new Date(tomorrow.getTime() -1);
+	}
+
 	
 	public static Date getEndTime(int year,int  month){
 		

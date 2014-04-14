@@ -759,9 +759,13 @@ public class MongoUtil {
 		
 	}
 	
+	public static DBCursor  getRecordSet(String collection, BasicDBObject query){
+		DBCursor cursor = getConnection(collection).find(query);
+		return cursor;
+	}
 	
 	public static void main(String[] args){
-		
+		/*
 		DB gsaDB = MongoUtil.getMongoDB(db_name);
 		DBCollection coll = gsaDB.getCollection("travel_voucher");
 		Date start = DateUtils.getStartTime(2012, 2);
@@ -777,19 +781,23 @@ public class MongoUtil {
 		overAllTripModel.populate(); 
 		
 		DataModelMap.getDefault().load("ALL", overAllTripModel);
+		*/
 		
-		match = new BasicDBObject("Organization", "Ofc of the Chief Acquisition") ;  //R9-Pacific Rim-SFO, CA
+		String name = "R11-Nat'l Capital-Wash., DC";
+		BasicDBObject match = new BasicDBObject("Organization", name ) ;  //R9-Pacific Rim-SFO, CA
 		
 		
 		// TEST Trip Profile Model
-		TripProfileModel model = new TripProfileModel(match, GsaConstants.ORG_LEVEL_ORGANIZATION);
+		TripProfileModel model = new TripProfileModel(match, GsaConstants.ORG_LEVEL_Office);
 		
 		model.populate();
 		
-		DataModelMap.getDefault().load("Ofc of the Chief Acquisition", model);
+		log.debug("model:" + model.getYearSummaryTable().getContents());
+		log.info("stop");
+		//DataModelMap.getDefault().load("Ofc of the Chief Acquisition", model);
 		
 		
-		
+		/*
 		//LinePlusBarChartModel chartModel = cmodel.getCostDriverChartByMonth("2011");
 		
 		//LineChartModel lineChart = cmodel.getCostDriverChartYTDByMonth("2011");
@@ -871,6 +879,7 @@ public class MongoUtil {
 		MongoUtil.getMeasurement(testMonth.getMeasurement());
 		
 		*/
+		
 		//Month testMonth = new Month(2011,10,TravelCostMeasure.class);
 		
 		/*/  ---- TEST of Fiscal Year, Month and Quarter
