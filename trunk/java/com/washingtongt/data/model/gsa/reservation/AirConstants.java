@@ -25,9 +25,14 @@ public class AirConstants {
 	public static String IDT_T_COUNTS = "Counts";
 
 	public static String IDT_AVG_PRICE = "Avg Amount";
+	public static String IDT_LOWEST_PRICE = "Lowest Price";
+	public static String IDT_HIGHEST_PRICE = "Highest Price";
 	
 	public static final String[] INDEX_AIR_COST_SUMMARY_MEASURE = 
 		{ IDT_T_COUNTS,IDT_T_AMOUNT,IDT_AVG_PRICE,IDT_MILEAGE, IDT_R_DAYS	};	
+	
+	public static final String[] INDEX_AIR_PRICE_SCATTER_MEASURE = 
+		{ IDT_T_COUNTS, IDT_LOWEST_PRICE, IDT_HIGHEST_PRICE, IDT_AVG_PRICE};	
 	
 	public static final String[] INDEX_AIR_SUMMARY_CHART = 
 		{ 	IDT_T_AMOUNT,

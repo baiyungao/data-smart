@@ -19,7 +19,12 @@ public class CardAirUtilTest {
 		
 		
 		log.debug("start air ticketing");
-		
+		String organization="R11-Nat'l Capital-Wash., DC";
+		String replace = "\\\\" + "'";
+		log.debug("replacement:" + replace );
+		String orgName = organization.replaceAll("'",replace);
+		log.debug("orgName:" + orgName);
+		/*
 		DB gsaDB = MongoUtil.getMongoDB(GsaConstants.DB_NAME);
 		DBCollection coll = gsaDB.getCollection(GsaConstants.DB_TC_AIR);
 		

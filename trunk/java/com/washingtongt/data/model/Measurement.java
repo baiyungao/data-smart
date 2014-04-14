@@ -76,6 +76,43 @@ public class Measurement {
 	public BasicDBList getResults() {
 		return results;
 	}
+	
+	
+	/**
+	 * This method take in item in aggregation item, and find out what are the database records back on this data
+	 * @return
+	 */
+	public BasicDBList getRecordSet(BasicDBObject id){
+		
+		if ((this.results == null)|| (this.results.isEmpty())){
+			return null;
+		}
+		BasicDBObject selectMatch = null;
+		if (this.getMatchFields()!= null) {
+			selectMatch =(BasicDBObject)(this.getMatchFields().clone());
+			}
+		
+		if (id!= null){
+
+			for (String idKey : id.keySet()){
+				if (idKey.equalsIgnoreCase("_id")) {
+					continue;
+				}
+
+				if (selectMatch == null){
+					selectMatch = new BasicDBObject(idKey, id.get(idKey));
+				}
+				else {
+					selectMatch.append(idKey,id.get(idKey));
+				}
+			}
+
+		}
+
+		
+		
+		return null;
+	}
 
 	public void setResults(BasicDBList results) {
 		this.results = results;

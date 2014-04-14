@@ -105,6 +105,7 @@ public class ConsoleController extends WebController {
 		
 		if (model == null){
 			//create a new instance here;
+			
 			BasicDBObject match = new BasicDBObject("Organization", this.organization);
 			orgModel = new TripProfileModel(match, GsaConstants.ORG_LEVEL_Office);
 			orgModel.populate(); 
@@ -124,33 +125,26 @@ public class ConsoleController extends WebController {
 		return costDriverModel;
 	}
 
-	private void setCostDriverModel(CostDriverModel costDriverModel) {
-		this.costDriverModel = costDriverModel;
-	}
 
 	public UILabelMap getLabelMap() {
 		return labelMap;
 	}
 
-	public String getRequestItem() {
-		return requestItem;
-	}
 
-	public void setRequestItem(String requestItem) {
-		this.requestItem = requestItem;
-	}
 	
 	private void updateRequestItem(){
-		if (this.requestItem != null){
-			BasicDBObject object = (BasicDBObject) JSON.parse(this.requestItem);
-			if (object != null){
-				log.debug("object of request item:" + object);
-				this.setFy(object.getString("fy"));
-				this.setOrganization(object.getString("organization"));
-				this.setOffice(object.getString("office"));
+	
+		log.debug(this.getParaName() + ":" + this.getParaValue());
+			if (this.getParaName().equalsIgnoreCase("fy")){
+				this.setFy(this.getParaValue());
+			}
+			if (this.getParaName().equalsIgnoreCase("organization")){
+				this.setOrganization(this.getParaValue());
+			}
+			if (this.getParaName().equalsIgnoreCase("office")){
+				this.setOffice(this.getParaValue());
 			}
 			
-		}
 		
 	}
 
