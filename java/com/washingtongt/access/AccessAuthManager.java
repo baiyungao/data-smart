@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.client.ClientBuilder;
 
 import org.apache.log4j.Logger;
 
@@ -24,13 +25,17 @@ public class AccessAuthManager {
 	private static final Logger log = Logger.getLogger(AccessAuthManager.class);
 
 	private static String POST_AUTH_URL = "/login/postauth.wgt";
+	private static String REQ_ACCESS_URL = "/login/req.access.wgt";
 	public static String WEB_AUTH_URL = "/login/login.jsf";
+	
 	public static String WEB_HOME_URL = "/console/dashboard.jsf";
 	private static String REDIRECT_URL = "redirect_url";
 	public static String TOKEN_STRING = "WGTXM_Tokan";
+	
 
 	private static Set<String> unAuthPaths = new HashSet<String>();
 	private static AccessAuthManager instance = null;
+	private static HashMap<String, String> requestAccessMap = new HashMap<String, String>();
 
 	static {
 		unAuthPaths.add("/public/");
@@ -81,9 +86,20 @@ public class AccessAuthManager {
 		
 		if ((token!=null) &&(!token.isExpired())){
 			token.update(); 
+			if ((url.equals(path + WEB_AUTH_URL ))||(url.equals(path + POST_AUTH_URL ))||(url.equals(path + REQ_ACCESS_URL ))){
+				redirectPage(hResponse, path + WEB_HOME_URL);
+				return false;
+			}
 			return true;
 		}
-
+		//request access logic
+		if (url.equals(path + REQ_ACCESS_URL )){
+			return this.requestAccess(hRequest,hResponse);
+			
+		}		
+		
+		
+		//authentication logic
 		if (url.equals(path + POST_AUTH_URL )){
 			//do auth and redirect
 			session = hRequest.getSession(true);
@@ -91,12 +107,27 @@ public class AccessAuthManager {
 			
 			String name = hRequest.getParameter("j_username");
 			String password = hRequest.getParameter("j_password");
+			
+			String tknString = hRequest.getParameter(TOKEN_STRING);
+			log.debug("token:" + tknString);
+			if (tknString != null){
+				
+				String id = requestAccessMap.get(tknString);
+				if (id != null){
+					token = AccessToken.issue(id);
+					session.setAttribute(TOKEN_STRING, token);
+					requestAccessMap.remove(tknString);
+					redirectPage(hResponse, path + WEB_HOME_URL);
+					return false;
+				}
+			}
 
 			if (this.auth(name, password)) {
 				token = AccessToken.issue(name);
 				session.setAttribute(TOKEN_STRING, token);
 				log.debug("login passed, go ahead token: expired" + token.isExpired()+ " "+ redirectURL);
 				redirectPage(hResponse, path + WEB_HOME_URL);
+				return false;
 			}
 			else {
 				redirectPage(hResponse, path + WEB_AUTH_URL);
@@ -120,6 +151,66 @@ public class AccessAuthManager {
 		}
 	}
 
+	
+	private boolean requestAccess(HttpServletRequest hRequest,  HttpServletResponse hResponse){
+		
+		
+		String name = hRequest.getParameter("j_username");
+		String title = hRequest.getParameter("j_title");
+		String company = hRequest.getParameter("j_company");
+		String email = hRequest.getParameter("j_email");
+		String confirmationUrl = hRequest.getParameter("confirmationUrl");
+		
+		
+		log.debug("request access:" + name + " " + email);
+		try {
+		//generate a token
+		
+		
+		String passcode = PasscodeFactory.generatePasscode(16,PasscodeFactory.PASSCODE_TYPE_NUMBER_LETTER);
+		requestAccessMap.put(passcode, email);
+		
+		String url = hRequest.getRequestURL().toString(); 
+		int index = url.indexOf("/login");
+		
+		String accessLink = url.substring(0, index) + POST_AUTH_URL
+		                  + "?" + TOKEN_STRING + "=" + passcode;
+		
+		log.debug("add token to map: " + passcode + " " + email);
+		
+		
+		//send notification email
+		
+			String responseEntity = ClientBuilder.newClient()
+		            .target("http://wgt-capp.appspot.com/webapi").path("email/ping")
+		                        .request().get(String.class);
+			
+			System.out.println(responseEntity);
+			
+			responseEntity = ClientBuilder.newClient()
+		            .target("http://wgt-capp.appspot.com/webapi").path("email/send")
+		            .queryParam("to", email)
+		            .queryParam("application", "open Data Expert")
+		            .queryParam("subject", "GSA Data Challenge Request Access")
+		            .queryParam("content", accessLink)
+		            .request().get(String.class);
+			
+			System.out.println(responseEntity);
+			
+			//redirect to confirmation
+			String path = hRequest.getContextPath();
+			redirectPage(hResponse,  path + confirmationUrl);
+			//forwardRequest(hRequest,hResponse, path + confirmationUrl);
+			return false;
+		  } catch (Exception e) {
+	 
+			e.printStackTrace();
+	 
+		  }
+		
+		return false;
+	}
+	
 	private boolean auth(String name, String password){
 		String value = userMap.get(name);
 		log.debug("password:" + password + " value:" + value);
@@ -151,6 +242,7 @@ public class AccessAuthManager {
 
 	private static void forwardRequest(HttpServletRequest request,HttpServletResponse response, String url) {
 		try {
+			log.debug("forward to:" + url);
 			request.getRequestDispatcher(url).forward(request,response);
 		} catch (Exception ee) {
 			throw new RuntimeException("Problem forwarding to URL:"+url,ee) ;
@@ -159,6 +251,7 @@ public class AccessAuthManager {
 
 	public static void redirectPage(HttpServletResponse response, String desiredPage) {
 		try {
+			log.debug("redirect to:" + desiredPage);
 			response.sendRedirect(LcdUtils.removeCRLF(desiredPage)) ;
 		} catch(IOException xx) {
 			throw new RuntimeException(xx) ;
