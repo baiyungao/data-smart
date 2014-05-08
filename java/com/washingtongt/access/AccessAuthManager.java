@@ -178,6 +178,10 @@ public class AccessAuthManager {
 		
 		log.debug("add token to map: " + passcode + " " + email);
 		
+		String content = "Dear " + name +  "(" +  company + "," + title + "), \n \n"
+		               + "Thanks for your request access to this application, please click on this link to access the applicaiton. \n"
+				       + accessLink
+				       + "\n \n If you have any questions, please send email to app@washingtongt.com";
 		
 		//send notification email
 		
@@ -192,7 +196,7 @@ public class AccessAuthManager {
 		            .queryParam("to", email)
 		            .queryParam("application", "open Data Expert")
 		            .queryParam("subject", "GSA Data Challenge Request Access")
-		            .queryParam("content", accessLink)
+		            .queryParam("content", content)
 		            .request().get(String.class);
 			
 			System.out.println(responseEntity);
