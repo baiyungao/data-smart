@@ -3,12 +3,15 @@ a platform to extract, cluster and deliver intelligence from content
 
 = Introduction =
 
-Add your content here.
+All content will go through intelligence process pipeline, which including fraction, sanitation, normalization, indexing, clustering, scoring  
 
 
 = Details =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+
+  * *Fraction*:
+  * *Sanitation*:
+  * *Normalization*:
+  * *Indexing*:
+  * *Clustering*:
+  * *Scoring*:
