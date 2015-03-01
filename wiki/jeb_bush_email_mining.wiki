@@ -1,0 +1,25 @@
+#labels Phase-Requirements
+The application to mining Jeb Bush's E-mail archives.
+
+= Introduction =
+
+Extract contacts, timeline and content of Jeb Bush's email and present voter the political transparent 
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
+
+
+= Analysis =
+In all emails published
+ * how many email are received, how many emails are send out. 
+ * how many emails are from staff or government entities. and how many emails are from citizens
+ * for the email send out, how many emails are acknowledgement, greeting
+ * how many emails are option
+ * how many emails are decision
+
+for all option or decision emails, we need category with issues.
+http://www.ontheissues.org/Celeb/Republican_Party_Free_Trade.htm
